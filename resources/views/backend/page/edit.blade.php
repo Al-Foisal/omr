@@ -26,16 +26,14 @@
                     <div class="card card-primary">
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('admin.page.update', $page) }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form action="{{ route('admin.page.update', $page) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('put')
                             <div class="card-body">
-                                @foreach (config('app.languages') as $locale => $locale_name)
                                 <div class="form-group">
-                                    <label for="{{ $locale }}_name">Name*</label>
-                                    <input type="text" class="form-control" id="{{ $locale }}_name"
-                                        value="{{ $page->{$locale.'_name'} }}" name="{{ $locale }}_name">
+                                    <label for="name">Name*</label>
+                                    <input type="text" class="form-control" id="name"
+                                        value="{{ $page->name }}" name="name">
                                 </div>
 
                                 <div class="row">
@@ -43,18 +41,17 @@
                                         <div class="card card-outline card-info">
                                             <div class="card-header">
                                                 <h3 class="card-title">
-                                                    {{ $locale_name }} Details*
+                                                    Details*
                                                 </h3>
                                             </div>
                                             <!-- /.card-header -->
                                             <div class="card-body">
-                                                <textarea id="summernote_{{ $locale }}"  name="{{ $locale }}_details">{!! $page->{$locale.'_details'} !!}</textarea>
+                                                <textarea id="summernote" name="details">{!! $page->details !!}</textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- /.col-->
                                 </div>
-                                @endforeach
                             </div>
                             <!-- /.card-body -->
 

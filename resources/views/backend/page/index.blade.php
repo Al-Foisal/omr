@@ -35,9 +35,7 @@
                                     <tr>
                                         <th>Action</th>
                                         <th>English Name</th>
-                                        <th>Bangla Name</th>
-                                        <th>English Details</th>
-                                        <th>Bangla Details</th>
+                                        <th>Details</th>
                                         <th>Created_at</th>
                                     </tr>
                                 </thead>
@@ -77,10 +75,8 @@
                                                     </button>
                                                 </form>
                                             </td>
-                                            <td>{{ $page->en_name }}</td>
-                                            <td>{!! $page->en_details !!}</td>
-                                            <td>{{ $page->bn_name }}</td>
-                                            <td>{!! $page->bn_details !!}</td>
+                                            <td>{{ $page->name }}</td>
+                                            <td>{!! $page->details !!}</td>
                                             <td>{{ $page->created_at }}</td>
                                         </tr>
                                     @endforeach

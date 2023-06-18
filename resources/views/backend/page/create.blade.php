@@ -26,15 +26,13 @@
                     <div class="card card-primary">
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('admin.page.store') }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form action="{{ route('admin.page.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
-                                @foreach (config('app.languages') as $locale => $locale_name)
                                 <div class="form-group">
-                                    <label for="{{ $locale }}_name">{{ $locale_name }} Name*</label>
-                                    <input type="text" class="form-control" id="{{ $locale }}_name"
-                                        placeholder="{{ $locale_name }} Name" name="{{ $locale }}_name">
+                                    <label for="name">Name*</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Name"
+                                        name="name">
                                 </div>
 
                                 <div class="row">
@@ -42,18 +40,17 @@
                                         <div class="card card-outline card-info">
                                             <div class="card-header">
                                                 <h3 class="card-title">
-                                                    {{ $locale_name }} Details*
+                                                    Details*
                                                 </h3>
                                             </div>
                                             <!-- /.card-header -->
                                             <div class="card-body">
-                                                <textarea id="summernote_{{ $locale }}"  name="{{ $locale }}_details"></textarea>
+                                                <textarea id="summernote" name="details"></textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- /.col-->
                                 </div>
-                                @endforeach
                             </div>
                             <!-- /.card-body -->
 
@@ -66,9 +63,7 @@
                 <!-- /.card -->
             </div>
         </div>
-        </div>
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
 @endsection
-

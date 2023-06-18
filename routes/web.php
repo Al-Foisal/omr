@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\AdminForgotPasswordController;
 use App\Http\Controllers\Backend\AdminResetPasswordController;
 use App\Http\Controllers\Backend\CompanyInfoController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\PageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,4 +55,15 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
 
     Route::get('/company-info', [CompanyInfoController::class, 'showCompanyInfo'])->name('showCompanyInfo');
     Route::post('/company-info', [CompanyInfoController::class, 'storeCompanyInfo'])->name('storeCompanyInfo');
+    
+    Route::controller(PageController::class)->prefix('/page')->name('page.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/edit/{page}', 'edit')->name('edit');
+        Route::put('/update/{page}', 'update')->name('update');
+        Route::post('/active/{page}', 'active')->name('active');
+        Route::post('/inactive/{page}', 'inactive')->name('inactive');
+        Route::delete('/delete/{page}', 'delete')->name('delete');
+    });
 });

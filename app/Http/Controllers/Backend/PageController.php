@@ -20,8 +20,8 @@ class PageController extends Controller {
 
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
-            'en_name' => 'required|unique:pages',
-            'bn_name' => 'required',
+            'name' => 'required|unique:pages',
+            'name' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -29,10 +29,8 @@ class PageController extends Controller {
         }
 
         Page::create([
-            'en_name'    => $request->en_name,
-            'bn_name'    => $request->bn_name,
-            'en_details' => $request->en_details,
-            'bn_details' => $request->bn_details,
+            'name'    => $request->name,
+            'details' => $request->details,
             'status'     => 1,
         ]);
 
@@ -45,18 +43,16 @@ class PageController extends Controller {
 
     public function update(Request $request, Page $page) {
         $validator = Validator::make($request->all(), [
-            'en_name'    => 'required|unique:pages,en_name,' . $page->id,
-            'en_details' => 'required',
+            'name'    => 'required|unique:pages,name,' . $page->id,
+            'details' => 'required',
         ]);
 
         if ($validator->fails()) {
             return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
         }
 
-        $page->en_name    = $request->en_name;
-        $page->en_details = $request->en_details;
-        $page->bn_name    = $request->bn_name;
-        $page->bn_details = $request->bn_details;
+        $page->name    = $request->name;
+        $page->details = $request->details;
         $page->save();
 
         return to_route('admin.page.index')->withToastSuccess('Page updated successfully!!');
