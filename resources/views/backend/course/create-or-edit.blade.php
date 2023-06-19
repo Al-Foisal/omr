@@ -1,17 +1,17 @@
 @extends('backend.layouts.master')
-@section('title', 'Edit Country')
+@section('title', request('id') ? 'Update' : 'Create' . ' Course')
 @section('backend')
-    <!-- Content Header (Country header) -->
+    <!-- Content Header (Course header) -->
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Edit Country</h1>
+                    <h1>{{ request('id') ? 'Update' : 'Create' }} Course</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Edit Country</li>
+                        <li class="breadcrumb-item active">Create Course</li>
                     </ol>
                 </div>
             </div>
@@ -26,18 +26,19 @@
                     <div class="card card-primary">
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('admin.country.update', $country) }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form
+                            action="{{ request('id') ? route('admin.course.storeOrUpdate', $data->id) : route('admin.course.storeOrUpdate') }}"
+                            method="POST" enctype="multipart/form-data">
                             @csrf
-                            @method('put')
+                            @if (request('id'))
+                                @method('put')
+                            @endif
                             <div class="card-body">
-                                @foreach (config('app.languages') as $locale => $locale_name)
-                                    <div class="form-group">
-                                        <label for="{{ $locale }}_name">{{ $locale_name }} Name*</label>
-                                        <input type="text" class="form-control" id="{{ $locale }}_name"
-                                            value="{{ $country->{$locale . '_name'} }}" name="{{ $locale }}_name">
-                                    </div>
-                                @endforeach
+                                <div class="form-group">
+                                    <label for="name">Name*</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Name"
+                                        name="name" value="{{ $data->name ?? '' }}">
+                                </div>
                             </div>
                             <!-- /.card-body -->
 
@@ -46,8 +47,8 @@
                             </div>
                         </form>
                     </div>
-                    <!-- /.card -->
                 </div>
+                <!-- /.card -->
             </div>
         </div>
         <!-- /.container-fluid -->

@@ -63,30 +63,35 @@
                     </ul>
                 </li>
 
-                {{-- business_type
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon far fa-circle text-warning"></i>
                         <p class="text">
-                            Business Type
+                            Settings
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview nav-header">
                         <li class="nav-item">
-                            <a href="{{ route('admin.business_type.index') }}" class="nav-link">
+                            <a href="{{ route('admin.course.index') }}" class="nav-link">
                                 <i class="nav-icon far fa-circle text-danger"></i>
-                                <p>Business Type List</p>
+                                <p>Course</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.business_type.create') }}" class="nav-link">
+                            <a href="{{ route('admin.subject.index') }}" class="nav-link">
                                 <i class="nav-icon far fa-circle text-danger"></i>
-                                <p>Create Business Type</p>
+                                <p>Subject</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.topic.index') }}" class="nav-link">
+                                <i class="nav-icon far fa-circle text-danger"></i>
+                                <p>Topic</p>
                             </a>
                         </li>
                     </ul>
-                </li> --}}
+                </li>
 
                 {{-- company info --}}
                 <li class="nav-item">

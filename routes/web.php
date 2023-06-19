@@ -4,8 +4,11 @@ use App\Http\Controllers\Backend\AdminAuthController;
 use App\Http\Controllers\Backend\AdminForgotPasswordController;
 use App\Http\Controllers\Backend\AdminResetPasswordController;
 use App\Http\Controllers\Backend\CompanyInfoController;
+use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PageController;
+use App\Http\Controllers\Backend\SubjectController;
+use App\Http\Controllers\Backend\TopicController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,13 +20,11 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
+ */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [AdminAuthController::class, 'login']);
 Route::prefix('/admin')->name('admin.auth.')->middleware('guest:admin')->group(function () {
-    Route::get('/login', [AdminAuthController::class, 'login'])->name('login');
+    Route::redirect('/login', '/')->name('login');
     Route::post('/store-login', [AdminAuthController::class, 'storeLogin'])->name('storeLogin');
 
     Route::get('/forgot-password', [AdminForgotPasswordController::class, 'forgotPassword'])->name('forgotPassword');
@@ -53,9 +54,30 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('auth.logout');
 
+    Route::controller(CourseController::class)->prefix('/course')->name('course.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create-or-edit/{id?}', 'createOrEdit')->name('createOrEdit');
+        Route::match (['post', 'put'], '/store-or-update/{id?}', 'storeOrUpdate')->name('storeOrUpdate');
+        Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
+    });
+
+    Route::controller(SubjectController::class)->prefix('/subject')->name('subject.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create-or-edit/{id?}', 'createOrEdit')->name('createOrEdit');
+        Route::match (['post', 'put'], '/store-or-update/{id?}', 'storeOrUpdate')->name('storeOrUpdate');
+        Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
+    });
+
+    Route::controller(TopicController::class)->prefix('/topic')->name('topic.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create-or-edit/{id?}', 'createOrEdit')->name('createOrEdit');
+        Route::match (['post', 'put'], '/store-or-update/{id?}', 'storeOrUpdate')->name('storeOrUpdate');
+        Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
+    });
+
     Route::get('/company-info', [CompanyInfoController::class, 'showCompanyInfo'])->name('showCompanyInfo');
     Route::post('/company-info', [CompanyInfoController::class, 'storeCompanyInfo'])->name('storeCompanyInfo');
-    
+
     Route::controller(PageController::class)->prefix('/page')->name('page.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
