@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\AdminResetPasswordController;
 use App\Http\Controllers\Backend\CompanyInfoController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\ExamController;
 use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\SubjectController;
 use App\Http\Controllers\Backend\TopicController;
@@ -53,6 +54,14 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
 
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('auth.logout');
+
+    Route::controller(ExamController::class)->prefix('/exam')->name('exam.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create-or-edit/{id?}', 'createOrEdit')->name('createOrEdit');
+        Route::match (['post', 'put'], '/store-or-update/{id?}', 'storeOrUpdate')->name('storeOrUpdate');
+        Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
+        Route::post('/get-subject-wise-topic', 'getSubjectWiseTopic')->name('getSubjectWiseTopic');
+    });
 
     Route::controller(CourseController::class)->prefix('/course')->name('course.')->group(function () {
         Route::get('/', 'index')->name('index');

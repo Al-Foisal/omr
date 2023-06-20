@@ -7,6 +7,7 @@
     <title>@yield('title') - {{ config('app.name') }}</title>
 
     <!-- Google Font: Source Sans Pro -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
@@ -149,6 +150,12 @@
                 })
                 .addClass('menu-open').prev('a')
                 .addClass('active');
+        });
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
         });
     </script>
 
