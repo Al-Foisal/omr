@@ -138,7 +138,8 @@
                                     .append(
                                         '<option value="' +
                                         value.id + '">' + value
-                                        .name + '</option>');
+                                        .name + '(' + value.subject.name + ')</option>'
+                                    );
                             });
                         },
                     });
