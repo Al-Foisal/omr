@@ -12,8 +12,8 @@ class Exam extends Model {
         return $this->belongsTo(Course::class);
     }
 
-    public function getSubjectDetailsAttribute() {
-        return Subject::whereIn('id', explode(',', $this->subject_id))->get();
+    public function subject() {
+        return $this->belongsTo(Subject::class);
     }
 
     public function getSubjectTopicDetailsAttribute() {

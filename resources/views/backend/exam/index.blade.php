@@ -37,7 +37,6 @@
                                         <th>Action</th>
                                         <th>Course Name</th>
                                         <th>Subject Name</th>
-                                        <th>Subject Topic Name</th>
                                         <th>Exam Details</th>
                                         <th>Statue</th>
                                         <th>Created_at</th>
@@ -50,8 +49,7 @@
                                                 <a href="{{ route('admin.exam.createOrEdit', $item) }}"
                                                     class="btn btn-info btn-xs"> <i class="fas fa-edit"></i> Edit</a>
 
-                                                <form action="{{ route('admin.exam.updateStatus', $item) }}"
-                                                    method="post">
+                                                <form action="{{ route('admin.exam.updateStatus', $item) }}" method="post">
                                                     @csrf
                                                     <button type="submit" onclick="return(confirm('Are you sure?'))"
                                                         class="btn btn-{{ $item->status == 1 ? 'danger' : 'success' }} btn-xs">
@@ -61,20 +59,14 @@
                                             </td>
                                             <td>{{ $item->course->name }}</td>
                                             <td>
-                                                @foreach ($item->subject_details as $sd)
-                                                    {{ $sd->name }}, <br>
-                                                @endforeach
-                                            </td>
-                                            <td>
-                                                @foreach ($item->subject_topic_details as $std)
-                                                    {{ $std->name }}, <br>
-                                                @endforeach
+                                                {{ $item->subject->name ?? '' }}
                                             </td>
                                             <td>
                                                 <b>Name:</b> {{ $item->name }} <br>
                                                 <b>Total question:</b> {{ $item->total_question }} <br>
                                                 <b>Per question mark:</b> {{ $item->per_question_positive_mark }} <br>
-                                                <b>Per question negative mark:</b> {{ $item->per_question_negative_mark }} <br>
+                                                <b>Per question negative mark:</b> {{ $item->per_question_negative_mark }}
+                                                <br>
                                             </td>
                                             <td>{{ $item->status == 1 ? 'Active' : 'Inactive' }}</td>
                                             <td>{{ $item->created_at->format('d F, Y') }}</td>

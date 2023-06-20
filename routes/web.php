@@ -61,15 +61,14 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
         Route::get('/create-or-edit/{id?}', 'createOrEdit')->name('createOrEdit');
         Route::match (['post', 'put'], '/store-or-update/{id?}', 'storeOrUpdate')->name('storeOrUpdate');
         Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
-        Route::post('/get-subject-wise-topic', 'getSubjectWiseTopic')->name('getSubjectWiseTopic');
     });
-
+    
     Route::controller(ExamController::class)->prefix('/exam')->name('exam.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create-or-edit/{id?}', 'createOrEdit')->name('createOrEdit');
         Route::match (['post', 'put'], '/store-or-update/{id?}', 'storeOrUpdate')->name('storeOrUpdate');
         Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
-        Route::post('/get-subject-wise-topic', 'getSubjectWiseTopic')->name('getSubjectWiseTopic');
+        Route::post('/get-course-wise-subject', 'getCourseWiseSubject')->name('getCourseWiseSubject');
     });
 
     Route::controller(CourseController::class)->prefix('/course')->name('course.')->group(function () {

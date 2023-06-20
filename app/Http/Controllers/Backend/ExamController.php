@@ -7,7 +7,6 @@ use App\Models\Course;
 use App\Models\Exam;
 use App\Models\ExamQuestion;
 use App\Models\Subject;
-use App\Models\SubjectTopic;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller {
@@ -21,16 +20,16 @@ class ExamController extends Controller {
 
         if ($id) {
             $data       = Exam::findOrFail($id);
-            $data_topic = SubjectTopic::whereIn('subject_id', explode(',', $data->subject_id))->where('status', 1)->orderBy('name')->get();
+            $get_course = Course::find($data->course_id);
+            $subject    = Subject::whereIn('id', explode(',', $get_course->subject_id))->where('status', 1)->orderBy('name')->get();
         } else {
-            $data       = null;
-            $data_topic = null;
+            $data    = null;
+            $subject = null;
         }
 
-        $course  = Course::where('status', 1)->orderBy('name')->get();
-        $subject = Subject::where('status', 1)->orderBy('name')->get();
+        $course = Course::where('status', 1)->orderBy('name')->get();
 
-        return view('backend.exam.create-or-edit', compact('data', 'course', 'subject', 'data_topic'));
+        return view('backend.exam.create-or-edit', compact('data', 'course', 'subject'));
     }
 
     public function storeOrUpdate(Request $request, $id = null) {
@@ -45,9 +44,8 @@ class ExamController extends Controller {
                 'id' => $id,
             ],
             [
-                'course_id'                  => $request->course_id,
-                'subject_id'                 => implode(',', $request->subject_id),
-                'subject_topic_id'           => implode(',', $request->subject_topic_id),
+                'course_id'                  => $before_update ? $before_update->course_id : $request->course_id,
+                'subject_id'                 => $before_update ? $before_update->subject_id : $request->subject_id,
                 'name'                       => $request->name,
                 'total_question'             => $request->total_question,
                 'per_question_positive_mark' => $request->per_question_positive_mark,
@@ -57,34 +55,24 @@ class ExamController extends Controller {
 
         if ($before_update) {
 
-            foreach (explode(',', $exam->subject_id) as $subject) {
-                /**
-                 * updating question row for every subjects
-                 */
-                $check_question = ExamQuestion::where('exam_id', $exam->id)
-                    ->where('subject_id', $subject)
-                    ->count();
+            /**
+             * updating question row for every subjects
+             */
+            $check_question = ExamQuestion::where('exam_id', $exam->id)
+                ->where('subject_id', $exam->subject_id)
+                ->count();
 
-                if ($exam->total_question > $check_question) {
-                    $next_addition = $exam->total_question - $check_question;
+            if ($exam->total_question > $check_question) {
+                $next_addition = $exam->total_question - $check_question;
 
-                    for ($i = 1; $i <= $next_addition; $i++) {
-                        ExamQuestion::create([
-                            'exam_id'    => $exam->id,
-                            'subject_id' => $subject,
-                        ]);
-                    }
-
+                for ($i = 1; $i <= $next_addition; $i++) {
+                    ExamQuestion::create([
+                        'exam_id'    => $exam->id,
+                        'subject_id' => $exam->subject_id,
+                    ]);
                 }
 
             }
-
-            /**
-             * deleting question row that was selected before update but not selected after update
-             */
-            $delete_question = ExamQuestion::where('exam_id', $exam->id)
-                ->whereNotIn('subject_id', explode(',', $exam->subject_id))
-                ->delete();
 
         } else {
 
@@ -92,15 +80,11 @@ class ExamController extends Controller {
              * creating new question row when creating new course exam
              */
 
-            foreach (explode(',', $exam->subject_id) as $subject) {
-
-                for ($i = 1; $i <= $request->total_question; $i++) {
-                    ExamQuestion::create([
-                        'exam_id'    => $exam->id,
-                        'subject_id' => $subject,
-                    ]);
-                }
-
+            for ($i = 1; $i <= $request->total_question; $i++) {
+                ExamQuestion::create([
+                    'exam_id'    => $exam->id,
+                    'subject_id' => $exam->subject_id,
+                ]);
             }
 
         }
@@ -116,8 +100,9 @@ class ExamController extends Controller {
         return to_route('admin.exam.index')->withToastSuccess('Status updated successfully!!');
     }
 
-    public function getSubjectWiseTopic(Request $request) {
-        $data = SubjectTopic::whereIn('subject_id', $request->subject_id)->where('status', 1)->with('subject')->orderBy('name')->get();
+    public function getCourseWiseSubject(Request $request) {
+        $course = Course::find($request->course_id);
+        $data   = Subject::whereIn('id', explode(',', $course->subject_id))->where('status', 1)->orderBy('name')->get();
 
         return json_encode($data);
     }

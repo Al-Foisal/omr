@@ -36,7 +36,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="">Select Course Name*</label>
-                                    <select name="course_id" id="" class="form-control" required>
+                                    <select name="course_id" id="" class="form-control" required @if($data) {{ 'disabled' }} @endif>
                                         <option value="">select</option>
                                         @foreach ($course as $item)
                                             <option value="{{ $item->id }}"
@@ -46,25 +46,14 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Select Subject*</label>
-                                    <select multiple class="form-control" name="subject_id[]" id="subject_id" required>
-                                        @foreach ($subject as $item)
-                                            <option value="{{ $item->id }}"
-                                                @if ($data && in_array($item->id, explode(',', $data->subject_id))) {{ 'selected' }} @endif>
-                                                {{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Select Topic*</label>
-                                    <select multiple class="form-control" name="subject_topic_id[]" id="subject_topic_id"
-                                        required>
-                                        @if ($data && $data_topic)
-                                            @foreach ($data_topic as $topic)
-                                                <option value="{{ $topic->id }}"
-                                                    @if ($data && in_array($topic->id, explode(',', $data->subject_topic_id))) {{ 'selected' }} @endif>
-                                                    {{ $topic->name }}
-                                                </option>
+                                    <label for="">Select Subject*</label>
+                                    <select name="subject_id" id="" class="form-control" required @if($data) {{ 'disabled' }} @endif>
+                                        <option value="">select</option>
+                                        @if ($data)
+                                            @foreach ($subject as $item)
+                                                <option value="{{ $item->id }}"
+                                                    @if ($data && $data->subject_id == $item->id) {{ 'selected' }} @endif>
+                                                    {{ $item->name }}</option>
                                             @endforeach
                                         @endif
                                     </select>
@@ -119,26 +108,26 @@
 @section('jsScript')
     <script>
         $(document).ready(function() {
-            $('#subject_id').on('change', function() {
-                var subject_id = $(this).val();
-                console.log(subject_id);
-                if (subject_id) {
+            $('select[name=course_id]').on('change', function() {
+                var course_id = $(this).val();
+                console.log(course_id);
+                if (course_id) {
                     $.ajax({
-                        url: "{{ url('admin/exam/get-subject-wise-topic') }}",
+                        url: "{{ url('admin/exam/get-course-wise-subject') }}",
                         type: "post",
                         dataType: "json",
                         data: {
-                            subject_id: subject_id
+                            course_id: course_id
                         },
                         success: function(data) {
-                            var d = $('#subject_topic_id')
+                            var d = $('select[name=subject_id]')
                                 .empty();
                             $.each(data, function(key, value) {
-                                $('#subject_topic_id')
+                                $('select[name=subject_id]')
                                     .append(
                                         '<option value="' +
                                         value.id + '">' + value
-                                        .name + '(' + value.subject.name + ')</option>'
+                                        .name + '</option>'
                                     );
                             });
                         },
