@@ -39,6 +39,45 @@
                                     <input type="text" class="form-control" id="name" placeholder="Name"
                                         name="name" value="{{ $data->name ?? '' }}">
                                 </div>
+                                <div class="card card-secondary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Select Subjects</h3>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <!-- checkbox -->
+                                                <div class="form-group">
+                                                    @foreach ($subject as $item)
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input class="custom-control-input" type="checkbox"
+                                                                id="{{ $item->id }}" value="{{ $item->id }}"
+                                                                name="subject_id[]"
+                                                                {{ in_array($item->id, explode(',', $data->subject_id)) ? 'checked' : '' }}>
+                                                            <label for="{{ $item->id }}" class="custom-control-label">
+                                                                {{ $item->name }}
+                                                            </label>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Details(optional)</label>
+                                    <textarea type="text" class="form-control" id="summernote" name="details">
+                                        {!! $data->details !!}
+                                    </textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Purchase List(optional)</label>
+                                    <textarea type="text" class="form-control" id="purchase_link" rows="3" placeholder="Purchase link"
+                                        name="purchase_link">{{ $data->purchase_link ?? '' }}</textarea>
+                                </div>
                             </div>
                             <!-- /.card-body -->
 

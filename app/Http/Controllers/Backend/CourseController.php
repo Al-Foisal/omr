@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller {
@@ -21,7 +22,9 @@ class CourseController extends Controller {
             $data = null;
         }
 
-        return view('backend.course.create-or-edit', compact('data'));
+        $subject = Subject::where('status', 1)->orderBy('name')->get();
+
+        return view('backend.course.create-or-edit', compact('data', 'subject'));
     }
 
     public function storeOrUpdate(Request $request, $id = null) {
@@ -30,7 +33,10 @@ class CourseController extends Controller {
                 'id' => $id,
             ],
             [
-                'name' => $request->name,
+                'name'          => $request->name,
+                'subject_id'    => implode(',', $request->subject_id),
+                'details'       => $request->details,
+                'purchase_link' => $request->purchase_link,
             ]
         );
 

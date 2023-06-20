@@ -35,7 +35,10 @@
                                 <thead>
                                     <tr>
                                         <th>Action</th>
-                                        <th>Name</th>
+                                        <th>Course Name</th>
+                                        <th>Subject Name</th>
+                                        <th>Details</th>
+                                        <th>Purchase Link</th>
                                         <th>Statue</th>
                                         <th>Created_at</th>
                                     </tr>
@@ -57,8 +60,15 @@
                                                 </form>
                                             </td>
                                             <td>{{ $item->name }}</td>
+                                            <td>
+                                                @foreach ($item->subject_details as $sd)
+                                                    {{ $sd->name }}, <br>
+                                                @endforeach
+                                            </td>
+                                            <td>{{ Str::limit($item->details, 20) ?? 'Not set yet' }}</td>
+                                            <td>{{ $item->purchase_link ?? 'Not set yet' }}</td>
                                             <td>{{ $item->status == 1 ? 'Active' : 'Inactive' }}</td>
-                                            <td>{{ $item->created_at->format("d F, Y") }}</td>
+                                            <td>{{ $item->created_at->format('d F, Y') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

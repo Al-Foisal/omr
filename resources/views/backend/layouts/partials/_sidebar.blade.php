@@ -65,8 +65,15 @@
 
                 <li class="nav-item">
                     <a href="{{ route('admin.exam.index') }}" class="nav-link">
-                        <i class="nav-icon far fa-circle text-danger"></i>
-                        <p>Course Exam</p>
+                        <i class="nav-icon far fa-circle text-warning"></i>
+                        <p>Course</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.examQuestion.index') }}" class="nav-link">
+                        <i class="nav-icon far fa-circle text-warning"></i>
+                        <p>Course Exam Question</p>
                     </a>
                 </li>
 
