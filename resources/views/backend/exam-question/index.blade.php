@@ -27,10 +27,6 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <a href="{{ route('admin.examQuestion.createOrEdit') }}" class="btn btn-outline-primary">Add
-                                Course Exam Subject</a>
-                            <br>
-                            <br>
                             <table id="" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
@@ -43,37 +39,38 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data as $d_item)
-                                        @foreach ($d_item->subject_details as $item)
-                                            <tr>
-                                                <td class="d-flex justify-content-around">
-                                                    <a href="{{ route('admin.exam.createOrEdit', $item) }}"
-                                                        class="btn btn-info btn-xs"> <i class="fas fa-edit"></i> Edit</a>
+                                    @foreach ($data as $item)
+                                        <tr>
+                                            <td class="d-flex justify-content-around">
+                                                <a href="#"
+                                                    class="btn btn-info btn-xs"> Add Question</a>
 
-                                                    <form action="{{ route('admin.exam.updateStatus', $item) }}"
-                                                        method="post">
-                                                        @csrf
-                                                        <button type="submit" onclick="return(confirm('Are you sure?'))"
-                                                            class="btn btn-{{ $item->status == 1 ? 'danger' : 'success' }} btn-xs">
-                                                            {{ $item->status == 1 ? 'Inactive' : 'Active' }}
-                                                        </button>
-                                                    </form>
-                                                </td>
-                                                <td>{{ $d_item->course->name }}</td>
-                                                <td>
-                                                    {{ $item->name }}
-                                                </td>
-                                                <td>
-                                                    <b>Name:</b> {{ $d_item->name }} <br>
-                                                    <b>Total question:</b> {{ $d_item->total_question }} <br>
-                                                    <b>Per question mark:</b> {{ $d_item->per_question_positive_mark }} <br>
-                                                    <b>Per question negative mark:</b>
-                                                    {{ $d_item->per_question_negative_mark }} <br>
-                                                </td>
-                                                <td>{{ $d_item->status == 1 ? 'Active' : 'Inactive' }}</td>
-                                                <td>{{ $d_item->created_at->format('d F, Y') }}</td>
-                                            </tr>
-                                        @endforeach
+                                                <form action="{{ route('admin.exam.updateStatus', $item) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit" onclick="return(confirm('Are you sure?'))"
+                                                        class="btn btn-{{ $item->status == 1 ? 'danger' : 'success' }} btn-xs">
+                                                        {{ $item->status == 1 ? 'Inactive' : 'Active' }}
+                                                    </button>
+                                                </form>
+                                            </td>
+                                            <td>{{ $item->course->name }}</td>
+                                            <td>
+                                                {{ $item->subject->name }} <br>
+                                                <b>Topic:</b> <br>
+                                                @foreach ($item->subject->subjectToics as $topic)
+                                                    {{ $topic->name }}, <br>
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                <b>Name:</b> {{ $item->name }} <br>
+                                                <b>Total question:</b> {{ $item->total_question }} <br>
+                                                <b>Per question mark:</b> {{ $item->per_question_positive_mark }} <br>
+                                                <b>Per question negative mark:</b>
+                                                {{ $item->per_question_negative_mark }} <br>
+                                            </td>
+                                            <td>{{ $item->status == 1 ? 'Active' : 'Inactive' }}</td>
+                                            <td>{{ $item->created_at->format('d F, Y') }}</td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
