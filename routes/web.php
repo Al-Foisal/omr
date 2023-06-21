@@ -58,11 +58,12 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
 
     Route::controller(ExamQuestionController::class)->prefix('/exam-question')->name('examQuestion.')->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/create-or-edit/{id?}', 'createOrEdit')->name('createOrEdit');
-        Route::match (['post', 'put'], '/store-or-update/{id?}', 'storeOrUpdate')->name('storeOrUpdate');
+        Route::get('/create-or-edit', 'createOrEdit')->name('createOrEdit');
+        Route::post('/store-or-update', 'storeOrUpdate')->name('storeOrUpdate'); //jandle by js
+        Route::post('/make-for-review', 'makeForReview')->name('makeForReview'); //jandle by js
         Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
     });
-    
+
     Route::controller(ExamController::class)->prefix('/exam')->name('exam.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create-or-edit/{id?}', 'createOrEdit')->name('createOrEdit');

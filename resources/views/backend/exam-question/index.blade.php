@@ -42,8 +42,15 @@
                                     @foreach ($data as $item)
                                         <tr>
                                             <td class="d-flex justify-content-around">
-                                                <a href="#"
-                                                    class="btn btn-info btn-xs"> Add Question</a>
+
+                                                <form action="{{ route('admin.examQuestion.createOrEdit') }}"
+                                                    method="get">
+                                                    @csrf
+                                                    <input type="hidden" name="exam_id" value="{{ $item->id }}">
+                                                    <button type="submit"class="btn btn-info btn-xs">
+                                                        Add Question
+                                                    </button>
+                                                </form>
 
                                                 <form action="{{ route('admin.exam.updateStatus', $item) }}" method="post">
                                                     @csrf

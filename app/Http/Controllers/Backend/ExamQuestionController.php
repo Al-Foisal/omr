@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Exam;
+use App\Models\ExamQuestion;
+use App\Models\ExamQuestionOption;
+use App\Models\SubjectTopic;
 use Illuminate\Http\Request;
 
 class ExamQuestionController extends Controller {
@@ -13,14 +16,61 @@ class ExamQuestionController extends Controller {
         return view('backend.exam-question.index', compact('data'));
     }
 
-    public function createOrEdit($id = null) {
+    public function createOrEdit(Request $request) {
 
-        return view('backend.exam-question.create-or-edit', compact('data', 'course', 'subject', 'data_topic'));
+        $exam          = Exam::find($request->exam_id);
+        $subject_topic = SubjectTopic::where('subject_id', $exam->subject_id)
+            ->where('status', 1)
+            ->orderBy('name')
+            ->get();
+        $exam_question = ExamQuestion::where('exam_id', $exam->id)->limit($exam->total_question)->get();
+
+        return view('backend.exam-question.create-or-edit', compact('exam', 'subject_topic', 'exam_question'));
     }
 
-    public function storeOrUpdate(Request $request, $id = null) {
+    public function storeOrUpdate(Request $request) {
 
-        return to_route('admin.examQuestion.index')->withToastSuccess('Data update successfully!!');
+        // dd($request->all());
+        $exam_question = ExamQuestion::find($request->exam_question_id);
+
+        if (!$exam_question) {
+            return response()->json(['status' => false]);
+        }
+
+        $exam_question->question_name        = $request->question_name;
+        $exam_question->subject_topic_id     = $request->subject_topic_id;
+        $exam_question->question_explanation = $request->question_explanation;
+        $exam_question->status               = 1;
+        $exam_question->save();
+
+        /**
+         * delete previous options
+         */
+        $previous_options = ExamQuestionOption::where('exam_question_id', $exam_question->id)->delete();
+
+        foreach ($request->options as $key => $option) {
+            ExamQuestionOption::create([
+                'exam_question_id' => $exam_question->id,
+                'option'           => $option,
+                'is_answer'        => $request->is_answer[$key],
+            ]);
+        }
+
+        return response()->json(['status' => true]);
+
+    }
+
+    public function makeForReview(Request $request) {
+        $exam_question = ExamQuestion::find($request->exam_question_id);
+
+        if (!$exam_question) {
+            return response()->json(['status' => false]);
+        }
+
+        $exam_question->status = 0;
+        $exam_question->save();
+
+        return response()->json(['status' => true]);
     }
 
     public function updateStatus(Request $request) {
@@ -30,4 +80,5 @@ class ExamQuestionController extends Controller {
 
         return to_route('admin.examQuestion.index')->withToastSuccess('Status updated successfully!!');
     }
+
 }
