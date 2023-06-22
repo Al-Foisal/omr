@@ -4,6 +4,6 @@
         Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; {{ date('Y') }} POS INVENTORY.</strong> All rights
+    <strong>Copyright &copy; {{ date('Y') }} OMR.</strong> All rights
     reserved.
 </footer>

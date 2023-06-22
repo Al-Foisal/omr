@@ -44,7 +44,7 @@
                                             <td class="d-flex justify-content-around">
 
                                                 <form action="{{ route('admin.examQuestion.createOrEdit') }}"
-                                                    method="get">
+                                                    method="post">
                                                     @csrf
                                                     <input type="hidden" name="exam_id" value="{{ $item->id }}">
                                                     <button type="submit"class="btn btn-info btn-xs">

@@ -81,4 +81,26 @@ class ExamQuestionController extends Controller {
         return to_route('admin.examQuestion.index')->withToastSuccess('Status updated successfully!!');
     }
 
+    public function preview(Request $request) {
+        $data = ExamQuestion::where('exam_id', $request->exam_id)
+            ->where('subject_id', $request->exam_subject_id)
+            ->limit($request->total_question)
+            ->with('examQuestionOptions')
+            ->get();
+        $exam = Exam::find($request->exam_id);
+
+        return view('backend.exam-question.preview', compact('data', 'exam'));
+    }
+
+    public function previewAnswer(Request $request) {
+        $data = ExamQuestion::where('exam_id', $request->exam_id)
+            ->where('subject_id', $request->exam_subject_id)
+            ->limit($request->total_question)
+            ->with('examQuestionOptions')
+            ->get();
+        $exam = Exam::find($request->exam_id);
+
+        return view('backend.exam-question.preview-answer', compact('data', 'exam'));
+    }
+
 }

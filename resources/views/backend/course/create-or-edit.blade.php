@@ -54,7 +54,7 @@
                                                             <input class="custom-control-input" type="checkbox"
                                                                 id="{{ $item->id }}" value="{{ $item->id }}"
                                                                 name="subject_id[]"
-                                                                {{ in_array($item->id, explode(',', $data->subject_id)) ? 'checked' : '' }}>
+                                                                @if ($data) {{ in_array($item->id, explode(',', $data->subject_id)) ? 'checked' : '' }} @endif>
                                                             <label for="{{ $item->id }}" class="custom-control-label">
                                                                 {{ $item->name }}
                                                             </label>
@@ -70,7 +70,7 @@
                                 <div class="form-group">
                                     <label for="name">Details(optional)</label>
                                     <textarea type="text" class="form-control" id="summernote" name="details">
-                                        {!! $data->details !!}
+                                        {!! $data->details??'' !!}
                                     </textarea>
                                 </div>
                                 <div class="form-group">
