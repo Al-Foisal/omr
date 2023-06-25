@@ -11,4 +11,8 @@ class Course extends Model {
     public function getSubjectDetailsAttribute() {
         return Subject::whereIn('id', explode(',', $this->subject_id))->get();
     }
+
+    public function getApiSubjectDetailsAttribute() {
+        return $this->hasMany(Subject::class);
+    }
 }
