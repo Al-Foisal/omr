@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\ExamController;
 use App\Http\Controllers\Backend\ExamQuestionController;
 use App\Http\Controllers\Backend\PageController;
+use App\Http\Controllers\Backend\StudentPanelController;
 use App\Http\Controllers\Backend\SubjectController;
 use App\Http\Controllers\Backend\TopicController;
 use Illuminate\Support\Facades\Route;
@@ -93,6 +94,10 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
         Route::get('/create-or-edit/{id?}', 'createOrEdit')->name('createOrEdit');
         Route::match (['post', 'put'], '/store-or-update/{id?}', 'storeOrUpdate')->name('storeOrUpdate');
         Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
+    });
+
+    Route::controller(StudentPanelController::class)->prefix('/student-panel')->name('studentPanel.')->group(function () {
+        
     });
 
     Route::get('/company-info', [CompanyInfoController::class, 'showCompanyInfo'])->name('showCompanyInfo');
