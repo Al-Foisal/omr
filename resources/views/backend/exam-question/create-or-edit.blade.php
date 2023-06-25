@@ -17,7 +17,7 @@
                         <li class="breadcrumb-item active">Question</li>
                     </ol>
                 </div>
-                
+
             </div>
         </div><!-- /.container-fluid -->
     </section>
@@ -78,19 +78,10 @@
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="col-md-12">
-                                    <div class="card card-outline card-info">
-                                        <div class="card-header">
-                                            <h3 class="card-title">
-                                                Question Name
-                                            </h3>
-                                        </div>
-                                        <!-- /.card-header -->
-                                        <div class="card-body">
-                                            <textarea class="summernote11" id="question_name_{{ $loop->iteration }}" placeholder="Enter question name here">{!! $eq->question_name !!}</textarea>
-                                        </div>
-                                    </div>
+                                    <label for="">Question Name</label>
+                                    <textarea class="summernote11" id="question_name_{{ $loop->iteration }}" placeholder="Enter question name here">{!! $eq->question_name !!}</textarea>
                                 </div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="card card-outline card-info">
                                         <div class="card-header">
@@ -117,15 +108,17 @@
                                         <div class="card-body">
                                             <div class="form-group clearfix">
                                                 @for ($i = 0; $i < 4; $i++)
-                                                    <div class="icheck-success d-inline">
-                                                        <input type="radio"
-                                                            id="is_answer{{ $loop->iteration }}_{{ $i }}"
-                                                            name="is_answer_{{ $loop->iteration }}" value="0"
-                                                            @if ($eq->subject_topic_id != null && $eq->examQuestionOptions[$i]->is_answer == 1) {{ 'checked' }} @endif>
-                                                        <label for="is_answer{{ $loop->iteration }}_{{ $i }}">
-                                                            <textarea class="summernote{{ $i }}"
-                                                                id="option_{{ $loop->iteration }}_{{ $i }}">{{ $eq->examQuestionOptions[$i]->option ?? '' }}</textarea>
-                                                        </label>
+                                                    <div class="d-flex justify-content-start">
+                                                        <div class="icheck-success d-inline">
+                                                            <input type="radio"
+                                                                id="is_answer{{ $loop->iteration }}_{{ $i }}"
+                                                                name="is_answer_{{ $loop->iteration }}" value="0"
+                                                                @if ($eq->subject_topic_id != null && $eq->examQuestionOptions[$i]->is_answer == 1) {{ 'checked' }} @endif>
+                                                            <label
+                                                                for="is_answer{{ $loop->iteration }}_{{ $i }}">
+                                                            </label>
+                                                        </div>
+                                                        <textarea class="summernote{{ $i }}" id="option_{{ $loop->iteration }}_{{ $i }}">{{ $eq->examQuestionOptions[$i]->option ?? '' }}</textarea>
                                                     </div>
                                                     <br>
                                                     <br>
@@ -137,18 +130,9 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <div class="card card-outline card-info">
-                                        <div class="card-header">
-                                            <h3 class="card-title">
-                                                Question Explanation
-                                            </h3>
-                                        </div>
-                                        <!-- /.card-header -->
-                                        <div class="card-body">
-                                            <textarea class="summernote22" id="question_explanation_{{ $loop->iteration }}"
-                                                placeholder="Enter question explanation here">{!! $eq->question_explanation !!}</textarea>
-                                        </div>
-                                    </div>
+                                    <label for="">Question Explanation</label>
+                                    <textarea class="summernote22" id="question_explanation_{{ $loop->iteration }}"
+                                        placeholder="Enter question explanation here">{!! $eq->question_explanation !!}</textarea>
                                 </div>
 
                                 <button type="button" class="btn btn-outline-success"
@@ -217,13 +201,13 @@
 @section('jsSource')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.js"></script>
-    @endsection
-    
-    @section('jsScript')
+@endsection
+
+@section('jsScript')
     <script src="{{ asset('summernote-math.js') }}"></script>
     <script>
         $('.summernote11').summernote({
-            height: 200,
+            height: 100,
             toolbar: [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
                 ['insert', ['picture', 'link', 'math']],
@@ -241,7 +225,7 @@
             ],
         });
         $('.summernote0').summernote({
-            height: 100,
+            height: 50,
             width: 1000,
             toolbar: [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -251,7 +235,7 @@
             ],
         });
         $('.summernote1').summernote({
-            height: 100,
+            height: 50,
             width: 1000,
             toolbar: [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -261,7 +245,7 @@
             ],
         });
         $('.summernote2').summernote({
-            height: 100,
+            height: 50,
             width: 1000,
             toolbar: [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -271,7 +255,7 @@
             ],
         });
         $('.summernote3').summernote({
-            height: 100,
+            height: 50,
             width: 1000,
             toolbar: [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
