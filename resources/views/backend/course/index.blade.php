@@ -65,7 +65,7 @@
                                                     {{ $sd->name }}, <br>
                                                 @endforeach
                                             </td>
-                                            <td>{{ Str::limit($item->details, 20) ?? 'Not set yet' }}</td>
+                                            <td>{{ Str::limit(strip_tags($item->details), 50) ?? 'Not set yet' }}</td>
                                             <td>{{ $item->purchase_link ?? 'Not set yet' }}</td>
                                             <td>{{ $item->status == 1 ? 'Active' : 'Inactive' }}</td>
                                             <td>{{ $item->created_at->format('d F, Y') }}</td>
@@ -73,6 +73,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{-- {{ $data->links() }} --}}
                         </div>
                         <!-- /.card-body -->
                     </div>

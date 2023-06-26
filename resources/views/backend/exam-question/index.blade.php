@@ -31,9 +31,9 @@
                                 <thead>
                                     <tr>
                                         <th>Action</th>
+                                        <th>Exam Details</th>
                                         <th>Course Name</th>
                                         <th>Subject Name</th>
-                                        <th>Exam Details</th>
                                         <th>Statue</th>
                                         <th>Created_at</th>
                                     </tr>
@@ -60,6 +60,13 @@
                                                     </button>
                                                 </form>
                                             </td>
+                                            <td>
+                                                <b>Exam Name:</b> {{ $item->name }} <br>
+                                                <b>Total question:</b> {{ $item->total_question }} <br>
+                                                <b>Per question mark:</b> {{ $item->per_question_positive_mark }} <br>
+                                                <b>Per question negative mark:</b>
+                                                {{ $item->per_question_negative_mark }} <br>
+                                            </td>
                                             <td>{{ $item->course->name }}</td>
                                             <td>
                                                 {{ $item->subject->name }} <br>
@@ -68,13 +75,6 @@
                                                     {{ $topic->name }}, <br>
                                                 @endforeach
                                             </td>
-                                            <td>
-                                                <b>Name:</b> {{ $item->name }} <br>
-                                                <b>Total question:</b> {{ $item->total_question }} <br>
-                                                <b>Per question mark:</b> {{ $item->per_question_positive_mark }} <br>
-                                                <b>Per question negative mark:</b>
-                                                {{ $item->per_question_negative_mark }} <br>
-                                            </td>
                                             <td>{{ $item->status == 1 ? 'Active' : 'Inactive' }}</td>
                                             <td>{{ $item->created_at->format('d F, Y') }}</td>
                                         </tr>
@@ -82,6 +82,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        {{ $data->links() }}
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->

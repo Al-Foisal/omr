@@ -13,7 +13,7 @@ class GeneralController extends Controller {
     public function registeredOrSuggestCourses() {
         $data   = [];
         $course = CourseRegistration::where('user_id', auth()->user()->id)
-        // ->where('status', 1)
+            ->where('status', 1)
             ->orderBy('id', 'desc')
             ->pluck('course_id')
             ->toArray();

@@ -2,6 +2,7 @@
 @section('title', 'Question ' . $exam->name)
 @section('cssLink')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css">
+    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
 @endsection
 @section('backend')
     <!-- Content Header (Course Exam header) -->
@@ -28,6 +29,8 @@
                 <div class="col-lg-12">
                     <!-- /.card-header -->
                     <!-- form start -->
+                    <textarea id="editor"></textarea>
+                    <hr>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card bg-gradient-warning">
@@ -111,6 +114,7 @@
                                                     <div class="d-flex justify-content-start">
                                                         <div class="icheck-success d-inline">
                                                             <input type="radio"
+                                                                @if ($i == 0) {{ 'checked' }} @endif
                                                                 id="is_answer{{ $loop->iteration }}_{{ $i }}"
                                                                 name="is_answer_{{ $loop->iteration }}" value="0"
                                                                 @if ($eq->subject_topic_id != null && $eq->examQuestionOptions[$i]->is_answer == 1) {{ 'checked' }} @endif>
@@ -118,7 +122,7 @@
                                                                 for="is_answer{{ $loop->iteration }}_{{ $i }}">
                                                             </label>
                                                         </div>
-                                                        <textarea class="summernote{{ $i }}" id="option_{{ $loop->iteration }}_{{ $i }}">{{ $eq->examQuestionOptions[$i]->option ?? '' }}</textarea>
+                                                        <textarea class="summernote{{ $i }}" id="option_{{ $loop->iteration }}_{{ $i }}">{{ $eq->examQuestionOptions[$i]->option ?? null }}</textarea>
                                                     </div>
                                                     <br>
                                                     <br>
@@ -206,6 +210,16 @@
 @section('jsScript')
     <script src="{{ asset('summernote-math.js') }}"></script>
     <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+    <script>
         $('.summernote11').summernote({
             height: 100,
             toolbar: [
@@ -288,13 +302,33 @@
         function saveQuestion(e, loop_iteration, exam_question_id) {
 
 
+
             var url = $(e).data('url');
             var question_name = $("#question_name_" + loop_iteration).val();
             var subject_topic_id = $("#subject_topic_" + loop_iteration).val();
             var options = [];
             var is_answer = [];
+
+            if (!question_name) {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Question name is required.'
+                });
+                return;
+            }
+            if (!subject_topic_id) {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Subject topic is required.'
+                });
+                return;
+            }
             for (var i = 0; i < 4; i++) {
-                if ($("#option_" + loop_iteration + "_" + i).val() == null) {
+                console.log(i + $("#option_" + loop_iteration + "_" + i).val().trim());
+                if (
+                    $("#option_" + loop_iteration + "_" + i).val() == '' ||
+                    $("#option_" + loop_iteration + "_" + i).val() == null
+                ) {
                     Toast.fire({
                         icon: 'error',
                         title: 'Option ' + i + ' is required.'
@@ -313,20 +347,7 @@
             }
             var question_explanation = $("#question_explanation_" + loop_iteration).val();
 
-            if (!question_name) {
-                Toast.fire({
-                    icon: 'error',
-                    title: 'Question name is required.'
-                });
-                return;
-            }
-            if (!subject_topic_id) {
-                Toast.fire({
-                    icon: 'error',
-                    title: 'Subject topic is required.'
-                });
-                return;
-            }
+
 
             $.ajax({
                 method: 'POST',

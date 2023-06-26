@@ -7,12 +7,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Course Exam</h1>
+                    <h1>Exam List</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Course Exam</li>
+                        <li class="breadcrumb-item active">Exam</li>
                     </ol>
                 </div>
             </div>
@@ -27,17 +27,16 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <a href="{{ route('admin.exam.createOrEdit') }}" class="btn btn-outline-primary">Add
-                                Course Exam</a>
+                            <a href="{{ route('admin.exam.createOrEdit') }}" class="btn btn-outline-primary">Add  Exam</a>
                             <br>
                             <br>
-                            <table id="" class="table table-bordered table-striped">
+                            <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>Action</th>
+                                        <th>Exam Details</th>
                                         <th>Course Name</th>
                                         <th>Subject Name</th>
-                                        <th>Exam Details</th>
                                         <th>Statue</th>
                                         <th>Created_at</th>
                                     </tr>
@@ -57,16 +56,16 @@
                                                     </button>
                                                 </form>
                                             </td>
-                                            <td>{{ $item->course->name }}</td>
                                             <td>
-                                                {{ $item->subject->name ?? '' }}
-                                            </td>
-                                            <td>
-                                                <b>Name:</b> {{ $item->name }} <br>
+                                                <b>Exam Name:</b> {{ $item->name }} <br>
                                                 <b>Total question:</b> {{ $item->total_question }} <br>
                                                 <b>Per question mark:</b> {{ $item->per_question_positive_mark }} <br>
                                                 <b>Per question negative mark:</b> {{ $item->per_question_negative_mark }}
                                                 <br>
+                                            </td>
+                                            <td>{{ $item->course->name }}</td>
+                                            <td>
+                                                {{ $item->subject->name ?? '' }}
                                             </td>
                                             <td>{{ $item->status == 1 ? 'Active' : 'Inactive' }}</td>
                                             <td>{{ $item->created_at->format('d F, Y') }}</td>
@@ -75,6 +74,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        {{ $data->links() }}
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->

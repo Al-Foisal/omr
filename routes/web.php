@@ -31,7 +31,7 @@ Route::prefix('/admin')->name('admin.auth.')->middleware('guest:admin')->group(f
     Route::post('/store-login', [AdminAuthController::class, 'storeLogin'])->name('storeLogin');
 
     Route::get('/forgot-password', [AdminForgotPasswordController::class, 'forgotPassword'])->name('forgotPassword');
-    Route::post('/forgot-password', [AdminForgotPasswordController::class, 'storeForgotPassword'])->name('storeForgotPassword');
+    Route::post('/store-forgot-password', [AdminForgotPasswordController::class, 'storeForgotPassword'])->name('storeForgotPassword');
 
     Route::get('/reset-password/{token}', [AdminResetPasswordController::class, 'resetPassword'])->name('resetPassword');
     Route::post('/reset-password', [AdminResetPasswordController::class, 'storeForgotPassword'])->name('storeResetPassword');
@@ -97,7 +97,11 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
     });
 
     Route::controller(StudentPanelController::class)->prefix('/student-panel')->name('studentPanel.')->group(function () {
-        
+        Route::get('/', 'index')->name('index');
+        Route::get('/pending-course-registration', 'pendingCourseRegistration')->name('pendingCourseRegistration');
+        Route::get('/approved-course-registration', 'approvedCourseRegistration')->name('approvedCourseRegistration');
+        Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
+        Route::delete('/delete/{id}', 'delete')->name('delete');
     });
 
     Route::get('/company-info', [CompanyInfoController::class, 'showCompanyInfo'])->name('showCompanyInfo');

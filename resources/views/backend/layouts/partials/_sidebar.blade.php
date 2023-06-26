@@ -66,7 +66,7 @@
                 <li class="nav-item">
                     <a href="{{ route('admin.exam.index') }}" class="nav-link">
                         <i class="nav-icon far fa-circle text-warning"></i>
-                        <p>Course Exam</p>
+                        <p>Create Exam</p>
                     </a>
                 </li>
 
@@ -107,6 +107,30 @@
                     </ul>
                 </li>
 
+                {{-- student panel --}}
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon far fa-circle text-warning"></i>
+                        <p class="text">
+                            Student Panel
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview nav-header">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.studentPanel.pendingCourseRegistration') }}" class="nav-link">
+                                <i class="nav-icon far fa-circle text-danger"></i>
+                                <p>Pending Course</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.studentPanel.approvedCourseRegistration') }}" class="nav-link">
+                                <i class="nav-icon far fa-circle text-danger"></i>
+                                <p>Approved Course</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 {{-- company info --}}
                 <li class="nav-item">
                     <a href="#" class="nav-link">

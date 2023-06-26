@@ -46,7 +46,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="name">Name*</label>
+                                    <label for="name">Topic*</label>
                                     <input type="text" class="form-control" id="name" placeholder="Name"
                                         name="name" value="{{ $data->name ?? '' }}">
                                 </div>

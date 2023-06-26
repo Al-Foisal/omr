@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller {
     public function index() {
-        $data = Course::all();
+        $data = Course::latest()->paginate(100);
 
         return view('backend.course.index', compact('data'));
     }

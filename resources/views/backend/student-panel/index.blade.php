@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title', 'Course Exam Subject List')
+@section('title', 'Student list')
 
 @section('backend')
     <!-- Content Header (Course Exam Subject header) -->
@@ -7,12 +7,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Course Exam Subject</h1>
+                    <h1>Student list</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Course Exam Subject</li>
+                        <li class="breadcrumb-item active">Student list</li>
                     </ol>
                 </div>
             </div>
@@ -32,9 +32,8 @@
                                     <tr>
                                         <th>Action</th>
                                         <th>Course Name</th>
-                                        <th>Subject Name</th>
-                                        <th>Exam Details</th>
-                                        <th>Statue</th>
+                                        <th>User Details</th>
+                                        <th>Order ID</th>
                                         <th>Created_at</th>
                                     </tr>
                                 </thead>
@@ -43,44 +42,40 @@
                                         <tr>
                                             <td class="d-flex justify-content-around">
 
-                                                <form action="{{ route('admin.examQuestion.createOrEdit') }}"
+                                                <form action="{{ route('admin.studentPanel.updateStatus', $item) }}"
                                                     method="post">
                                                     @csrf
-                                                    <input type="hidden" name="exam_id" value="{{ $item->id }}">
-                                                    <button type="submit"class="btn btn-info btn-xs">
-                                                        Add Question
+                                                    <button type="submit"
+                                                        onclick="return(confirm('Are you sure want approve this item?'))"
+                                                        class="btn btn-success btn-xs">
+                                                        {{ 'Approve' }}
                                                     </button>
                                                 </form>
-
-                                                <form action="{{ route('admin.exam.updateStatus', $item) }}" method="post">
+                                                <form action="{{ route('admin.studentPanel.delete', $item->id) }}"
+                                                    method="post">
                                                     @csrf
-                                                    <button type="submit" onclick="return(confirm('Are you sure?'))"
-                                                        class="btn btn-{{ $item->status == 1 ? 'danger' : 'success' }} btn-xs">
-                                                        {{ $item->status == 1 ? 'Inactive' : 'Active' }}
+                                                    @method('delete')
+                                                    <button type="submit"
+                                                        onclick="return(confirm('Are you sure want to delete this item?'))"
+                                                        class="btn btn-danger btn-xs">
+                                                        Delete
                                                     </button>
                                                 </form>
                                             </td>
                                             <td>{{ $item->course->name }}</td>
                                             <td>
-                                                {{ $item->subject->name }} <br>
-                                                <b>Topic:</b> <br>
-                                                @foreach ($item->subject->subjectToics as $topic)
-                                                    {{ $topic->name }}, <br>
-                                                @endforeach
+                                                <strong>Name: </strong>{{ $item->user->name }} <br>
+                                                <strong>Email: </strong>{{ $item->user->email }} <br>
                                             </td>
                                             <td>
-                                                <b>Name:</b> {{ $item->name }} <br>
-                                                <b>Total question:</b> {{ $item->total_question }} <br>
-                                                <b>Per question mark:</b> {{ $item->per_question_positive_mark }} <br>
-                                                <b>Per question negative mark:</b>
-                                                {{ $item->per_question_negative_mark }} <br>
+                                                {{ $item->order_id }}
                                             </td>
-                                            <td>{{ $item->status == 1 ? 'Active' : 'Inactive' }}</td>
                                             <td>{{ $item->created_at->format('d F, Y') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{ $data->links() }}
                         </div>
                         <!-- /.card-body -->
                     </div>

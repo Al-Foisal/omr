@@ -31,6 +31,9 @@
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
+                                    <input type="text" class="form-control" name="name" value="{{ $company->name??'' }}" required>
+                                </div>
+                                <div class="form-group">
                                     <label for="exampleInputEmail1">About (in a nutshell)</label>
                                     <textarea name="about" class="form-control" rows="2"
                                         placeholder="Enter about">{{ $info->about ?? '' }}</textarea>

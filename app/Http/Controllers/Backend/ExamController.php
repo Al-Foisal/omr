@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class ExamController extends Controller {
     public function index() {
-        $data = Exam::orderBy('name')->get();
+        $data = Exam::latest()->paginate(100);
 
         return view('backend.exam.index', compact('data'));
     }
