@@ -22,7 +22,6 @@
 
     <section class="content">
         <div class="container-fluid">
-            <h4>Clients</h4>
             <div class="row">
                 <div class="col-md-4 col-sm-6 col-12">
                     <div class="info-box shadow-lg">
@@ -30,7 +29,7 @@
                             <i class="fas fa-user-friends"></i>
                         </span>
                         <div class="info-box-content">
-                            <span class="info-box-text">{{ 00 }}</span>
+                            <span class="info-box-text">{{ $total_courses }}</span>
                             <span class="info-box-number">Number Of Courses</span>
                         </div>
                     </div>
@@ -41,7 +40,7 @@
                             <i class="fas fa-user-friends"></i>
                         </span>
                         <div class="info-box-content">
-                            <span class="info-box-text">{{ 00 }}</span>
+                            <span class="info-box-text">{{ $total_students }}</span>
                             <span class="info-box-number">Number Of Students</span>
                         </div>
                     </div>
@@ -52,7 +51,7 @@
                             <i class="fas fa-user-friends"></i>
                         </span>
                         <div class="info-box-content">
-                            <span class="info-box-text">{{ 00 }}</span>
+                            <span class="info-box-text">{{ $total_registration }}</span>
                             <span class="info-box-number">Total Registrations</span>
                         </div>
                     </div>
@@ -69,7 +68,7 @@
                             <i class="fas fa-user-friends"></i>
                         </span>
                         <div class="info-box-content">
-                            <span class="info-box-text">{{ 00 }}</span>
+                            <span class="info-box-text">{{ $total_month_enroll }}</span>
                             <span class="info-box-number">This Month Enrollments</span>
                         </div>
                     </div>
@@ -80,7 +79,7 @@
                             <i class="fas fa-user-friends"></i>
                         </span>
                         <div class="info-box-content">
-                            <span class="info-box-text">{{ 00 }}</span>
+                            <span class="info-box-text">{{ $total_year_enroll }}</span>
                             <span class="info-box-number">This Year Enrollments</span>
                         </div>
                     </div>
@@ -91,7 +90,7 @@
                             <i class="fas fa-user-friends"></i>
                         </span>
                         <div class="info-box-content">
-                            <span class="info-box-text">{{ 00 }}</span>
+                            <span class="info-box-text">{{ $total_enroll }}</span>
                             <span class="info-box-number">Total Enrollments</span>
                         </div>
                     </div>
