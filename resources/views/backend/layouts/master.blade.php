@@ -84,6 +84,7 @@
     <script src="{{ asset('backend/js/buttons.colVis.min.js') }}"></script>
     <!-- Select2 -->
     <script src="{{ asset('backend/js/select2.full.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Bootstrap Switch -->
     <script src="{{ asset('backend/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
 
@@ -91,6 +92,17 @@
     <script src="{{ asset('backend/js/adminlte.min.js') }}"></script>
 
     <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
         $(function() {
             // Summernote
             $('#summernote').summernote()

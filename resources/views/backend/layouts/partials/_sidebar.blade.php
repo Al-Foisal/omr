@@ -80,7 +80,7 @@
                 <li class="nav-item">
                     <a href="{{ route('admin.examQuestion.index') }}" class="nav-link">
                         <i class="nav-icon far fa-circle text-warning"></i>
-                        <p>Course Exam Question</p>
+                        <p>Add Question</p>
                     </a>
                 </li>
 

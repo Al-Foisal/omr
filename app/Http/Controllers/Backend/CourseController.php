@@ -169,6 +169,7 @@ class CourseController extends Controller {
         $data->save();
 
         return to_route('admin.course.index')->withToastSuccess('Status updated successfully!!');
+
     }
 
     public function updateCourseSubjectStatus($id) {

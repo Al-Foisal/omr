@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title', 'Course Exam Subject List')
+@section('title', 'Add Question')
 
 @section('backend')
     <!-- Content Header (Course Exam Subject header) -->
@@ -7,12 +7,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Course Exam Subject</h1>
+                    <h1>Add Question</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Course Exam Subject</li>
+                        <li class="breadcrumb-item active">Question</li>
                     </ol>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                                             <td class="d-flex justify-content-around">
 
                                                 <form action="{{ route('admin.examQuestion.createOrEdit', $item->id) }}"
-                                                    method="post">
+                                                    method="get">
                                                     @csrf
                                                     <button type="submit"class="btn btn-info btn-xs">
                                                         Add Question

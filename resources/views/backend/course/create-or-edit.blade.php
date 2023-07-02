@@ -5,6 +5,11 @@
         .hide {
             display: none;
         }
+
+        .inactive {
+            color: red;
+            border-color: red;
+        }
     </style>
 @endsection
 @section('backend')
@@ -103,26 +108,23 @@
                                                 </div>
                                             </div>
                                             @if (request('id'))
-                                                @foreach ($subject as $s_item)
+                                                @foreach ($subject as $key => $s_item)
                                                     <div class="clone">
                                                         <div class="hdtuto control-group lst input-group"
                                                             style="margin-top:10px">
                                                             <input type="text" name="subject[]"
-                                                                class="myfrm form-control" placeholder="Enter subject name"
+                                                                id="change{{ $key }}"
+                                                                class="myfrm form-control"
+                                                                placeholder="Enter subject name"
                                                                 value="{{ $s_item->name }}">
                                                             <input type="hidden" name="subject_id[]"
                                                                 value="{{ $s_item->id }}">
                                                             <div>
-                                                                {{-- <a onclick="return confirm('Are you sure want to {{ $s_item->status == 1 ? 'inactive' : 'active' }} this item?')"
+                                                                <a onclick="return confirm('Are you sure want to {{ $s_item->status == 1 ? 'inactive' : 'active' }} this item?')"
                                                                     href="{{ route('admin.course.updateCourseSubjectStatus', $s_item->id) }}"
                                                                     class="btn btn-outline-{{ $s_item->status == 1 ? 'danger' : 'info' }}"
                                                                     type="button">{{ $s_item->status == 1 ? 'Make as Inactive' : 'Make as Active' }}
-                                                                </a> --}}
-                                                                <div class="mt-1">
-                                                                    <input type="checkbox" name="my-checkbox" checked
-                                                                        data-bootstrap-switch data-off-color="danger"
-                                                                        data-on-color="success">
-                                                                </div>
+                                                                </a>
 
                                                             </div>
                                                         </div>
@@ -154,6 +156,6 @@
     <!-- /.content -->
 @endsection
 
-@section('name')
+@section('jsScript')
 
 @endsection

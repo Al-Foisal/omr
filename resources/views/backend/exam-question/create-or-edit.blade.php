@@ -2,7 +2,6 @@
 @section('title', 'Question ' . $exam->name)
 @section('cssLink')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css">
-    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
 @endsection
 @section('backend')
     <!-- Content Header (Course Exam header) -->
