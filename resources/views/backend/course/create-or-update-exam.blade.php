@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title', request('exam_id') ? 'Update' : 'Create' . ' Course Exam')
+@section('title', request('exam_id') ? 'Update' : 'Create' . ' Exam')
 @section('cssStyle')
     <style>
         .hide {
@@ -13,12 +13,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>{{ request('exam_id') ? 'Update' : 'Create' }} Course Exam</h1>
+                    <h1>{{ request('exam_id') ? 'Update' : 'Create' }} Exam for "{{ $data->name }}" Course</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Create Course Exam</li>
+                        <li class="breadcrumb-item active"> Exam</li>
                     </ol>
                 </div>
             </div>
@@ -29,7 +29,8 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8">
                     <div class="card card-primary">
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -89,7 +90,8 @@
                                 </div>
                                 <div class="card card-success">
                                     <div class="card-header">
-                                        <h3 class="card-title">Topic name<span class="text-danger">*</span>
+                                        <h3 class="card-title" style="float: left">Topic Name<span
+                                                class="text-danger">*</span>
                                         </h3>
                                     </div>
                                     <div class="card-body">
@@ -100,7 +102,7 @@
                                                 <input type="hidden" name="topic_id[]">
                                                 <div class="input-group-btn">
                                                     <button class="btn btn-success" type="button"><i
-                                                            class="far fa-plus-square"></i> Add more</button>
+                                                            class="far fa-plus-square"></i></button>
                                                 </div>
                                             </div>
 
@@ -111,7 +113,7 @@
                                                     <input type="hidden" name="topic_id[]">
                                                     <div class="input-group-btn">
                                                         <button class="btn btn-danger" type="button"> <i
-                                                                class="far fa-minus-square"></i> Remove </button>
+                                                                class="far fa-minus-square"></i> </button>
 
                                                     </div>
                                                 </div>
@@ -140,95 +142,134 @@
                                                 @endforeach
                                             @endif
                                         </div>
+                                        <div class="add"></div>
                                     </div>
                                 </div>
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Add</button>
-                                @if (request('exam_id'))
-                                    <a href="{{ route('admin.course.createOrUpdateExam', $data->id) }}"
-                                        class="btn btn-outline-secondary">Cancel</a>
-                                @endif
+                                <div class="text-left">
+                                    <a href="{{ route('admin.course.createOrEdit',$data->id) }}" class="btn btn-success">Previous</a>
+                                </div>
+                                <div class="text-right">
+                                    @if (request('exam_id'))
+                                        <a href="{{ route('admin.course.createOrUpdateExam', $data->id) }}"
+                                            class="btn btn-outline-secondary">Cancel</a>
+                                    @endif
+                                    <button type="submit" class="btn btn-success">Next</button>
+                                </div>
                             </div>
                         </form>
                     </div>
                 </div>
                 <!-- /.card -->
+                <div class="col-lg-2"></div>
+
             </div>
         </div>
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-    <section class="content">
+    <style>
+        .card-title {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin: 0;
+            float: unset;
+        }
+    </style>
+    {{-- <section class="content">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <table id="example2" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Action</th>
-                                        <th>Exam Details</th>
-                                        <th>Course Name</th>
-                                        <th>Subject Name</th>
-                                        <th>Statue</th>
-                                        <th>Created_at</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($all_exam as $item)
-                                        <tr>
-                                            <td class="d-flex justify-content-around">
-                                                <a href="{{ route('admin.course.createOrUpdateExam', [$item->course_id, $item->id]) }}"
-                                                    class="btn btn-info btn-xs"> <i class="fas fa-edit"></i> Edit</a>
-
-                                                <form action="{{ route('admin.exam.updateStatus', $item) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    <button type="submit" onclick="return(confirm('Are you sure?'))"
-                                                        class="btn btn-{{ $item->status == 1 ? 'danger' : 'success' }} btn-xs">
-                                                        {{ $item->status == 1 ? 'Inactive' : 'Active' }}
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <b>Exam Name:</b> {{ $item->name }} <br>
-                                                <b>Total question:</b> {{ $item->total_question }} <br>
-                                                <b>Per question mark:</b> {{ $item->per_question_positive_mark }} <br>
-                                                <b>Per question negative mark:</b> {{ $item->per_question_negative_mark }}
-                                                <br>
-                                            </td>
-                                            <td>{{ $item->course->name }}</td>
-                                            <td>
-                                                {{ $item->subject->name ?? '' }}
-                                                <hr>
-                                                <strong>Topics</strong> <br>
-                                                @foreach ($item->topics as $topic)
-                                                    {{ $topic->name }}, <br>
-                                                @endforeach
-                                            </td>
-                                            <td>{{ $item->status == 1 ? 'Active' : 'Inactive' }}</td>
-                                            <td>{{ $item->created_at->format('d F, Y') }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        {{ $all_exam->links() }}
-                        <!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
+            <div class="card card-success">
+                <div class="card-header">
+                    <h1 class="card-title">
+                        <strong>Exam List</strong>
+                    </h1>
                 </div>
-                <!-- /.col -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="">
+                                <!-- /.card-header -->
+                                <div class="">
+                                    <table id="example2" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Action</th>
+                                                <th>Exam Details</th>
+                                                <th>Course Name</th>
+                                                <th>Subject Name</th>
+                                                <th>Statue</th>
+                                                <th>Created_at</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($all_exam as $item)
+                                                <tr>
+                                                    <td class="d-flex justify-content-around">
+                                                        <form action="{{ route('admin.examQuestion.createOrEdit') }}"
+                                                            method="post">
+                                                            @csrf
+                                                            <input type="hidden" name="exam_id"
+                                                                value="{{ $item->id }}">
+                                                            <button type="submit"class="btn btn-primary btn-xs">
+                                                                Add Question
+                                                            </button>
+                                                        </form>
+                                                        <a href="{{ route('admin.course.createOrUpdateExam', [$item->course_id, $item->id]) }}"
+                                                            class="btn btn-info btn-xs"> <i class="fas fa-edit"></i>
+                                                            Edit</a>
+
+                                                        <form action="{{ route('admin.exam.updateStatus', $item) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            <button type="submit"
+                                                                onclick="return(confirm('Are you sure?'))"
+                                                                class="btn btn-{{ $item->status == 1 ? 'danger' : 'success' }} btn-xs">
+                                                                {{ $item->status == 1 ? 'Inactive' : 'Active' }}
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                    <td>
+                                                        <b>Exam Name:</b> {{ $item->name }} <br>
+                                                        <b>Total question:</b> {{ $item->total_question }} <br>
+                                                        <b>Per question mark:</b> {{ $item->per_question_positive_mark }}
+                                                        <br>
+                                                        <b>Per question negative mark:</b>
+                                                        {{ $item->per_question_negative_mark }}
+                                                        <br>
+                                                    </td>
+                                                    <td>{{ $item->course->name }}</td>
+                                                    <td>
+                                                        {{ $item->subject->name ?? '' }}
+                                                        <hr>
+                                                        <strong>Topics</strong> <br>
+                                                        @foreach ($item->topics as $topic)
+                                                            {{ $topic->name }}, <br>
+                                                        @endforeach
+                                                    </td>
+                                                    <td>{{ $item->status == 1 ? 'Active' : 'Inactive' }}</td>
+                                                    <td>{{ $item->created_at->format('d F, Y') }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{ $all_exam->links() }}
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </div>
             </div>
             <!-- /.row -->
         </div>
         <!-- /.container-fluid -->
-    </section>
+    </section> --}}
 @endsection
 
 @section('jsScript')

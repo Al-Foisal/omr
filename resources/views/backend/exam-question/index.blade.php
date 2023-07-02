@@ -43,10 +43,9 @@
                                         <tr>
                                             <td class="d-flex justify-content-around">
 
-                                                <form action="{{ route('admin.examQuestion.createOrEdit') }}"
+                                                <form action="{{ route('admin.examQuestion.createOrEdit', $item->id) }}"
                                                     method="post">
                                                     @csrf
-                                                    <input type="hidden" name="exam_id" value="{{ $item->id }}">
                                                     <button type="submit"class="btn btn-info btn-xs">
                                                         Add Question
                                                     </button>
@@ -69,11 +68,13 @@
                                             </td>
                                             <td>{{ $item->course->name }}</td>
                                             <td>
-                                                {{ $item->subject->name }} <br>
+                                                <strong>Subject: </strong>{{ $item->subject->name }}, <br>
                                                 <b>Topic:</b> <br>
-                                                @foreach ($item->subject->subjectToics as $topic)
-                                                    {{ $topic->name }}, <br>
-                                                @endforeach
+                                                <div class="pl-3">
+                                                    @foreach ($item->topics as $topic)
+                                                        {{ $topic->name }}, <br>
+                                                    @endforeach
+                                                </div>
                                             </td>
                                             <td>{{ $item->status == 1 ? 'Active' : 'Inactive' }}</td>
                                             <td>{{ $item->created_at->format('d F, Y') }}</td>

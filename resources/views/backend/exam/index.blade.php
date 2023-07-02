@@ -27,7 +27,7 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <a href="{{ route('admin.exam.createOrEdit') }}" class="btn btn-outline-primary">Add  Exam</a>
+                            <a href="{{ route('admin.exam.createOrEdit') }}" class="btn btn-outline-primary">Add Exam</a>
                             <br>
                             <br>
                             <table id="example1" class="table table-bordered table-striped">
@@ -45,8 +45,9 @@
                                     @foreach ($data as $item)
                                         <tr>
                                             <td class="d-flex justify-content-around">
-                                                <a href="{{ route('admin.exam.createOrEdit', $item) }}"
-                                                    class="btn btn-info btn-xs"> <i class="fas fa-edit"></i> Edit</a>
+                                                <a href="{{ route('admin.course.createOrUpdateExam', $item->course_id) }}"
+                                                    class="btn btn-info btn-xs"> <i class="fas fa-edit"></i>
+                                                    Edit</a>
 
                                                 <form action="{{ route('admin.exam.updateStatus', $item) }}" method="post">
                                                     @csrf

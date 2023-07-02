@@ -16,10 +16,10 @@ class ExamQuestionController extends Controller {
         return view('backend.exam-question.index', compact('data'));
     }
 
-    public function createOrEdit(Request $request) {
+    public function createOrEdit(Request $request, $id) {
 
-        $exam          = Exam::find($request->exam_id);
-        $subject_topic = SubjectTopic::where('subject_id', $exam->subject_id)
+        $exam          = Exam::find($id);
+        $subject_topic = SubjectTopic::where('exam_id', $exam->id)
             ->where('status', 1)
             ->orderBy('name')
             ->get();

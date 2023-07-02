@@ -82,7 +82,6 @@ class CourseController extends Controller {
         if (!$request->exam_id && $check_exam) {
             return back()->withToastError('Same course, subject and exam name added before.');
         }
-        
 
         $before_update = null;
 
@@ -160,7 +159,7 @@ class CourseController extends Controller {
 
         }
 
-        return to_route('admin.course.createOrUpdateExam', $exam->course_id)->withToastSuccess('Exam added successfully');
+        return to_route('admin.examQuestion.createOrEdit', $exam->id)->withToastSuccess('Exam added successfully');
 
     }
 

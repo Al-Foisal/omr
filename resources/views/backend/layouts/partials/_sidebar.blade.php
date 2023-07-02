@@ -64,9 +64,16 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('admin.course.createOrEdit') }}" class="nav-link">
+                        <i class="nav-icon far fa-circle text-warning"></i>
+                        <p>Create Course</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('admin.exam.index') }}" class="nav-link">
                         <i class="nav-icon far fa-circle text-warning"></i>
-                        <p>Create Exam</p>
+                        <p>Exam List</p>
                     </a>
                 </li>
 
