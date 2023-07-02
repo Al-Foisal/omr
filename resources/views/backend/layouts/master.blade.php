@@ -84,6 +84,8 @@
     <script src="{{ asset('backend/js/buttons.colVis.min.js') }}"></script>
     <!-- Select2 -->
     <script src="{{ asset('backend/js/select2.full.min.js') }}"></script>
+    <!-- Bootstrap Switch -->
+    <script src="{{ asset('backend/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
 
     <!-- AdminLTE App -->
     <script src="{{ asset('backend/js/adminlte.min.js') }}"></script>
@@ -100,6 +102,9 @@
             $('#summernote_bn').summernote()
 
 
+        })
+        $("input[data-bootstrap-switch]").each(function() {
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
         })
     </script>
 

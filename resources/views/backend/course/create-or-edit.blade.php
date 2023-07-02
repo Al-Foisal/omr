@@ -113,11 +113,16 @@
                                                             <input type="hidden" name="subject_id[]"
                                                                 value="{{ $s_item->id }}">
                                                             <div>
-                                                                <a onclick="return confirm('Are you sure want to {{ $s_item->status == 1 ? 'inactive' : 'active' }} this item?')"
+                                                                {{-- <a onclick="return confirm('Are you sure want to {{ $s_item->status == 1 ? 'inactive' : 'active' }} this item?')"
                                                                     href="{{ route('admin.course.updateCourseSubjectStatus', $s_item->id) }}"
                                                                     class="btn btn-outline-{{ $s_item->status == 1 ? 'danger' : 'info' }}"
                                                                     type="button">{{ $s_item->status == 1 ? 'Make as Inactive' : 'Make as Active' }}
-                                                                </a>
+                                                                </a> --}}
+                                                                <div class="mt-1">
+                                                                    <input type="checkbox" name="my-checkbox" checked
+                                                                        data-bootstrap-switch data-off-color="danger"
+                                                                        data-on-color="success">
+                                                                </div>
 
                                                             </div>
                                                         </div>
