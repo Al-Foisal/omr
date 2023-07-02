@@ -81,6 +81,9 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
         Route::match (['post', 'put'], '/store-or-update/{id?}', 'storeOrUpdate')->name('storeOrUpdate');
         Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
         Route::get('/update-course-subject-status/{id}', 'updateCourseSubjectStatus')->name('updateCourseSubjectStatus');
+        Route::get('/create-or-update-exam/{id}/{exam_id?}', 'createOrUpdateExam')->name('createOrUpdateExam');
+        Route::post('/store-or-update-exam', 'storeOrUpdateExam')->name('storeOrUpdateExam');
+        Route::get('/update-course-subject-topic-status/{id}', 'updateCourseSubjectTopicStatus')->name('updateCourseSubjectTopicStatus');
     });
 
     Route::controller(SubjectController::class)->prefix('/subject')->name('subject.')->group(function () {

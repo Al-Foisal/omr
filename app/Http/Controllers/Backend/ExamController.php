@@ -97,7 +97,7 @@ class ExamController extends Controller {
         $data->status = $data->status == 1 ? 0 : 1;
         $data->save();
 
-        return to_route('admin.exam.index')->withToastSuccess('Status updated successfully!!');
+        return back()->withToastSuccess('Status updated successfully!!');
     }
 
     public function getCourseWiseSubject(Request $request) {

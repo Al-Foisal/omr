@@ -114,8 +114,8 @@
                             </div>
                             <!-- /.card-body -->
 
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                            <div class="card-footer text-right">
+                                <button type="submit" class="btn btn-primary">Next <i class="fa fa-long-arrow-right"></i></button>
                             </div>
                         </form>
                     </div>
