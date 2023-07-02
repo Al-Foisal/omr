@@ -61,8 +61,18 @@
                                             </td>
                                             <td>{{ $item->name }}</td>
                                             <td>
-                                                @foreach ($item->subject_details as $sd)
-                                                    {{ $sd->name }}, <br>
+                                                @foreach ($item->subjects as $sd)
+                                                    <strong>Subject: </strong> {{ $sd->name }}, <br>
+                                                    <div class="pl-3">
+                                                        @foreach ($sd->exams as $e)
+                                                            <strong>Exam: </strong>{{ $e->name }} <br>
+                                                            <div class="pl-3">
+                                                                @foreach ($e->topics as $t)
+                                                                    <strong>Topic: </strong>{{ $t->name }}, <br>
+                                                                @endforeach
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
                                                 @endforeach
                                             </td>
                                             <td>{{ Str::limit(strip_tags($item->details), 50) ?? 'Not set yet' }}</td>
