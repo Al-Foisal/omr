@@ -1,5 +1,12 @@
 @extends('backend.layouts.master')
 @section('title', request('id') ? 'Update' : 'Create' . ' Course')
+@section('cssStyle')
+    <style>
+        .hide {
+            display: none;
+        }
+    </style>
+@endsection
 @section('backend')
     <!-- Content Header (Course header) -->
     <section class="content-header">
@@ -39,38 +46,64 @@
                                     <input type="text" class="form-control" id="name" placeholder="Name"
                                         name="name" value="{{ $data->name ?? '' }}">
                                 </div>
-                                <div class="card card-secondary">
+                                <div class="card card-success">
                                     <div class="card-header">
-                                        <h3 class="card-title">Select Subjects</h3>
+                                        <h3 class="card-title">Subject name<span class="text-danger">*</span>
+                                        </h3>
                                     </div>
-                                    <!-- /.card-header -->
                                     <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <!-- checkbox -->
-                                                <div class="form-group">
-                                                    @foreach ($subject as $item)
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input class="custom-control-input" type="checkbox"
-                                                                id="{{ $item->id }}" value="{{ $item->id }}"
-                                                                name="subject_id[]"
-                                                                @if ($data) {{ in_array($item->id, explode(',', $data->subject_id)) ? 'checked' : '' }} @endif>
-                                                            <label for="{{ $item->id }}" class="custom-control-label">
-                                                                {{ $item->name }}
-                                                            </label>
-                                                        </div>
-                                                    @endforeach
+                                        <div class="form-group">
+                                            <div class="input-group hdtuto control-group lst increment">
+                                                <input type="text" name="subject[]" class="myfrm form-control"
+                                                    placeholder="Enter subject name">
+                                                <input type="hidden" name="subject_id[]">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-success" type="button"><i
+                                                            class="far fa-plus-square"></i> Add more</button>
                                                 </div>
                                             </div>
-                                        </div>
 
+                                            <div class="clone hide">
+                                                <div class="hdtuto control-group lst input-group" style="margin-top:10px">
+                                                    <input type="text" name="subject[]" class="myfrm form-control"
+                                                        placeholder="Enter subject name">
+                                                    <input type="hidden" name="subject_id[]">
+                                                    <div class="input-group-btn">
+                                                        <button class="btn btn-danger" type="button"> <i
+                                                                class="far fa-minus-square"></i> Remove </button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @if (request('id'))
+                                                @foreach ($subject as $s_item)
+                                                    <div class="clone">
+                                                        <div class="hdtuto control-group lst input-group"
+                                                            style="margin-top:10px">
+                                                            <input type="text" name="subject[]"
+                                                                class="myfrm form-control" placeholder="Enter subject name"
+                                                                value="{{ $s_item->name }}">
+                                                            <input type="hidden" name="subject_id[]"
+                                                                value="{{ $s_item->id }}">
+                                                            <div>
+                                                                <a onclick="return confirm('Are you sure want to {{ $s_item->status == 1 ? 'inactive' : 'active' }} this item?')"
+                                                                    href="{{ route('admin.course.updateCourseSubjectStatus', $s_item->id) }}"
+                                                                    class="btn btn-outline-{{ $s_item->status == 1 ? 'danger' : 'info' }}"
+                                                                    type="button">{{ $s_item->status == 1 ? 'Make as Inactive' : 'Make as Active' }}
+                                                                </a>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            @endif
+                                        </div>
                                     </div>
-                                    <!-- /.card-body -->
                                 </div>
                                 <div class="form-group">
                                     <label for="name">Details(optional)</label>
                                     <textarea type="text" class="form-control" id="summernote" name="details">
-                                        {!! $data->details??'' !!}
+                                        {!! $data->details ?? '' !!}
                                     </textarea>
                                 </div>
                                 <div class="form-group">
@@ -93,4 +126,8 @@
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+@endsection
+
+@section('name')
+
 @endsection

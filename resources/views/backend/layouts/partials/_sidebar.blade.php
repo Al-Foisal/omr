@@ -37,7 +37,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon far fa-circle text-warning"></i>
                         <p class="text">
-                            Admin
+                            User
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -57,7 +57,7 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.auth.customerList') }}" class="nav-link">
                                 <i class="nav-icon far fa-circle text-danger"></i>
-                                <p>Customer List</p>
+                                <p>User List</p>
                             </a>
                         </li>
                     </ul>

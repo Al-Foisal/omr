@@ -43,7 +43,7 @@ class AdminAuthController extends Controller {
     }
 
     public function customerList() {
-        $customers = User::where('id', '=', DB::raw('user_id'))->orderBy('id', 'desc')->paginate(500);
+        $customers = User::orderBy('id', 'desc')->paginate(500);
 
         return view('backend.auth.customer-list', compact('customers'));
     }

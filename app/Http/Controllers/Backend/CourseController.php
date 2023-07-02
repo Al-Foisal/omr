@@ -17,30 +17,48 @@ class CourseController extends Controller {
     public function createOrEdit($id = null) {
 
         if ($id) {
-            $data = Course::findOrFail($id);
+            $data    = Course::findOrFail($id);
+            $subject = Subject::where('course_id', $data->id)->get();
         } else {
-            $data = null;
+            $data    = null;
+            $subject = null;
         }
-
-        $subject = Subject::where('status', 1)->orderBy('name')->get();
 
         return view('backend.course.create-or-edit', compact('data', 'subject'));
     }
 
     public function storeOrUpdate(Request $request, $id = null) {
-        Course::updateOrCreate(
+        $course = Course::updateOrCreate(
             [
                 'id' => $id,
             ],
             [
                 'name'          => $request->name,
-                'subject_id'    => implode(',', $request->subject_id),
                 'details'       => $request->details,
                 'purchase_link' => $request->purchase_link,
             ]
         );
 
-        return to_route('admin.course.index')->withToastSuccess('Data update successfully!!');
+        foreach ($request->subject as $key => $subject) {
+
+            if (empty($subject)) {
+                continue;
+            }
+
+            if ($subject && $request->subject_id[$key] == null) {
+                Subject::create([
+                    'course_id' => $course->id,
+                    'name'      => $subject,
+                ]);
+            } else {
+                $update_subject       = Subject::find($request->subject_id[$key]);
+                $update_subject->name = $subject;
+                $update_subject->save();
+            }
+
+        }
+
+        return back()->withToastSuccess('Data update successfully!!');
     }
 
     public function updateStatus(Request $request) {
@@ -49,6 +67,14 @@ class CourseController extends Controller {
         $data->save();
 
         return to_route('admin.course.index')->withToastSuccess('Status updated successfully!!');
+    }
+
+    public function updateCourseSubjectStatus($id) {
+        $subject         = Subject::find($id);
+        $subject->status = $subject->status == 1 ? 0 : 1;
+        $subject->save();
+
+        return back()->withToastSuccess('Subject status updated successfully!!');
     }
 
 }

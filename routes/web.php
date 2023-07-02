@@ -50,7 +50,7 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
         Route::post('/inactive-admin/{admin}', 'inactiveAdmin')->name('inactiveAdmin');
         Route::delete('/delete-admin/{admin}', 'deleteAdmin')->name('deleteAdmin');
 
-        Route::get('/customer-list', 'customerList')->name('customerList');
+        Route::get('/user-list', 'customerList')->name('customerList');
         Route::post('/update-custom-subscription', 'updateCustomSubscription')->name('updateCustomSubscription');
     });
 
@@ -80,6 +80,7 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
         Route::get('/create-or-edit/{id?}', 'createOrEdit')->name('createOrEdit');
         Route::match (['post', 'put'], '/store-or-update/{id?}', 'storeOrUpdate')->name('storeOrUpdate');
         Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
+        Route::get('/update-course-subject-status/{id}', 'updateCourseSubjectStatus')->name('updateCourseSubjectStatus');
     });
 
     Route::controller(SubjectController::class)->prefix('/subject')->name('subject.')->group(function () {
