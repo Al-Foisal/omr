@@ -30,11 +30,14 @@ class UserAuthController extends Controller {
                 return $this->validationMessage($validator->errors());
             }
 
+            $registration_id = rand(000001, 999999);
+
             $user = User::create([
-                'name'     => $request->name,
-                'phone'    => $request->phone,
-                'email'    => $request->email,
-                'password' => bcrypt($request->password),
+                'name'            => $request->name,
+                'phone'           => $request->phone,
+                'email'           => $request->email,
+                'password'        => bcrypt($request->password),
+                'registration_id' => $registration_id,
             ]);
 
             DB::commit();

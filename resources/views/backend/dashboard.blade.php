@@ -52,7 +52,7 @@
                         </span>
                         <div class="info-box-content">
                             <span class="info-box-text">{{ $total_registration }}</span>
-                            <span class="info-box-number">Total Registrations</span>
+                            <span class="info-box-number">Number of Pending Students</span>
                         </div>
                     </div>
                 </div>

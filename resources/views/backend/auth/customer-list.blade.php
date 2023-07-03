@@ -30,9 +30,12 @@
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
+                                        <th>Action</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>
+                                        <th>Registration ID</th>
+                                        <th>Enrolled</th>
                                         <th>Image</th>
                                         <th>Created_at</th>
                                     </tr>
@@ -40,12 +43,26 @@
                                 <tbody>
                                     @foreach ($customers as $key => $customer)
                                         <tr>
+                                            <td class="d-flex justify-content-around">
+                                                <form action="{{ route('admin.auth.updateStatus', $customer) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    <button type="submit" onclick="return(confirm('Are you sure?'))"
+                                                        class="btn btn-{{ $customer->status == 1 ? 'danger' : 'success' }} btn-xs">
+                                                        {{ $customer->status == 1 ? 'Inactive' : 'Active' }}
+                                                    </button>
+                                                </form>
+                                                <a href="{{ route('admin.auth.studentDetails', $customer) }}"
+                                                    class="btn btn-xs btn-info">Student Info</a>
+                                            </td>
                                             <td>{{ $customer->name }}</td>
                                             <td>{{ $customer->email }}</td>
                                             <td>{{ $customer->phone ?? '' }}</td>
-                                            <td><img src="{{ asset($customer->image ?? '') }}" height="50" width="50"
-                                                    alt=""></td>
-                                            <td>{{ $customer->created_at->format("d F, Y") }}</td>
+                                            <td>{{ $customer->registration_id }}</td>
+                                            <td>{{ $customer->courses_count }}</td>
+                                            <td><img src="{{ asset($customer->image ?? '') }}" height="50"
+                                                    width="50" alt=""></td>
+                                            <td>{{ $customer->created_at->format('d F, Y') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

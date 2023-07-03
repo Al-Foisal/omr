@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\CourseRegistration;
+use App\Models\Exam;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
@@ -43,7 +44,7 @@ class AdminAuthController extends Controller {
     }
 
     public function customerList() {
-        $customers = User::orderBy('id', 'desc')->paginate(500);
+        $customers = User::orderBy('id', 'desc')->withCount('courses')->paginate(500);
 
         return view('backend.auth.customer-list', compact('customers'));
     }
@@ -207,6 +208,36 @@ class AdminAuthController extends Controller {
         $admin->delete();
 
         return redirect()->back()->withToastSuccess('The admin deleted successfully!!');
+    }
+
+    public function updateStatus(Request $request) {
+        $data         = User::findOrFail($request->id);
+        $data->status = $data->status == 1 ? 0 : 1;
+        $data->save();
+
+        return back()->withToastSuccess('Status updated successfully!!');
+    }
+
+    public function studentDetails($id) {
+        $data         = [];
+        $data['user'] = user::findOrFail($id);
+        $registered_courses=CourseRegistration::where('status',1)->pluck('course_id')->toArray();
+        $data['exam'] = Exam::whereIn('course_id',$registered_courses)->get();
+
+
+        return view('backend.auth.student-details', $data);
+    }
+
+    public function studentDelete($id) {
+        // $user = User::findOrFail($id);
+
+        // foreach ($user->courses as $course) {
+        //     $course->delete();
+        // }
+
+        // $user->delete();
+
+        return to_route('admin.auth.customerList')->withToastSuccess('Student deleted successfully');
     }
 
     public function logout(Request $request) {

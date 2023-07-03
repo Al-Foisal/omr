@@ -51,7 +51,9 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
         Route::delete('/delete-admin/{admin}', 'deleteAdmin')->name('deleteAdmin');
 
         Route::get('/user-list', 'customerList')->name('customerList');
-        Route::post('/update-custom-subscription', 'updateCustomSubscription')->name('updateCustomSubscription');
+        Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
+        Route::get('/student-details/{id}', 'studentDetails')->name('studentDetails');
+        Route::delete('/student-delete/{id}', 'studentDelete')->name('studentDelete');
     });
 
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
