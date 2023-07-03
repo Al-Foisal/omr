@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use App\Models\Exam;
 use App\Models\ExamQuestion;
 use App\Models\ExamQuestionOption;
@@ -101,6 +102,12 @@ class ExamQuestionController extends Controller {
         $exam = Exam::find($request->exam_id);
 
         return view('backend.exam-question.preview-answer', compact('data', 'exam'));
+    }
+
+    public function goToExamQuestion() {
+        $course = Course::orderBy('name')->get();
+
+        return view('backend.exam.go-to-exam-question', compact('course'));
     }
 
 }

@@ -101,8 +101,13 @@ class ExamController extends Controller {
     }
 
     public function getCourseWiseSubject(Request $request) {
-        $course = Course::find($request->course_id);
-        $data   = Subject::whereIn('id', explode(',', $course->subject_id))->where('status', 1)->orderBy('name')->get();
+        $data = Subject::where('course_id', $request->course_id)->orderBy('name')->get();
+
+        return json_encode($data);
+    }
+
+    public function getCourseWiseSubjectExam(Request $request) {
+        $data = Exam::where('course_id', $request->course_id)->where('subject_id', $request->subject_id)->orderBy('name')->get();
 
         return json_encode($data);
     }

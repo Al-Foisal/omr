@@ -65,6 +65,7 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
         Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
         Route::post('/preview', 'preview')->name('preview');
         Route::post('/preview-answer', 'previewAnswer')->name('previewAnswer');
+        Route::get('/go-to-exam-question', 'goToExamQuestion')->name('goToExamQuestion');
     });
 
     Route::controller(ExamController::class)->prefix('/exam')->name('exam.')->group(function () {
@@ -73,6 +74,7 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
         Route::match (['post', 'put'], '/store-or-update/{id?}', 'storeOrUpdate')->name('storeOrUpdate');
         Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
         Route::post('/get-course-wise-subject', 'getCourseWiseSubject')->name('getCourseWiseSubject');
+        Route::post('/get-course-wise-subject-exam', 'getCourseWiseSubjectExam')->name('getCourseWiseSubjectExam');
     });
 
     Route::controller(CourseController::class)->prefix('/course')->name('course.')->group(function () {
