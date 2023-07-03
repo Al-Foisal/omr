@@ -54,6 +54,7 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
         Route::get('/user-list', 'customerList')->name('customerList');
         Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
         Route::get('/student-details/{id}', 'studentDetails')->name('studentDetails');
+        Route::get('/student/{id}/course-details/{course_id}', 'studentCourseDetails')->name('studentCourseDetails');
         Route::delete('/student-delete/{id}', 'studentDelete')->name('studentDelete');
     });
 

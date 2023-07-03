@@ -25,15 +25,6 @@
         @include('backend.layouts.partials._user-navbar')
         <!-- Default box -->
         <div class="card">
-            @php
-                if (request()->ct == 'c') {
-                    $user_courses = $user->courses->where('status', 1);
-                } elseif (request()->ct == 'p') {
-                    $user_courses = $user->courses->where('status', 0);
-                } else {
-                    $user_courses = $user->courses;
-                }
-            @endphp
             <div class="card-body">
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
@@ -41,46 +32,25 @@
                             <thead>
                                 <tr>
                                     <th style="width: 10px">SL.</th>
-                                    <th>Course Name</th>
-                                    <th>Enrollment Time</th>
-                                    <th>Action</th>
+                                    <th>Exam Details</th>
+                                    <th>Course Details</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($user_courses as $uc)
+                                @foreach ($exam as $e_item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $uc->course->name }}</td>
                                         <td>
-                                            {{ $uc->created_at->format('d F, Y') }}
+                                            <strong>Name: </strong> {{ $e_item->name }}, <br>
+                                            <strong>Questions:
+                                            </strong>{{ $e_item->total_question . ':' . $e_item->per_question_positive_mark . ':-' . $e_item->per_question_negative_mark }}
                                         </td>
-                                        <td class="d-flex justify-content-start">
-
-                                            @if (request()->ct == 'p')
-                                                <form action="{{ route('admin.studentPanel.updateStatus', $uc) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    <button type="submit"
-                                                        onclick="return(confirm('Are you sure want to approve this item?'))"
-                                                        class="btn btn-success btn-xs mr-2">
-                                                        {{ 'Approve' }}
-                                                    </button>
-                                                </form>
-                                                <form action="{{ route('admin.studentPanel.delete', $uc->id) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit"
-                                                        onclick="return(confirm('Are you sure want to delete this item?'))"
-                                                        class="btn btn-danger btn-xs">
-                                                        Delete
-                                                    </button>
-                                                </form>
-                                            @else
-                                                <a
-                                                    href="{{ route('admin.auth.studentCourseDetails', [request()->id, $uc->course_id]) }}" class="btn btn-primary btn-xs">View Details</a>
-                                            @endif
+                                        <td>
+                                            <strong>Course: </strong> {{ $e_item->course->name }}, <br>
+                                            <strong>Subject: </strong> {{ $e_item->subject->name }}
                                         </td>
+                                        <td>Running</td>
                                     </tr>
                                 @endforeach
                             </tbody>

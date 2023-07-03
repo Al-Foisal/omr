@@ -219,21 +219,32 @@ class AdminAuthController extends Controller {
     }
 
     public function studentDetails($id) {
-        $data         = [];
-        $data['user'] = user::findOrFail($id);
-        $registered_courses=CourseRegistration::where('status',1)->pluck('course_id')->toArray();
-        $data['exam'] = Exam::whereIn('course_id',$registered_courses)->get();
-
+        $data               = [];
+        $data['user']       = user::findOrFail($id);
+        $registered_courses = CourseRegistration::where('user_id', $id)->where('status', 1)->pluck('course_id')->toArray();
+        $data['exam']       = Exam::whereIn('course_id', $registered_courses)->get();
 
         return view('backend.auth.student-details', $data);
     }
 
-    public function studentDelete($id) {
-        // $user = User::findOrFail($id);
+    public function studentCourseDetails($user_id, $course_id) {
+        $data               = [];
+        $data['user']       = user::findOrFail($user_id);
+        $registered_courses = CourseRegistration::where('user_id', $user_id)->where('course_id', $course_id)->where('status', 1)->pluck('course_id')->toArray();
+        $data['exam']       = Exam::whereIn('course_id', $registered_courses)->get();
 
-        // foreach ($user->courses as $course) {
-        //     $course->delete();
-        // }
+        return view('backend.auth.student-course-details', $data);
+    }
+
+    public function studentDelete($id) {
+
+// $user = User::findOrFail($id);
+
+// foreach ($user->courses as $course) {
+
+//     $course->delete();
+
+// }
 
         // $user->delete();
 
