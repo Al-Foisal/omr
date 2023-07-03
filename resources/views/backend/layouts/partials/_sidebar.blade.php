@@ -63,12 +63,69 @@
                     </ul>
                 </li>
 
+
                 <li class="nav-item">
-                    <a href="{{ route('admin.course.createOrEdit') }}" class="nav-link">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon far fa-circle text-warning"></i>
-                        <p>Create Course</p>
+                        <p class="text">
+                            Courses
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview nav-header">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.course.index') }}" class="nav-link">
+                                <i class="nav-icon far fa-circle text-danger"></i>
+                                <p>Course</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.course.createOrEdit') }}" class="nav-link">
+                                <i class="nav-icon far fa-circle text-danger"></i>
+                                <p>Create Course</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.course.publishedCourses') }}" class="nav-link">
+                                <i class="nav-icon far fa-circle text-danger"></i>
+                                <p>Published Courses</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.course.pendingCourses') }}" class="nav-link">
+                                <i class="nav-icon far fa-circle text-danger"></i>
+                                <p>Pending Courses</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
+                {{-- Course Registration --}}
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon far fa-circle text-warning"></i>
+                        <p class="text">
+                            Course Registration
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview nav-header">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.studentPanel.pendingCourseRegistration') }}" class="nav-link">
+                                <i class="nav-icon far fa-circle text-danger"></i>
+                                <p>Pending Course</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.studentPanel.approvedCourseRegistration') }}" class="nav-link">
+                                <i class="nav-icon far fa-circle text-danger"></i>
+                                <p>Approved Course</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
 
                 <li class="nav-item">
                     <a href="{{ route('admin.exam.index') }}" class="nav-link">
@@ -89,18 +146,7 @@
                         <p>Go to Exam Question</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.course.publishedCourses') }}" class="nav-link">
-                        <i class="nav-icon far fa-circle text-warning"></i>
-                        <p>Published Courses</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.course.pendingCourses') }}" class="nav-link">
-                        <i class="nav-icon far fa-circle text-warning"></i>
-                        <p>Pending Courses</p>
-                    </a>
-                </li>
+
                 <li class="nav-item">
                     <a href="{{ route('admin.notification.index') }}" class="nav-link">
                         <i class="nav-icon far fa-circle text-warning"></i>
@@ -108,60 +154,8 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-warning"></i>
-                        <p class="text">
-                            Settings
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview nav-header">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.course.index') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle text-danger"></i>
-                                <p>Course</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.subject.index') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle text-danger"></i>
-                                <p>Subject</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.topic.index') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle text-danger"></i>
-                                <p>Topic</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
 
-                {{-- student panel --}}
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-warning"></i>
-                        <p class="text">
-                            Student Panel
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview nav-header">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.studentPanel.pendingCourseRegistration') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle text-danger"></i>
-                                <p>Pending Course</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.studentPanel.approvedCourseRegistration') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle text-danger"></i>
-                                <p>Approved Course</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+
                 {{-- company info --}}
                 <li class="nav-item">
                     <a href="#" class="nav-link">

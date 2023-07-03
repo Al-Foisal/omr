@@ -10,11 +10,10 @@
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
                 <a href="{{ route('admin.dashboard') }}" class="h1">
-                    Pos Inventory
+                    Create New Admin
                 </a>
             </div>
             <div class="card-body" style="width: 80%;margin:auto;">
-                <p class="login-box-msg">Register a new membership</p>
 
                 <form action="{{ route('admin.auth.storeAdmin') }}" method="post" enctype="multipart/form-data">
                     @csrf
