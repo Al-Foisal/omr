@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\ExamController;
 use App\Http\Controllers\Backend\ExamQuestionController;
+use App\Http\Controllers\Backend\NotificationController;
 use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\StudentPanelController;
 use App\Http\Controllers\Backend\SubjectController;
@@ -104,6 +105,11 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
         Route::get('/create-or-edit/{id?}', 'createOrEdit')->name('createOrEdit');
         Route::match (['post', 'put'], '/store-or-update/{id?}', 'storeOrUpdate')->name('storeOrUpdate');
         Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
+    });
+    Route::controller(NotificationController::class)->prefix('/notification')->name('notification.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
     });
 
     Route::controller(StudentPanelController::class)->prefix('/student-panel')->name('studentPanel.')->group(function () {
