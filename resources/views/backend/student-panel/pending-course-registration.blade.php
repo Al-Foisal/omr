@@ -62,10 +62,11 @@
                                                     </button>
                                                 </form>
                                             </td>
-                                            <td>{{ $item->course->name }}</td>
+                                            <td>{{ $item->course->name??'' }}</td>
                                             <td>
                                                 <strong>Name: </strong>{{ $item->user->name }} <br>
                                                 <strong>Email: </strong>{{ $item->user->email }} <br>
+                                                <strong>Phone: </strong>{{ $item->user->phone }} <br>
                                             </td>
                                             <td>
                                                 {{ $item->order_id }}

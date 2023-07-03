@@ -48,14 +48,15 @@
                                                     <button type="submit"
                                                         onclick="return(confirm('Are you sure want to reject this item?'))"
                                                         class="btn btn-danger btn-xs">
-                                                        {{ 'Reject' }}
+                                                        {{ 'Decline' }}
                                                     </button>
                                                 </form>
                                             </td>
-                                            <td>{{ $item->course->name }}</td>
+                                            <td>{{ $item->course->name??'' }}</td>
                                             <td>
                                                 <strong>Name: </strong>{{ $item->user->name }} <br>
                                                 <strong>Email: </strong>{{ $item->user->email }} <br>
+                                                <strong>Phone: </strong>{{ $item->user->phone }} <br>
                                             </td>
                                             <td>
                                                 {{ $item->order_id }}
