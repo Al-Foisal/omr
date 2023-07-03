@@ -11,4 +11,8 @@ class Course extends Model {
     public function subjects() {
         return $this->hasMany(Subject::class);
     }
+
+    public function enrolled() {
+        return $this->hasMany(CourseRegistration::class);
+    }
 }

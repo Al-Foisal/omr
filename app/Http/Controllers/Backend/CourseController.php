@@ -17,6 +17,18 @@ class CourseController extends Controller {
         return view('backend.course.index', compact('data'));
     }
 
+    public function publishedCourses() {
+        $data = Course::where('status', 1)->latest()->withCount('enrolled')->paginate(100);
+
+        return view('backend.course.published-courses', compact('data'));
+    }
+
+    public function pendingCourses() {
+        $data = Course::where('status', 0)->latest()->withCount('enrolled')->paginate(100);
+
+        return view('backend.course.pending-courses', compact('data'));
+    }
+
     public function createOrEdit($id = null) {
 
         if ($id) {

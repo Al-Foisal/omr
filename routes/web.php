@@ -79,6 +79,8 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
 
     Route::controller(CourseController::class)->prefix('/course')->name('course.')->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::get('/published-courses', 'publishedCourses')->name('publishedCourses');
+        Route::get('/pending-courses', 'pendingCourses')->name('pendingCourses');
         Route::get('/create-or-edit/{id?}', 'createOrEdit')->name('createOrEdit');
         Route::match (['post', 'put'], '/store-or-update/{id?}', 'storeOrUpdate')->name('storeOrUpdate');
         Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
