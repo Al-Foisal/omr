@@ -23,6 +23,10 @@ class StudentPanelController extends Controller {
         $data->status = $data->status == 1 ? 0 : 1;
         $data->save();
 
+        // if(!$data->user_course_id && $data->status==1){
+
+        // }
+
         return back()->withToastSuccess('Status updated successfully!!');
     }
 

@@ -30,7 +30,9 @@ class UserAuthController extends Controller {
                 return $this->validationMessage($validator->errors());
             }
 
-            $registration_id = rand(000001, 999999);
+            $last_user = User::latest()->first();
+
+            $registration_id = str_pad($last_user, 8, "0", STR_PAD_LEFT);
 
             $user = User::create([
                 'name'            => $request->name,
