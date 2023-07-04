@@ -26,7 +26,9 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', [AdminAuthController::class, 'login']);
+Route::middleware('guest:admin')->group(function () {
+    Route::get('/', [AdminAuthController::class, 'login'])->name('login');
+});
 Route::prefix('/admin')->name('admin.auth.')->middleware('guest:admin')->group(function () {
     Route::redirect('/login', '/')->name('login');
     Route::post('/store-login', [AdminAuthController::class, 'storeLogin'])->name('storeLogin');

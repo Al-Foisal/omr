@@ -27,15 +27,15 @@ class Handler extends ExceptionHandler {
         });
     }
 
-    public function render($request, Throwable $e) {
-        dd($e);
-        if ($e instanceof RouteNotFoundException) {
-            return response()->json([
-                'status_code' => '401',
-            ], 401);
-        }
-
-        parent::render($request, $e);
-    }
+    // public function render($request, Throwable $e) {
+    //     if ($e instanceof RouteNotFoundException) {
+    //         return response()->json([
+    //             'status_code' => '401',
+    //         ], 401);
+    //     }
+        
+    //     parent::render($request, $e);
+    //     dd($e);
+    // }
 
 }
