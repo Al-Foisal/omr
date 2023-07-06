@@ -45,7 +45,7 @@
                                     @foreach ($data as $item)
                                         <tr>
                                             <td class="d-flex justify-content-around">
-                                                <a href="{{ route('admin.course.createOrUpdateExam', $item->course_id) }}"
+                                                <a href="{{ route('admin.course.createOrUpdateExam', [$item->course_id, $item->id]) }}"
                                                     class="btn btn-info btn-xs"> <i class="fas fa-edit"></i>
                                                     Edit</a>
 
