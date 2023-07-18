@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\ExamController;
 use App\Http\Controllers\Backend\ExamQuestionController;
+use App\Http\Controllers\Backend\ImportExportController;
 use App\Http\Controllers\Backend\NotificationController;
 use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\StudentPanelController;
@@ -135,5 +136,11 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
         Route::post('/active/{page}', 'active')->name('active');
         Route::post('/inactive/{page}', 'inactive')->name('inactive');
         Route::delete('/delete/{page}', 'delete')->name('delete');
+    });
+
+    Route::controller(ImportExportController::class)->prefix('/ie')->name('ie.')->group(function () {
+        Route::post('import', 'import')->name('import');
+        Route::post('import-answer', 'importAnswer')->name('importAnswer');
+        Route::post('export', 'export')->name('export');
     });
 });

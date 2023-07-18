@@ -26,13 +26,16 @@ class UserAuthController extends Controller {
             ]);
 
             if ($validator->fails()) {
-
                 return $this->validationMessage($validator->errors());
             }
 
             $last_user = User::latest()->first();
 
-            $registration_id = str_pad((int) $last_user->registration_id + 1, 8, "0", STR_PAD_LEFT);
+            if ($last_user) {
+                $registration_id = str_pad((int) $last_user->registration_id + 1, 8, "0", STR_PAD_LEFT);
+            } else {
+                $registration_id = str_pad((int) 1, 8, "0", STR_PAD_LEFT);
+            }
 
             $user = User::create([
                 'name'            => $request->name,
@@ -42,9 +45,16 @@ class UserAuthController extends Controller {
                 'registration_id' => $registration_id,
             ]);
 
+            $otp = rand(111111, 999999);
+            Mail::to($user->email)->send(new PasswordResetOtp($otp));
+            ForgotPasswordOtp::create([
+                'otp'   => $otp,
+                'email' => $user->email,
+            ]);
+
             DB::commit();
 
-            return $this->successMessage('Your account created successfully!', $user);
+            return $this->successMessage('Your account created and a 6 digits code has send to your email!', $user);
 
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -56,36 +66,32 @@ class UserAuthController extends Controller {
 
     public function verifyOtp(Request $request) {
 
-        DB::beginTransaction();
-
+        $this->apiAuthCheck();
+        
         try {
-            $request->validate([
-                'email_or_phone' => 'required',
-                'otp'            => 'required|min:6',
+            DB::beginTransaction();
+            $validator = Validator::make($request->all(), [
+                'email' => 'required',
+                'otp'   => 'required',
             ]);
 
-            if (!filter_var($request->email_or_phone, FILTER_VALIDATE_EMAIL)) {
-                $otp = DB::table('forgot_password_otps')
-                    ->where('email', $request->email_or_phone)
-                    ->where('otp', $request->otp)
-                    ->first();
-
-                if (!$otp) {
-                    return $this->errorMessage('Invalid phone number or OTP!!', $request->otp);
-                }
-
-            } else {
-
-                $otp = DB::table('forgot_password_otps')
-                    ->where('email', $request->email_or_phone)
-                    ->where('otp', $request->otp)
-                    ->first();
-
-                if (!$otp) {
-                    return $this->errorMessage('Invalid email or OTP!!', $request->otp);
-                }
-
+            if ($validator->fails()) {
+                return $this->validationMessage($validator->errors());
             }
+
+            $otp = DB::table('forgot_password_otps')
+                ->where('email', $request->email)
+                ->where('otp', $request->otp)
+                ->first();
+
+            if (!$otp) {
+                return $this->errorMessage('Invalid email or OTP!!', $request->otp);
+            }
+
+            $user                    = User::where('email', $request->email)->first();
+            $user->email_verified_at = now();
+            $user->status            = 1;
+            $user->save();
 
             $otp->delete();
 
@@ -104,7 +110,7 @@ class UserAuthController extends Controller {
     public function resendOtp(Request $request) {
 
         $validator = Validator::make($request->all(), [
-            'email_or_phone' => 'required',
+            'email' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -112,98 +118,42 @@ class UserAuthController extends Controller {
             return $this->validationMessage($validator->errors());
         }
 
-        if (!filter_var($request->email_or_phone, FILTER_VALIDATE_EMAIL)) {
-            $user = User::where('phone', $request->email_or_phone)->first();
+        $user = User::where('email', $request->email)->first();
 
-            if (!$user) {
-                return $this->errorMessage('Invalid accoutn!');
-            }
-
-            $otp = rand(11111, 99999);
-            ForgotPasswordOtp::create([
-                'otp'            => $otp,
-                'email_or_phone' => $request->email_or_phone,
-            ]);
-
-            return $this->successMessage('An 5 digit code has been sent to your ********' . substr($request->email_or_phone, -3), $otp);
-
-        } else {
-
-            $user = User::where('email', $request->email_or_phone)->first();
-
-            if (!$user) {
-                return $this->successMessage('Invalid accoutn!');
-            }
-
-            $otp = rand(11111, 99999);
-            Mail::to($request->email_or_phone)->send(new PasswordResetOtp($otp));
-            ForgotPasswordOtp::create([
-                'otp'            => $otp,
-                'email_or_phone' => $request->email_or_phone,
-            ]);
-
-            return $this->successMessage('An 5 digit code has been sent to your email!', $otp);
+        if (!$user) {
+            return $this->successMessage('Invalid accoutn!');
         }
 
-        return $this->errorMessage('Something went wrong!');
+        $otp = rand(111111, 999999);
+        Mail::to($request->email)->send(new PasswordResetOtp($otp));
+        ForgotPasswordOtp::create([
+            'otp'   => $otp,
+            'email' => $request->email,
+        ]);
+
+        return $this->successMessage('An 6 digit code has been sent to your email!', $otp);
+
     }
 
     public function login(Request $request) {
         try {
             $request->validate([
-                'email_or_phone' => 'required',
-                'password'       => 'required',
+                'email'    => 'required',
+                'password' => 'required',
             ]);
 
-            if (!filter_var($request->email_or_phone, FILTER_VALIDATE_EMAIL)) {
-
-                if (!Auth::attempt([
-                    'email'    => $request->email_or_phone,
-                    'password' => $request->password,
-                    'status'   => 1,
-                ])) {
-                    return response()->json([
-                        'status'  => false,
-                        'message' => 'Invalid phone number or unauthorized account!!',
-                    ]);
-                }
-
-                $user = Auth::user();
-
-                $tokenResult = $user->createToken('authToken')->plainTextToken;
-
+            if (!$auth = Auth::attempt([
+                'email'    => $request->email,
+                'password' => $request->password,
+                'status'   => 1,
+            ])) {
                 return response()->json([
-                    'status'       => true,
-                    'token_type'   => 'Bearer',
-                    'access_token' => $tokenResult,
-                    'auth_type'    => 'mobile',
+                    'status'  => false,
+                    'message' => 'Invalid email or unverified account!!',
                 ]);
-
-            } else {
-
-                if (!Auth::attempt([
-                    'email'    => $request->email_or_phone,
-                    'password' => $request->password,
-                    'status'   => 1,
-                ])) {
-                    return response()->json([
-                        'status'  => false,
-                        'message' => 'Invalid email or unauthorized account!!',
-                    ]);
-                }
-
-                $user = Auth::user();
-
-                $tokenResult = $user->createToken('authToken')->plainTextToken;
-
-                return response()->json([
-                    'status'       => true,
-                    'token_type'   => 'Bearer',
-                    'access_token' => $tokenResult,
-                    'auth_type'    => 'email',
-                ]);
-
             }
+
+            return $this->respondWithToken($auth);
 
         } catch (Exception $error) {
             return response()->json([
@@ -217,7 +167,7 @@ class UserAuthController extends Controller {
     public function storeForgotPassword(Request $request) {
 
         $validator = Validator::make($request->all(), [
-            'email_or_phone' => 'required',
+            'email' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -225,47 +175,29 @@ class UserAuthController extends Controller {
             return $this->validationMessage($validator->errors());
         }
 
-        $otp = rand(11111, 99999);
+        $otp = rand(111111, 999999);
 
-        if (!filter_var($request->email_or_phone, FILTER_VALIDATE_EMAIL)) {
-            // file_get_contents('https://aamarsms.com/otp?user=Educity&password=edu@321&to=' . $request->email_or_phone . '&text=Your OTP is ' . $otp);
-            $user = User::where('phone', $request->email_or_phone)->first();
+        $user = User::where('email', $request->email)->first();
 
-            if (!$user) {
-                return $this->errorMessage('This phone number is no longer with our records!!');
-            }
-
-            ForgotPasswordOtp::create([
-                'otp'            => $otp,
-                'email_or_phone' => $request->email_or_phone,
-            ]);
-
-            return $this->successMessage('An 5 digit code has been sent to your ********' . substr($request->email_or_phone, -3), $otp);
-        } else {
-            $user = User::where('email', $request->email_or_phone)->first();
-
-            if (!$user) {
-                return $this->errorMessage('This email is no longer with our records!!');
-            }
-
-            Mail::to($request->email_or_phone)->send(new PasswordResetOtp($otp));
-
-            ForgotPasswordOtp::create([
-                'otp'            => $otp,
-                'email_or_phone' => $request->email_or_phone,
-            ]);
-
-            return $this->successMessage('An 5 digit code has been sent to your email!', $otp);
+        if (!$user) {
+            return $this->errorMessage('This email is no longer with our records!!');
         }
 
-        return $this->errorMessage('Something went wrong!');
+        Mail::to($request->email)->send(new PasswordResetOtp($otp));
+
+        ForgotPasswordOtp::create([
+            'otp'   => $otp,
+            'email' => $request->email,
+        ]);
+
+        return $this->successMessage('An 6 digit code has been sent to your email!', $otp);
 
     }
 
     public function resetPassword(Request $request) {
         $validator = Validator::make($request->all(), [
-            'email_or_phone' => 'required',
-            'password'       => 'required|confirmed|min:8',
+            'email'    => 'required',
+            'password' => 'required|confirmed|min:8',
         ]);
 
         if ($validator->fails()) {
@@ -273,25 +205,54 @@ class UserAuthController extends Controller {
             return $this->validationMessage($validator->errors());
         }
 
-        $password = DB::table('forgot_password_otps')->where('email_or_phone', $request->email_or_phone)->first();
+        $password = DB::table('forgot_password_otps')->where('email', $request->email)->first();
 
         if (!$password) {
             return $this->errorMessage('Something went wrong');
         }
 
-        $user = User::orWhere('email', $request->email_or_phone)->orWhere('phone', $request->email_or_phone)->first();
+        $user = User::orWhere('email', $request->email)->first();
 
         if ($user && $password) {
             $user->update(['password' => bcrypt($request->password)]);
             $user->save();
 
-            $password = ForgotPasswordOtp::where('email_or_phone', $request->email_or_phone)->delete();
+            $password = ForgotPasswordOtp::where('email', $request->email)->delete();
 
             return $this->successMessage('New password reset successfully!!');
         } else {
             return $this->errorMessage('The email is no longer our record!!');
         }
 
+    }
+
+    /**
+     * Log the user out (Invalidate the token).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function logout() {
+        auth()->logout();
+
+        return response()->json([
+            'status'  => true,
+            'message' => 'Successfully logged out',
+        ]);
+    }
+
+    /**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithToken($token) {
+        return response()->json([
+            'access_token' => $token,
+            'token_type'   => 'bearer',
+            'expires_in'   => auth()->factory()->getTTL() * 60,
+        ]);
     }
 
 }

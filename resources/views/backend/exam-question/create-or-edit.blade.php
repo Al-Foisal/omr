@@ -2,8 +2,75 @@
 @section('title', 'Question ' . $exam->name)
 @section('cssLink')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css">
+    <style>
+        /* preloader css */
+        /* Pre-loader CSS */
+        .page-loader {
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            background: #272727;
+            z-index: 1000;
+
+            .txt {
+                color: #666;
+                text-align: center;
+                top: 40%;
+                right: 9%;
+                position: relative;
+                text-transform: uppercase;
+                letter-spacing: 0.3rem;
+                font-weight: bold;
+                line-height: 1.5;
+            }
+        }
+
+        /* Spinner animation */
+        .spinner {
+            position: relative;
+            top: 35%;
+            right: 10%;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 100%;
+            -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+            animation: sk-scaleout 1.0s infinite ease-in-out;
+        }
+
+        @-webkit-keyframes sk-scaleout {
+            0% {
+                -webkit-transform: scale(0)
+            }
+
+            100% {
+                -webkit-transform: scale(1.0);
+                opacity: 0;
+            }
+        }
+
+        @keyframes sk-scaleout {
+            0% {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+
+            100% {
+                -webkit-transform: scale(1.0);
+                transform: scale(1.0);
+                opacity: 0;
+            }
+        }
+
+        /* preloader css */
+    </style>
 @endsection
 @section('backend')
+    <div class="page-loader">
+        <div class="spinner"></div>
+        <div class="txt">Loading...</div>
+    </div>
     <!-- Content Header (Course Exam header) -->
     <section class="content-header">
         <div class="container-fluid">
@@ -41,6 +108,101 @@
                                         data-target="#preview"
                                         onclick="preview(this, '{{ $exam->id }}', '{{ $exam->subject_id }}', '{{ $exam->total_question }}')"
                                         data-url="{{ route('admin.examQuestion.preview') }}">Preview Question</button>
+
+                                    <!-- Button trigger modal -->
+
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#importQuestion">
+                                        Import Question
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="importQuestion" tabindex="-1"
+                                        aria-labelledby="importQuestionLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="importQuestionLabel">Upload Excel file</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{{ route('admin.ie.import') }}" method="post"
+                                                        enctype="multipart/form-data">
+                                                        @csrf
+                                                        <div class="input-group mb-3">
+                                                            <div class="custom-file">
+                                                                <input type="hidden" name="exam_id"
+                                                                    value="{{ $exam->id }}">
+                                                                <input type="hidden" name="subject_id"
+                                                                    value="{{ $exam->subject_id }}">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="inputGroupFile02" name="file" required>
+                                                                <label class="custom-file-label" for="inputGroupFile02"
+                                                                    aria-describedby="inputGroupFileAddon02">Choose
+                                                                    file</label>
+                                                            </div>
+                                                            <div class="input-group-append">
+                                                                <button type="submit" class="input-group-text"
+                                                                    id="inputGroupFileAddon02">Upload</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#importQuestionAnswer">
+                                        Import Question Answer
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="importQuestionAnswer" tabindex="-1"
+                                        aria-labelledby="importQuestionAnswerLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="importQuestionAnswerLabel">Upload Excel file
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{{ route('admin.ie.importAnswer') }}" method="post"
+                                                        enctype="multipart/form-data">
+                                                        @csrf
+                                                        <div class="input-group mb-3">
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="inputGroupFile023" name="answerfile" required>
+                                                                <label class="custom-file-label" for="inputGroupFile023"
+                                                                    aria-describedby="inputGroupFileAddon02">Choose
+                                                                    file</label>
+                                                            </div>
+                                                            <div class="input-group-append">
+                                                                <button type="submit" class="input-group-text"
+                                                                    id="inputGroupFileAddon02">Upload</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form action="{{ route('admin.ie.export') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="exam_id" value="{{ $exam->id }}">
+                                        <input type="hidden" name="subject_id" value="{{ $exam->subject_id }}">
+                                        <input type="hidden" name="total_question" value="{{ $exam->total_question }}">
+                                        <button type="submit" class="btn btn-success">Export Model</button>
+                                    </form>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -53,6 +215,15 @@
                                     <i>{{ $exam->per_question_negative_mark }}</i> <br>
                                     <strong>Total Question: </strong> <i>{{ $exam->total_question }}</i> <br>
                                     <strong>Exam Status: </strong> <i>{{ $exam->status == 1 ? 'Published' : 'Draft' }}</i>
+                                    <br>
+                                    <strong>Topic scerial number:</strong> <br>
+                                    <div class="pl-3">
+                                        <div class="">
+                                            @foreach ($subject_topic as $s_topic)
+                                                <strong>{{ $s_topic->id . ' - ' . $s_topic->name }}</strong> <br>
+                                            @endforeach
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- /.card-body -->
                             </div>
@@ -114,7 +285,10 @@
                                                                 @if ($i == 0) {{ 'checked' }} @endif
                                                                 id="is_answer{{ $loop->iteration }}_{{ $i }}"
                                                                 name="is_answer_{{ $loop->iteration }}" value="0"
-                                                                @if ($eq->subject_topic_id != null && $eq->examQuestionOptions[$i]->is_answer == 1) {{ 'checked' }} @endif>
+                                                                @if (
+                                                                    $eq->subject_topic_id != null &&
+                                                                        $eq->examQuestionOptions->count() > 0 &&
+                                                                        $eq->examQuestionOptions[$i]->is_answer == 1) {{ 'checked' }} @endif>
                                                             <label
                                                                 for="is_answer{{ $loop->iteration }}_{{ $i }}">
                                                             </label>
@@ -205,6 +379,11 @@
 @endsection
 
 @section('jsScript')
+    <script>
+        function hideLoader() {
+            $('.page-loader').fadeOut('slow');
+        }
+    </script>
     <script src="{{ asset('summernote-math.js') }}"></script>
     <script>
         ClassicEditor

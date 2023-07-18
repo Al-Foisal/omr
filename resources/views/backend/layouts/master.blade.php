@@ -30,9 +30,11 @@
     <link rel="stylesheet" href="{{ asset('backend/css/adminlte.min.css') }}">
 
     @yield('cssStyle')
+
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+<body onload="hideLoader()" class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+
     <div class="wrapper">
 
         <!-- Navbar -->

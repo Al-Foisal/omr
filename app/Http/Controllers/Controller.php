@@ -8,6 +8,15 @@ use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController {
     use AuthorizesRequests, ValidatesRequests;
+
+    public function apiAuthCheck() {
+
+        if (!auth()->user()) {
+            return response()->json(['status_code' => 401]);
+        }
+
+    }
+
     public function validationMessage($errors) {
 
         return response()->json([
@@ -31,4 +40,5 @@ class Controller extends BaseController {
             'data'    => $data,
         ]);
     }
+
 }

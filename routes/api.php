@@ -22,11 +22,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::controller(UserAuthController::class)->prefix('/auth')->group(function () {
     Route::post('/register', 'register');
-    Route::post('/verify-otp', 'verifyOtp');
+    Route::post('/verify-otp', 'verifyOtp')->middleware('api');
     Route::post('/login', 'login');
     Route::post('/store-forgot-password', 'storeForgotPassword');
     Route::post('/reset-password', 'resetPassword');
     Route::post('/resend-otp', 'resendOTP');
+    Route::post('/logout', 'logout')->middleware('api');
 });
 
 Route::controller(GeneralController::class)->prefix('/general')->middleware('auth:sanctum')->group(function () {
