@@ -17,7 +17,10 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    return response()->json([
+        'status' => true,
+        'data'   => $request->user(),
+    ]);
 });
 
 Route::controller(UserAuthController::class)->prefix('/auth')->group(function () {

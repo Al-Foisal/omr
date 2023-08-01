@@ -54,7 +54,7 @@ class UserAuthController extends Controller {
 
             DB::commit();
 
-            return $this->successMessage('Your account created and a 6 digits code has send to your email!', $user);
+            return $this->successMessage('Your account created and a 6 digits code has send to your email!', $otp);
 
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -67,7 +67,7 @@ class UserAuthController extends Controller {
     public function verifyOtp(Request $request) {
 
         $this->apiAuthCheck();
-        
+
         try {
             DB::beginTransaction();
             $validator = Validator::make($request->all(), [
@@ -93,13 +93,17 @@ class UserAuthController extends Controller {
             $user->status            = 1;
             $user->save();
 
-            $otp->delete();
+            DB::table('forgot_password_otps')
+                ->where('email', $request->email)
+                ->where('otp', $request->otp)
+                ->delete();
 
             DB::commit();
 
             return $this->successMessage('Your account verified successfully!!', '');
 
         } catch (\Throwable $th) {
+
             DB::rollBack();
 
             return $this->errorMessage('Something went wrong!!', '');
@@ -153,7 +157,10 @@ class UserAuthController extends Controller {
                 ]);
             }
 
-            return $this->respondWithToken($auth);
+            $data['user']        = $user        = Auth::user();
+            $data['tokenResult'] = $user->createToken('authToken')->plainTextToken;
+
+            return $this->successMessage('ok', $data);
 
         } catch (Exception $error) {
             return response()->json([
