@@ -5,11 +5,87 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\CourseRegistration;
-use App\Models\Subject;
+use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class GeneralController extends Controller {
+
+    public function updateProfile(Request $request) {
+        $user = User::find(Auth::id());
+
+        if ($request->hasFile('image')) {
+
+            $image_file = $request->file('image');
+
+            if ($image_file) {
+
+                $image_path = public_path($user->image);
+
+                if (File::exists($image_path)) {
+                    File::delete($image_path);
+                }
+
+                $img_gen   = hexdec(uniqid());
+                $image_url = 'images/user/';
+                $image_ext = strtolower($image_file->getClientOriginalExtension());
+
+                $img_name    = $img_gen . '.' . $image_ext;
+                $final_name1 = $image_url . $img_gen . '.' . $image_ext;
+
+                $image_file->move($image_url, $img_name);
+                $user->image = $final_name1;
+                $user->save();
+
+            }
+
+        }
+
+        $user->name  = $request->name;
+        $user->about = $request->about;
+        $user->save();
+
+        return $this->successMessage();
+
+    }
+
+    public function notification() {
+        $course = CourseRegistration::where('user_id', auth()->user()->id)
+            ->where('status', 1)
+            ->orderBy('id', 'desc')
+            ->pluck('course_id')
+            ->toArray();
+
+        $data['all'] = Notification::whereNull('user_id')
+            ->whereNull('course_id')
+            ->orderByDesc('id')
+            ->get()
+            ->groupBy(function ($query) {
+                return $query->created_at->format('Y-m-d');
+            });
+
+        $data['individual'] = Notification::where('user_id', Auth::id())
+            ->whereNull('course_id')
+            ->orderByDesc('id')
+            ->get()
+            ->groupBy(function ($query) {
+                return $query->created_at->format('Y-m-d');
+            });
+
+        $data['course'] = Notification::whereNull('user_id')
+            ->whereIn('course_id', $course)
+            ->orderByDesc('id')
+            ->get()
+            ->groupBy(function ($query) {
+                return $query->created_at->format('Y-m-d');
+            });
+
+        return $this->successMessage('', $data);
+    }
+
     public function registeredOrSuggestCourses() {
         $data   = [];
         $course = CourseRegistration::where('user_id', auth()->user()->id)
@@ -18,24 +94,28 @@ class GeneralController extends Controller {
             ->pluck('course_id')
             ->toArray();
 
-        $registered_courses         = [];
-        $registered_courses_details = Course::whereIn('id', $course)->get();
+        $registered_courses_details = Course::whereIn('id', $course)->with([
+            'subjects' => [
+                'exams' => function ($query) {
+                    return $query->where('status', 1);
+                },
 
-        foreach ($registered_courses_details as $key => $r_details) {
-            $registered_courses[]                 = $r_details;
-            $registered_courses[$key]['subjects'] = Subject::whereIn('id', explode(',', $r_details->subject_id))->get();
-        }
+            ],
 
-        $suggested_courses         = [];
-        $suggested_courses_details = Course::whereNotIn('id', $course)->get();
+        ])
+            ->withCount([
+                'subjects',
+                'exams',
+            ])->get();
 
-        foreach ($suggested_courses_details as $s_key => $s_details) {
-            $suggested_courses[]                   = $s_details;
-            $suggested_courses[$s_key]['subjects'] = Subject::whereIn('id', explode(',', $s_details->subject_id))->get();
-        }
+        $suggested_courses_details = Course::where('status', 1)->whereNotIn('id', $course)
+            ->withCount([
+                'subjects',
+                'exams',
+            ])->get();
 
-        $data['registered_courses'] = $registered_courses;
-        $data['suggested_courses']  = $suggested_courses;
+        $data['registered_courses'] = $registered_courses_details;
+        $data['suggested_courses']  = $suggested_courses_details;
 
         return $this->successMessage('ok', $data);
     }

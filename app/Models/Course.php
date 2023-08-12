@@ -15,4 +15,8 @@ class Course extends Model {
     public function enrolled() {
         return $this->hasMany(CourseRegistration::class);
     }
+
+    public function exams() {
+        return $this->hasManyThrough(Exam::class, Subject::class);
+    }
 }

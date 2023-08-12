@@ -34,6 +34,8 @@ Route::controller(UserAuthController::class)->prefix('/auth')->group(function ()
 });
 
 Route::controller(GeneralController::class)->prefix('/general')->middleware('auth:sanctum')->group(function () {
+    Route::post('update-profile', 'updateProfile');
+    Route::post('notification', 'notification');
     Route::post('/registered-or-suggest-courses', 'registeredOrSuggestCourses');
     Route::post('/store-course-registration', 'storeCourseRegistration');
 });
