@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 10, 2023 at 12:16 PM
+-- Generation Time: Aug 12, 2023 at 11:06 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -29,12 +29,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admins` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -56,23 +56,23 @@ INSERT INTO `admins` (`id`, `name`, `phone`, `email`, `password`, `image`, `addr
 
 CREATE TABLE `company_infos` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `about` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone_one` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone_two` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone_three` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `app_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `facebook` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `twitter` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `instagram` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `youtube` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `linkedin` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `pinterest` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `favicon` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `app_logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `about` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone_one` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone_two` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone_three` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `app_link` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `facebook` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `twitter` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `instagram` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `youtube` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `linkedin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pinterest` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `logo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `favicon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `app_logo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -92,7 +92,7 @@ INSERT INTO `company_infos` (`id`, `name`, `about`, `address`, `phone_one`, `pho
 
 CREATE TABLE `courses` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `details` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `purchase_link` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `status` tinyint NOT NULL DEFAULT '0',
@@ -120,7 +120,7 @@ CREATE TABLE `course_registrations` (
   `id` bigint UNSIGNED NOT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
   `course_id` bigint UNSIGNED NOT NULL,
-  `order_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `order_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_course_id` int NOT NULL,
   `status` tinyint NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -145,7 +145,7 @@ CREATE TABLE `exams` (
   `id` bigint UNSIGNED NOT NULL,
   `course_id` bigint UNSIGNED NOT NULL,
   `subject_id` bigint DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `per_question_positive_mark` decimal(8,2) NOT NULL,
   `per_question_negative_mark` decimal(8,2) NOT NULL,
   `total_question` int UNSIGNED NOT NULL,
@@ -161,12 +161,12 @@ CREATE TABLE `exams` (
 INSERT INTO `exams` (`id`, `course_id`, `subject_id`, `name`, `per_question_positive_mark`, `per_question_negative_mark`, `total_question`, `status`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, 'Unit test exam', 1.00, 0.25, 100, 0, '2023-07-02 01:03:59', '2023-07-02 01:03:59'),
 (2, 1, 1, 'Unit test', 1.00, 0.25, 1, 0, '2023-07-02 01:55:04', '2023-07-02 01:58:23'),
-(3, 2, 4, 'Math part 1', 1.00, 0.25, 100, 0, '2023-07-02 03:35:44', '2023-07-02 03:35:44'),
+(3, 2, 4, 'Math part 1', 1.00, 0.25, 100, 1, '2023-07-02 03:35:44', '2023-07-02 03:35:44'),
 (4, 3, 7, 'Exam 1', 1.00, 0.50, 50, 0, '2023-07-02 04:07:20', '2023-07-02 04:07:20'),
 (5, 3, 7, 'A!!', 1.00, 0.25, 5, 0, '2023-07-02 04:30:10', '2023-07-02 04:30:10'),
 (6, 3, 7, 'aa', 1.00, 0.50, 5, 0, '2023-07-02 04:31:04', '2023-07-02 04:31:04'),
 (7, 4, 8, 'HTML Basic', 1.00, 0.50, 100, 0, '2023-07-02 05:04:28', '2023-07-02 05:04:28'),
-(8, 2, 6, 'School', 1.00, 0.50, 12, 0, '2023-07-12 22:45:25', '2023-07-12 22:45:25');
+(8, 2, 6, 'School', 1.00, 0.50, 12, 1, '2023-07-12 22:45:25', '2023-07-12 22:45:25');
 
 -- --------------------------------------------------------
 
@@ -179,8 +179,8 @@ CREATE TABLE `exam_questions` (
   `exam_id` bigint UNSIGNED NOT NULL,
   `subject_id` bigint UNSIGNED NOT NULL,
   `subject_topic_id` bigint UNSIGNED DEFAULT NULL,
-  `question_name` longtext COLLATE utf8mb4_unicode_ci,
-  `question_explanation` longtext COLLATE utf8mb4_unicode_ci,
+  `question_name` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `question_explanation` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `status` tinyint NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -570,7 +570,7 @@ INSERT INTO `exam_questions` (`id`, `exam_id`, `subject_id`, `subject_topic_id`,
 CREATE TABLE `exam_question_options` (
   `id` bigint UNSIGNED NOT NULL,
   `exam_question_id` bigint UNSIGNED NOT NULL,
-  `option` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `option` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_answer` tinyint NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -617,9 +617,9 @@ CREATE TABLE `exam_results` (
   `user_id` bigint UNSIGNED NOT NULL,
   `exam_id` bigint UNSIGNED NOT NULL,
   `subject_id` bigint UNSIGNED NOT NULL,
-  `answer` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `input_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `output_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `answer` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `input_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `output_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -632,11 +632,11 @@ CREATE TABLE `exam_results` (
 
 CREATE TABLE `failed_jobs` (
   `id` bigint UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -648,7 +648,7 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `forgot_password_otps` (
   `id` bigint UNSIGNED NOT NULL,
-  `otp` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `otp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -678,7 +678,7 @@ INSERT INTO `forgot_password_otps` (`id`, `otp`, `email`, `created_at`, `updated
 
 CREATE TABLE `migrations` (
   `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -715,7 +715,8 @@ CREATE TABLE `notifications` (
   `id` bigint UNSIGNED NOT NULL,
   `user_id` bigint UNSIGNED DEFAULT NULL,
   `course_id` bigint UNSIGNED DEFAULT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `details` text COLLATE utf8mb4_unicode_ci,
   `type` int NOT NULL COMMENT '1=all,2=individual,3=course wise',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -725,10 +726,10 @@ CREATE TABLE `notifications` (
 -- Dumping data for table `notifications`
 --
 
-INSERT INTO `notifications` (`id`, `user_id`, `course_id`, `name`, `type`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,', 1, '2023-07-03 04:57:57', '2023-07-03 04:57:57'),
-(2, 1, NULL, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,', 2, '2023-07-03 05:02:47', '2023-07-03 05:02:47'),
-(3, NULL, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,', 3, '2023-07-03 05:02:56', '2023-07-03 05:02:56');
+INSERT INTO `notifications` (`id`, `user_id`, `course_id`, `name`, `details`, `type`, `created_at`, `updated_at`) VALUES
+(1, NULL, NULL, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,', 'Is we miles ready he might going. Own books built put civil fully blind fanny. Projection appearance at of admiration no. As he totally cousins warrant besides ashamed do. Therefore by applauded acuteness supported affection it. Except had sex limits county enough the figure former add. Do sang my he next mr soon. It merely waited do unable.', 1, '2023-07-03 04:57:57', '2023-07-03 04:57:57'),
+(2, 1, NULL, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,', 'Is we miles ready he might going. Own books built put civil fully blind fanny. Projection appearance at of admiration no. As he totally cousins warrant besides ashamed do. Therefore by applauded acuteness supported affection it. Except had sex limits county enough the figure former add. Do sang my he next mr soon. It merely waited do unable.', 2, '2023-07-04 05:02:47', '2023-07-03 05:02:47'),
+(3, NULL, 3, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,', 'Is we miles ready he might going. Own books built put civil fully blind fanny. Projection appearance at of admiration no. As he totally cousins warrant besides ashamed do. Therefore by applauded acuteness supported affection it. Except had sex limits county enough the figure former add. Do sang my he next mr soon. It merely waited do unable.', 3, '2023-07-05 05:02:56', '2023-07-03 05:02:56');
 
 -- --------------------------------------------------------
 
@@ -738,9 +739,9 @@ INSERT INTO `notifications` (`id`, `user_id`, `course_id`, `name`, `type`, `crea
 
 CREATE TABLE `pages` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `details` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `details` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` tinyint NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -761,8 +762,8 @@ INSERT INTO `pages` (`id`, `name`, `slug`, `details`, `status`, `created_at`, `u
 
 CREATE TABLE `password_reset_tokens` (
   `id` int NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -785,11 +786,11 @@ INSERT INTO `password_reset_tokens` (`id`, `email`, `token`, `created_at`) VALUE
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `tokenable_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -816,7 +817,8 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (13, 'App\\Models\\User', 1, 'authToken', '38b3b7d3f5afad690c320508eca2be712e45390aef49fd7862432442982a9424', '[\"*\"]', '2023-08-06 13:05:58', NULL, '2023-08-06 13:05:57', '2023-08-06 13:05:58'),
 (14, 'App\\Models\\User', 1, 'authToken', '62d793581909e3bee3f6d6886146850eeb9a6092c53708a93ab0eeea592cda9b', '[\"*\"]', '2023-08-06 13:06:43', NULL, '2023-08-06 13:06:43', '2023-08-06 13:06:43'),
 (15, 'App\\Models\\User', 1, 'authToken', '7b92897ae09b506240c190c158a132b9e10f262e62670bcac19dc07698403d80', '[\"*\"]', '2023-08-06 13:18:05', NULL, '2023-08-06 13:18:04', '2023-08-06 13:18:05'),
-(16, 'App\\Models\\User', 1, 'authToken', '93391fd5e1f33c1f435438e7361d25a12d1fc86ec3ad12c805f35ba8ae405d7e', '[\"*\"]', '2023-08-10 09:30:23', NULL, '2023-08-10 09:29:47', '2023-08-10 09:30:23');
+(16, 'App\\Models\\User', 1, 'authToken', '93391fd5e1f33c1f435438e7361d25a12d1fc86ec3ad12c805f35ba8ae405d7e', '[\"*\"]', '2023-08-10 09:30:23', NULL, '2023-08-10 09:29:47', '2023-08-10 09:30:23'),
+(17, 'App\\Models\\User', 1, 'authToken', 'a0b79cc4c2be0cd86865906674aea11771c53946e65535cece0d7f7f0addb1c9', '[\"*\"]', '2023-08-12 10:34:18', NULL, '2023-08-11 13:40:22', '2023-08-12 10:34:18');
 
 -- --------------------------------------------------------
 
@@ -827,7 +829,7 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 CREATE TABLE `subjects` (
   `id` bigint UNSIGNED NOT NULL,
   `course_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` tinyint NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -859,7 +861,7 @@ INSERT INTO `subjects` (`id`, `course_id`, `name`, `status`, `created_at`, `upda
 CREATE TABLE `subject_topics` (
   `id` bigint UNSIGNED NOT NULL,
   `exam_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` tinyint NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -897,14 +899,15 @@ INSERT INTO `subject_topics` (`id`, `exam_id`, `name`, `status`, `created_at`, `
 
 CREATE TABLE `users` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `registration_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `about` text COLLATE utf8mb4_unicode_ci,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `registration_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` int NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -914,18 +917,18 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `phone`, `email_verified_at`, `password`, `image`, `remember_token`, `registration_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Md Hafiz Al Foisal', 'wiztec.foisal@gmail.com', '01478963256', NULL, '$2y$10$RzRKRmmmc4UYlC3LEWvJwOIBxHS9fzA.uV4S6cis/tSu8XpFjWVT2', NULL, NULL, '00000001', 1, '2023-07-17 05:31:37', '2023-07-17 05:31:37'),
-(2, 'Mahin', 'mahin1899@gmail.com', '0111111111', NULL, '$2y$10$olK9Er1jxl6U8Ocav5el.OyaCO4Bw0sViz0oE1duq.L6IWbkBXKcu', NULL, NULL, '00000002', 0, '2023-07-30 08:01:23', '2023-07-30 10:46:48'),
-(3, 'Mahin', 'mahin18@gmail.com', '01111111111', NULL, '$2y$10$dpleQuN8wbdVfJ1AXpcOoexsg2I0se8sV.B1zZWYT7zEA749JG7Pe', NULL, NULL, '00000003', 0, '2023-07-30 09:34:26', '2023-07-30 09:34:26'),
-(4, 'Mahin', 'mahin1@gmail.com', '011111111', NULL, '$2y$10$ZIlfZDA5gCP1ecR8uhE1eOs6fX9gvY92q5tS3.XuyAxAQKqgWhmcO', NULL, NULL, '00000004', 0, '2023-07-30 09:48:23', '2023-07-30 09:48:23'),
-(5, 'Mahin', 'mahin@gmail.com', '01111111', NULL, '$2y$10$Y4wld7S0Y74b8X9Lc2mjx.5h7stnZTGKN.6X0HGkNAjwyktAz1dzm', NULL, NULL, '00000005', 0, '2023-07-30 10:00:52', '2023-07-30 10:00:52'),
-(6, 'Mahin', 'mahin12@gmail.com', '011111113', NULL, '$2y$10$BzcPaMD3reINPoDHz9qULeBt15KFeIbwIOaztXpNzjQiyabLMqfk6', NULL, NULL, '00000006', 0, '2023-07-30 10:03:55', '2023-07-30 10:03:55'),
-(7, 'Mahin', 'mahin123@gmail.com', '0111111133', NULL, '$2y$10$Ifn3.2sDQd0ayis62dvcXuUbyJGBUjEmUIfc1V4yvY3b4moIRiED.', NULL, NULL, '00000007', 0, '2023-07-30 10:05:53', '2023-07-30 10:05:53'),
-(8, 'Mahin', 'mahin1234@gmail.com', '01111111334', NULL, '$2y$10$u0WoqgwrRg85/ayxmgGoT.FKMDxr6mZO/YjPP3dQg.67bShqd6wUa', NULL, NULL, '00000008', 0, '2023-07-30 10:07:25', '2023-07-30 10:07:25'),
-(9, 'Mahin', 'mahin5@gmail.com', '011111', '2023-07-30 10:15:27', '$2y$10$qWsTFKesZSWaTm0YGdY1P..H5Nfdpwy9c9Bvlc5Xq1tY9OitmtwdO', NULL, NULL, '00000009', 1, '2023-07-30 10:09:15', '2023-07-30 10:15:27'),
-(10, 'Mahin', 'mahin15@gmail.com', '01111168', '2023-07-30 10:17:53', '$2y$10$35.x1dPR2Wp0lYrc0vcNBegSNJiAApS3zZ5ZGzFztFz1IwOHoGIGu', NULL, NULL, '00000010', 1, '2023-07-30 10:17:27', '2023-07-30 10:17:53'),
-(11, 'Md Hafiz Al Foisal', 'wiztec.foisal1@gmail.com', '014789632561', NULL, '$2y$10$F1NqC3ECsci9zJzA1GO/muJtIyRjaMFcnlQ4MYjy0VsyNfAkxO.hy', NULL, NULL, '00000011', 0, '2023-08-06 12:30:04', '2023-08-06 12:30:04');
+INSERT INTO `users` (`id`, `name`, `email`, `phone`, `email_verified_at`, `password`, `image`, `about`, `remember_token`, `registration_id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Md Hafiz Al Foisal', 'wiztec.foisal@gmail.com', '01478963256', NULL, '$2y$10$RzRKRmmmc4UYlC3LEWvJwOIBxHS9fzA.uV4S6cis/tSu8XpFjWVT2', NULL, NULL, NULL, '00000001', 1, '2023-07-17 05:31:37', '2023-07-17 05:31:37'),
+(2, 'Mahin', 'mahin1899@gmail.com', '0111111111', NULL, '$2y$10$olK9Er1jxl6U8Ocav5el.OyaCO4Bw0sViz0oE1duq.L6IWbkBXKcu', NULL, NULL, NULL, '00000002', 0, '2023-07-30 08:01:23', '2023-07-30 10:46:48'),
+(3, 'Mahin', 'mahin18@gmail.com', '01111111111', NULL, '$2y$10$dpleQuN8wbdVfJ1AXpcOoexsg2I0se8sV.B1zZWYT7zEA749JG7Pe', NULL, NULL, NULL, '00000003', 0, '2023-07-30 09:34:26', '2023-07-30 09:34:26'),
+(4, 'Mahin', 'mahin1@gmail.com', '011111111', NULL, '$2y$10$ZIlfZDA5gCP1ecR8uhE1eOs6fX9gvY92q5tS3.XuyAxAQKqgWhmcO', NULL, NULL, NULL, '00000004', 0, '2023-07-30 09:48:23', '2023-07-30 09:48:23'),
+(5, 'Mahin', 'mahin@gmail.com', '01111111', NULL, '$2y$10$Y4wld7S0Y74b8X9Lc2mjx.5h7stnZTGKN.6X0HGkNAjwyktAz1dzm', NULL, NULL, NULL, '00000005', 0, '2023-07-30 10:00:52', '2023-07-30 10:00:52'),
+(6, 'Mahin', 'mahin12@gmail.com', '011111113', NULL, '$2y$10$BzcPaMD3reINPoDHz9qULeBt15KFeIbwIOaztXpNzjQiyabLMqfk6', NULL, NULL, NULL, '00000006', 0, '2023-07-30 10:03:55', '2023-07-30 10:03:55'),
+(7, 'Mahin', 'mahin123@gmail.com', '0111111133', NULL, '$2y$10$Ifn3.2sDQd0ayis62dvcXuUbyJGBUjEmUIfc1V4yvY3b4moIRiED.', NULL, NULL, NULL, '00000007', 0, '2023-07-30 10:05:53', '2023-07-30 10:05:53'),
+(8, 'Mahin', 'mahin1234@gmail.com', '01111111334', NULL, '$2y$10$u0WoqgwrRg85/ayxmgGoT.FKMDxr6mZO/YjPP3dQg.67bShqd6wUa', NULL, NULL, NULL, '00000008', 0, '2023-07-30 10:07:25', '2023-07-30 10:07:25'),
+(9, 'Mahin', 'mahin5@gmail.com', '011111', '2023-07-30 10:15:27', '$2y$10$qWsTFKesZSWaTm0YGdY1P..H5Nfdpwy9c9Bvlc5Xq1tY9OitmtwdO', NULL, NULL, NULL, '00000009', 1, '2023-07-30 10:09:15', '2023-07-30 10:15:27'),
+(10, 'Mahin', 'mahin15@gmail.com', '01111168', '2023-07-30 10:17:53', '$2y$10$35.x1dPR2Wp0lYrc0vcNBegSNJiAApS3zZ5ZGzFztFz1IwOHoGIGu', NULL, NULL, NULL, '00000010', 1, '2023-07-30 10:17:27', '2023-07-30 10:17:53'),
+(11, 'Md Hafiz Al Foisal', 'wiztec.foisal1@gmail.com', '014789632561', NULL, '$2y$10$F1NqC3ECsci9zJzA1GO/muJtIyRjaMFcnlQ4MYjy0VsyNfAkxO.hy', NULL, NULL, NULL, '00000011', 0, '2023-08-06 12:30:04', '2023-08-06 12:30:04');
 
 --
 -- Indexes for dumped tables
@@ -1136,7 +1139,7 @@ ALTER TABLE `password_reset_tokens`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `subjects`
