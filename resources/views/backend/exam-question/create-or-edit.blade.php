@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 @section('title', 'Question ' . $exam->name)
 @section('cssLink')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css">
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css"> --}}
     <style>
         /* preloader css */
         /* Pre-loader CSS */

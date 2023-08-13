@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\AnswerController;
 use App\Http\Controllers\Api\GeneralController;
 use App\Http\Controllers\Api\UserAuthController;
+use App\Models\ExamQuestion;
+use App\Models\ExamQuestionOption;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,4 +41,32 @@ Route::controller(GeneralController::class)->prefix('/general')->middleware('aut
     Route::post('notification', 'notification');
     Route::post('/registered-or-suggest-courses', 'registeredOrSuggestCourses');
     Route::post('/store-course-registration', 'storeCourseRegistration');
+});
+Route::controller(AnswerController::class)->prefix('/answer')->middleware('auth:sanctum')->group(function () {
+    Route::post('store', 'store');
+});
+
+Route::get('/q', function () {
+    $faker = Faker\Factory::create();
+    $exam  = ExamQuestion::where('exam_id', 2)->where('subject_id', 1)->get();
+
+    foreach ($exam as $e) {
+        $question                       = ExamQuestion::find($e->id);
+        $question->subject_topic_id     = $faker->randomElement(['3', '4']);
+        $question->question_name        = $faker->sentence(15);
+        $question->question_explanation = $faker->text(400);
+        $question->save();
+
+        for ($i = 0; $i < 4; $i++) {
+            // ExamQuestionOption::where('exam_question_id', $question->id)->delete();
+            $answer = ExamQuestionOption::create([
+                'exam_question_id' => $question->id,
+                'option'           => $faker->sentence(7),
+                'is_answer'        => $i == 3 ? 1 : 0,
+            ]);
+        }
+
+    }
+
+    return 'ok';
 });
