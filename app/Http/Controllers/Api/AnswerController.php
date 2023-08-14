@@ -30,7 +30,7 @@ class AnswerController extends Controller {
             }
 
             $purchase                      = new Answer();
-            $purchase->user_id             = auth()->user()->user_id;
+            $purchase->user_id             = $request->user_id;
             $purchase->exam_id             = $request->exam_id;
             $purchase->course_id           = $request->course_id;
             $purchase->subject_id          = $request->subject_id;

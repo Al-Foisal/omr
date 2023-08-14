@@ -34,6 +34,7 @@
                                         <th>Course Name</th>
                                         <th>User Details</th>
                                         <th>Order ID</th>
+                                        <th>User Course ID</th>
                                         <th>Created_at</th>
                                     </tr>
                                 </thead>
@@ -60,6 +61,9 @@
                                             </td>
                                             <td>
                                                 {{ $item->order_id }}
+                                            </td>
+                                            <td>
+                                                {{ $item->user_course_id }}
                                             </td>
                                             <td>{{ $item->created_at->format('d F, Y') }}</td>
                                         </tr>
