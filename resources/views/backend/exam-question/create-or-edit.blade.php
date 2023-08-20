@@ -385,16 +385,7 @@
         }
     </script>
     <script src="{{ asset('summernote-math.js') }}"></script>
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#editor'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
+
     <script>
         $('.summernote11').summernote({
             height: 100,
@@ -456,17 +447,17 @@
         });
     </script>
     <script>
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        });
+        // const Toast = Swal.mixin({
+        //     toast: true,
+        //     position: 'top-end',
+        //     showConfirmButton: false,
+        //     timer: 3000,
+        //     timerProgressBar: true,
+        //     didOpen: (toast) => {
+        //         toast.addEventListener('mouseenter', Swal.stopTimer)
+        //         toast.addEventListener('mouseleave', Swal.resumeTimer)
+        //     }
+        // });
         $(function() {
             $('.summernote').summernote({
                 inheritPlaceholder: true,
@@ -673,11 +664,27 @@
             document.body.innerHTML = originalContents;
         }
 
-        // function closeModal(modal) {
-        //     console.log(modal);
-        // }
-        $('.closeButton').on('click', function() {
-            $("#previewAnswer").modal('hide');
-        });
+        function closeModal(modal) {
+            $("#previewAnswer").removeClass('show');
+            $("#previewAnswer").hide();
+            $("#previewAnswer").removeAttr("style");
+            $("#previewAnswer").removeAttr("aria-modal");
+            $("#previewAnswer").removeAttr("role");
+            $("#previewAnswer").modal("hide");
+
+            if ($('body').hasClass('modal-backdrop')) {
+                $('body').removeClass('modal-backdrop');
+            }
+            // if ($('body').hasClass('fade')) {
+            //     $('body').removeClass('fade');
+            // }
+            // if ($('body').hasClass('modal-backdrop')) {
+            //     $('body').removeClass('modal-backdrop');
+            // }
+        }
+        // $('.closeButton').on('click', function() {
+        //     console.log('ok');
+        //     $("#previewAnswer").modal('hide');
+        // });
     </script>
 @endsection

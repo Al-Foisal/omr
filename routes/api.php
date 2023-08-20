@@ -44,6 +44,7 @@ Route::controller(GeneralController::class)->prefix('/general')->middleware('aut
 });
 Route::controller(AnswerController::class)->prefix('/answer')->middleware('auth:sanctum')->group(function () {
     Route::post('store', 'store');
+    Route::post('/show', 'show');
 });
 
 Route::get('/q', function () {
