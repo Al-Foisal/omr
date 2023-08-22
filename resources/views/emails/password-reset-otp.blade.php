@@ -13,7 +13,7 @@ Thanks,<br>
 {{ $company->name }}
 @slot('footer')
 @component('mail::footer')
-© {{ date("Y") }} {{ $company->name }}. All rights reserved.
+© {{ date("Y") }} {{ $company->name }}. All rights reserved1.
 @endcomponent
 @endslot
 </x-mail::message>

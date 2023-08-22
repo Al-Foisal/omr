@@ -34,21 +34,32 @@
                             <table id="" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Notification</th>
+                                        <th>Notification Title</th>
+                                        <th>Notification Details</th>
                                         <th>Type</th>
                                         <th>Student Name</th>
                                         <th>Course Name</th>
                                         <th>Created_at</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($data as $item)
                                         <tr>
                                             <td>{{ $item->name }}</td>
+                                            <td>{{ $item->details }}</td>
                                             <td>{{ $item->types }}</td>
                                             <td>{{ $item->user->name ?? '-' }}</td>
                                             <td>{{ $item->course->name ?? '-' }}</td>
                                             <td>{{ $item->created_at->format('d F, Y') }}</td>
+                                            <td>
+                                                <form action="{{ route('admin.notification.delete', $item->id) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-danger btn-xs">Delete</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

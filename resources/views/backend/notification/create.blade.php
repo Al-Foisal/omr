@@ -57,10 +57,15 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label for="">Notification Title</label>
+                                    <input type="text" class="form-control" name="name"
+                                        placeholder="Enter notification title">
+                                </div>
 
                                 <div class="form-group">
                                     <label for="name">Notification</label>
-                                    <textarea type="text" class="form-control" id="name" placeholder="Name" name="name"></textarea>
+                                    <textarea type="text" class="form-control" id="name" placeholder="Notification details" name="details"></textarea>
                                 </div>
                             </div>
                             <!-- /.card-body -->

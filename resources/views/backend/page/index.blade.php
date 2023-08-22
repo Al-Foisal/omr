@@ -42,7 +42,7 @@
                                 <tbody>
                                     @foreach ($pages as $page)
                                         <tr>
-                                            <td>
+                                            <td class="d-flex justify-content-around">
                                                 <a href="{{ route('admin.page.edit', $page) }}"
                                                     class="btn btn-info btn-xs"> <i class="fas fa-edit"></i> </a>
                                                 @if ($page->status === 1)

@@ -61,12 +61,20 @@ class NotificationController extends Controller {
 
         Notification::create([
             'name'      => $request->name,
+            'details'   => $request->details,
             'user_id'   => $user,
             'course_id' => $course,
             'type'      => $type,
         ]);
 
         return back()->withToastSuccess('Notification sent successfully');
+    }
+
+    public function delete($id) {
+        $data = Notification::find($id);
+        $data->delete();
+
+        return back()->withToastSuccess('Notification deleted successfully');
     }
 
 }

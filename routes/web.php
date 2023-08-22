@@ -66,7 +66,7 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
 
     Route::controller(ExamQuestionController::class)->prefix('/exam-question')->name('examQuestion.')->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::post('/create-or-edit/{id}', 'createOrEdit')->name('createOrEdit');
+        Route::get('/create-or-edit/{id}', 'createOrEdit')->name('createOrEdit');
         Route::post('/store-or-update', 'storeOrUpdate')->name('storeOrUpdate'); //jandle by js
         Route::post('/make-for-review', 'makeForReview')->name('makeForReview'); //jandle by js
         Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
@@ -114,6 +114,7 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
+        Route::delete('/delete/{id}', 'delete')->name('delete');
     });
 
     Route::controller(StudentPanelController::class)->prefix('/student-panel')->name('studentPanel.')->group(function () {

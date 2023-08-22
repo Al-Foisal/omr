@@ -31,7 +31,7 @@
                                         continue;
                                     }
                                 @endphp
-                                <li>{{ $option->option }}</li>
+                                <li>{!! $option->option !!}</li>
                             @endforeach
                         </ol>
                     </li>

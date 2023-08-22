@@ -44,7 +44,12 @@ class AdminAuthController extends Controller {
     }
 
     public function customerList() {
-        $customers = User::orderBy('id', 'desc')->withCount('courses')->paginate(500);
+        $customers = User::orderBy('id', 'desc')->withCount([
+            'courses' => function ($query) {
+                return $query->where('status', 1);
+            },
+            'exams',
+        ])->paginate(500);
 
         return view('backend.auth.customer-list', compact('customers'));
     }
