@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Answer;
 use App\Models\Course;
 use App\Models\CourseRegistration;
 use App\Models\Notification;
@@ -105,8 +106,24 @@ class GeneralController extends Controller {
         ])
             ->withCount([
                 'subjects',
-                'exams',
             ])->get();
+
+        foreach ($registered_courses_details as $item) {
+            $counter = 0;
+
+            foreach ($item->subjects as $s_item) {
+
+                foreach ($s_item->exams as $e_item) {
+                    $e_item['is_completed'] = Answer::where('user_id', Auth::id())->where('exam_id', $e_item->id)->exists();
+                    ++$counter;
+
+                }
+
+            }
+
+            $item['completed_exam'] = Answer::where('user_id', Auth::id())->where('course_id', $item->id)->count();
+            $item['exams_count']    = $counter;
+        }
 
         $suggested_courses_details = Course::where('status', 1)->whereNotIn('id', $course)
             ->withCount([
@@ -116,6 +133,26 @@ class GeneralController extends Controller {
 
         $data['registered_courses'] = $registered_courses_details;
         $data['suggested_courses']  = $suggested_courses_details;
+
+        return $this->successMessage('ok', $data);
+    }
+
+    public function search(Request $request) {
+        $data   = [];
+        $course = CourseRegistration::where('user_id', auth()->user()->id)
+            ->where('status', 1)
+            ->orderBy('id', 'desc')
+            ->pluck('course_id')
+            ->toArray();
+
+        $suggested_courses_details = Course::where('status', 1)->whereNotIn('id', $course)
+            ->where('name', 'LIKE', '%' . $request->search . '%')
+            ->withCount([
+                'subjects',
+                'exams',
+            ])->get();
+
+        $data['suggested_courses'] = $suggested_courses_details;
 
         return $this->successMessage('ok', $data);
     }
@@ -141,9 +178,9 @@ class GeneralController extends Controller {
                 'order_id'  => $request->order_id,
             ]);
 
-            return $this->successMessage('Course registration successful! Wait for admin approval');
+            return $this->successMessage('Course registration successful! Wait for admin approval.');
         } else {
-            return $this->errorMessage('You have registered this course before!');
+            return $this->errorMessage('You have registered this course before! Wait for admin approval.');
         }
 
     }

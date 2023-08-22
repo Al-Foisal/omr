@@ -40,6 +40,7 @@ Route::controller(GeneralController::class)->prefix('/general')->middleware('aut
     Route::post('update-profile', 'updateProfile');
     Route::post('notification', 'notification');
     Route::post('/registered-or-suggest-courses', 'registeredOrSuggestCourses');
+    Route::post('/search', 'search');
     Route::post('/store-course-registration', 'storeCourseRegistration');
 });
 Route::controller(AnswerController::class)->prefix('/answer')->middleware('auth:sanctum')->group(function () {
