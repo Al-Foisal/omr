@@ -97,7 +97,7 @@ class ExamController extends Controller {
         $data->status = $data->status == 1 ? 0 : 1;
         $data->save();
 
-        return back()->withToastSuccess('Status updated successfully!!');
+        return back()->withToastSuccess('Status updated successfully1!!');
     }
 
     public function getCourseWiseSubject(Request $request) {

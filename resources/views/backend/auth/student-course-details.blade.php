@@ -1,6 +1,14 @@
 @extends('backend.layouts.master')
 @section('title', $user->name . ' details')
 
+@section('cssStyle')
+    <style>
+        .table td,
+        .table th {
+            vertical-align: middle;
+        }
+    </style>
+@endsection
 @section('backend')
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -27,85 +35,72 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+                    <div class="col-12 col-md-8 col-lg-9 order-2 order-md-1">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th style="width: 10px">SL.</th>
                                     <th>Exam Details</th>
                                     <th>Course Details</th>
-                                    <th>Status</th>
+                                    <th>Assesment</th>
+                                    <th>Merit Position</th>
+                                    <th>OMR Sheet</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($exam as $e_item)
+                                    @php
+                                        $get_exam_answer = App\Models\Answer::where('exam_id', $e_item->id)
+                                            ->orderBy('obtained_mark', 'desc')
+                                            ->pluck('user_id')
+                                            ->toArray();
+                                        
+                                        $my_position = array_search(Auth::id(), $get_exam_answer) + 1;
+                                        $total_given_exam = count($get_exam_answer);
+                                    @endphp
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>
                                             <strong>Name: </strong> {{ $e_item->name }}, <br>
                                             <strong>Questions:
-                                            </strong>{{ $e_item->total_question . ':' . $e_item->per_question_positive_mark . ':-' . $e_item->per_question_negative_mark }}
+                                            </strong>{{ $e_item->total_question . ':' . $e_item->per_question_positive_mark . ':-' . $e_item->per_question_negative_mark }},
+                                            <br>
+                                            <strong>Date:</strong>
+                                            {{ $e_item->answer->created_at->format('d F, Y') ?? 'N/A' }}
                                         </td>
                                         <td>
                                             <strong>Course: </strong> {{ $e_item->course->name }}, <br>
                                             <strong>Subject: </strong> {{ $e_item->subject->name }}
                                         </td>
-                                        <td>Running</td>
+                                        <td>
+                                            <strong>Obtained Mark: </strong> {{ $e_item->answer->obtained_mark ?? 'N/A' }},
+                                            <br>
+                                            <strong>Positive Answer: </strong>
+                                            {{ $e_item->answer->positive_answer ?? 'N/A' }}, <br>
+                                            <strong>Negative Answer: </strong>
+                                            {{ $e_item->answer->negative_answer ?? 'N/A' }}, <br>
+                                            <strong>Empty Answer: </strong> {{ $e_item->answer->empty_answer ?? 'N/A' }},
+                                            <br>
+                                        </td>
+                                        <td>
+                                            @if (isset($e_item->answer->obtained_mark))
+                                                {{ $my_position . '/' . $total_given_exam }}
+                                            @else
+                                                N/A
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ asset($e_item->answer->answer_input_image) }}"
+                                                class="btn btn-primary btn-sm btn-block" download="">Input Image</a>
+                                            <a href="{{ asset($e_item->answer->answer_output_image) }}"
+                                                class="btn btn-success btn-sm btn-block" download="">Output Image</a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-                    {{-- <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
-                        <h3 class="text-primary"><img src="{{ asset($user->image) }}"
-                                style="height:100px;border-radius: 55%;"> {{ $user->name }}</h3>
 
-                        <br>
-                        <div class="text-muted">
-                            <p class="text-sm">Email
-                                <b class="d-block">{{ $user->email }}</b>
-                            </p>
-                            <p class="text-sm">Phone
-                                <b class="d-block">{{ $user->phone }}</b>
-                            </p>
-                            <p class="text-sm">Registration ID
-                                <b class="d-block">{{ $user->registration_id }}</b>
-                            </p>
-                            <p class="text-sm">Status
-                                <b class="d-block">{{ $user->status == 1 ? 'Active' : 'Inactive' }}</b>
-                            </p>
-                        </div>
-
-                        <h5 class="mt-5 text-muted">Enrolled Courses</h5>
-                        <ul class="list-unstyled">
-                            @foreach ($user->courses as $course)
-                                <li>
-                                    <p href=""
-                                        class="btn-link @if ($course->status == 0) {{ 'text-danger' }} @else {{ 'text-success' }} @endif">
-                                        <i class="far fa-fw fa-file-word"></i>
-                                        {{ $course->course->name }}
-                                    </p>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <div class="text-center mt-5 mb-3 d-flex justify-content-start">
-                            <form action="{{ route('admin.auth.updateStatus', $user) }}" method="post">
-                                @csrf
-                                <button type="submit" onclick="return(confirm('Are you sure?'))"
-                                    class="btn btn-{{ $user->status == 1 ? 'danger' : 'success' }} btn-xs mr-1">
-                                    {{ $user->status == 1 ? 'Inactive' : 'Active' }}
-                                </button>
-                            </form>
-                            <form action="{{ route('admin.auth.studentDelete', $user) }}" method="post">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" onclick="return(confirm('Are you sure?'))"
-                                    class="btn btn-danger btn-xs">
-                                    {{ 'Delete' }}
-                                </button>
-                            </form>
-                        </div>
-                    </div> --}}
                     @include('backend.layouts.partials._user-info')
                 </div>
             </div>

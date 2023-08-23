@@ -22,9 +22,9 @@
                     <a href="{{ route('admin.auth.studentDetails', [request()->id, 'ct' => 'p']) }}"
                         class="nav-link">Pending Courses</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="" class="nav-link">Attend Exam</a>
-                </li>
+                </li> --}}
             </ul>
         </div>
     </div>

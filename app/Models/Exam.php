@@ -19,4 +19,8 @@ class Exam extends Model {
     public function topics() {
         return $this->hasMany(SubjectTopic::class, 'exam_id', 'id');
     }
+
+    public function answer() {
+        return $this->hasOne(Answer::class);
+    }
 }

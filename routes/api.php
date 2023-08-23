@@ -50,11 +50,11 @@ Route::controller(AnswerController::class)->prefix('/answer')->middleware('auth:
 
 Route::get('/q', function () {
     $faker = Faker\Factory::create();
-    $exam  = ExamQuestion::where('exam_id', 2)->where('subject_id', 1)->get();
+    $exam  = ExamQuestion::where('exam_id', 11)->where('subject_id', 14)->get();
 
     foreach ($exam as $e) {
         $question                       = ExamQuestion::find($e->id);
-        $question->subject_topic_id     = $faker->randomElement(['3', '4']);
+        $question->subject_topic_id     = $faker->randomElement(['26', '27', '28', '29']);
         $question->question_name        = $faker->sentence(15);
         $question->question_explanation = $faker->text(400);
         $question->save();

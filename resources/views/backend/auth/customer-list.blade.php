@@ -36,7 +36,6 @@
                                         <th>Phone</th>
                                         <th>Registration ID</th>
                                         <th>Enrolled</th>
-                                        <th>Exam</th>
                                         <th>Image</th>
                                         <th>Created_at</th>
                                     </tr>
@@ -61,9 +60,8 @@
                                             <td>{{ $customer->phone ?? '' }}</td>
                                             <td>{{ $customer->registration_id }}</td>
                                             <td>{{ $customer->courses_count }}</td>
-                                            <td>{{ $customer->exams_count }}</td>
-                                            <td><img src="{{ asset($customer->image ?? '') }}" height="50"
-                                                    width="50" alt=""></td>
+                                            <td><img src="{{ asset($customer->image ?? 'profile.png') }}" height="50"
+                                                    width="50" style="border-radius: 50%;"></td>
                                             <td>{{ $customer->created_at->format('d F, Y') }}</td>
                                         </tr>
                                     @endforeach

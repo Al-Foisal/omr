@@ -50,22 +50,29 @@
                                                         Action
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        @if($admin->status == 0)
-                                                        <form action="{{ route('admin.auth.activeAdmin', $admin) }}" method="post">
-                                                        @csrf
-                                                            <button class="dropdown-item" type="submit">Active Admin</button>
-                                                        </form>
+                                                        @if ($admin->status == 0)
+                                                            <form action="{{ route('admin.auth.activeAdmin', $admin) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                <button class="dropdown-item" type="submit">Active
+                                                                    Admin</button>
+                                                            </form>
                                                         @else
-                                                        <form action="{{ route('admin.auth.inactiveAdmin', $admin) }}" method="post">
-                                                        @csrf
-                                                            <button class="dropdown-item" type="submit">Inactive Admin</button>
-                                                        </form>
+                                                            <form action="{{ route('admin.auth.inactiveAdmin', $admin) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                <button class="dropdown-item" type="submit">Inactive
+                                                                    Admin</button>
+                                                            </form>
                                                         @endif
-                                                        <a class="dropdown-item" href="{{ route('admin.auth.editAdmin', $admin) }}">Edit</a>
-                                                        <form action="{{ route('admin.auth.deleteAdmin', $admin) }}" method="post">
-                                                        @csrf
-                                                        @method('delete')
-                                                            <button class="dropdown-item" type="submit" onclick="return(confirm('Are you sure want to delete this item?'))">Delete</button>
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('admin.auth.editAdmin', $admin) }}">Edit</a>
+                                                        <form action="{{ route('admin.auth.deleteAdmin', $admin) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button class="dropdown-item" type="submit"
+                                                                onclick="return(confirm('Are you sure want to delete this item?'))">Delete</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -74,8 +81,9 @@
                                             <td>{{ $admin->email }}</td>
                                             <td>{{ $admin->phone }}</td>
                                             <td>{{ $admin->address }}</td>
-                                            <td>{{ $admin->status }}</td>
-                                            <td><img src="{{ asset($admin->image) }}" height="50" width="50" alt=""></td>
+                                            <td>{{ $admin->status == 1 ? 'Active' : 'Inactive' }}</td>
+                                            <td><img src="{{ asset($admin->image) }}" height="50" width="50"
+                                                    alt=""></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

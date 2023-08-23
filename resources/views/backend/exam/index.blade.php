@@ -27,7 +27,7 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <a href="{{ route('admin.exam.createOrEdit') }}" class="btn btn-outline-primary">Add Exam</a>
+                            {{-- <a href="{{ route('admin.exam.createOrEdit') }}" class="btn btn-outline-primary">Add Exam</a> --}}
                             <br>
                             <br>
                             <table id="example1" class="table table-bordered table-striped">

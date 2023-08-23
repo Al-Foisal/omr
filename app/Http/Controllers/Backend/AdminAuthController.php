@@ -236,7 +236,7 @@ class AdminAuthController extends Controller {
         $data               = [];
         $data['user']       = user::findOrFail($user_id);
         $registered_courses = CourseRegistration::where('user_id', $user_id)->where('course_id', $course_id)->where('status', 1)->pluck('course_id')->toArray();
-        $data['exam']       = Exam::whereIn('course_id', $registered_courses)->get();
+        $data['exam']       = Exam::whereIn('course_id', $registered_courses)->with('answer')->get();
 
         return view('backend.auth.student-course-details', $data);
     }

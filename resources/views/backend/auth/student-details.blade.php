@@ -36,7 +36,7 @@
             @endphp
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+                    <div class="col-12 col-md-8 col-lg-9 order-2 order-md-1">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
