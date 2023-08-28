@@ -10,7 +10,7 @@
         </div>
 
         <div class="card">
-            <div class="card-body register-card-body">
+            <div class="card-body register-card-body mb-4">
                 <p class="login-box-msg">Edit supportive member</p>
 
                 <form action="{{ route('admin.auth.updateAdmin', $admin) }}" method="post" enctype="multipart/form-data">
@@ -44,17 +44,73 @@
                             @endif
                         </div>
                     </div>
-                    
+
                     <div class="input-group mb-3">
                         <textarea type="text" rows="2" class="form-control" name="address">{{ $admin->address }}</textarea>
                     </div>
-                    
-                    <hr>
-                    <div class="row">
-                        <div class="col-8">
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Respective Admin Role / Access</h3>
+                        </div>
+                        <div class="card-body">
+                            <!-- Minimal style -->
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <!-- checkbox -->
+                                    <div class="form-group clearfix">
+                                        <div class="icheck-primary d-inline">
+                                            <input type="checkbox" id="admin" name="users" value="1"
+                                                {{ $admin->users ? 'checked' : '' }}>
+                                            <label for="admin">
+                                                Users
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <!-- checkbox -->
+                                    <div class="form-group clearfix">
+                                        <div class="icheck-primary d-inline">
+                                            <input type="checkbox" id="course" name="course" value="1"
+                                            {{ $admin->course ? 'checked' : '' }}>
+                                            <label for="course">
+                                                Course
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group clearfix">
+                                        <div class="icheck-primary d-inline">
+                                            <input type="checkbox" id="exam" name="exam" value="1"
+                                            {{ $admin->exam ? 'checked' : '' }}>
+                                            <label for="exam">
+                                                Examination
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <!-- checkbox -->
+                                    <div class="form-group clearfix">
+                                        <div class="icheck-primary d-inline">
+                                            <input type="checkbox" id="general" name="general" value="1"
+                                            {{ $admin->general ? 'checked' : '' }}>
+                                            <label for="general">
+                                                General
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-10">
                         </div>
                         <!-- /.col -->
-                        <div class="col-4">
+                        <div class="col-2">
                             <button type="submit" class="btn btn-primary btn-block">Update</button>
                         </div>
                         <!-- /.col -->

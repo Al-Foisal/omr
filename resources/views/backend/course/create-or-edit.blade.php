@@ -49,13 +49,13 @@
                             <div class="card-body">
                                 <div class="card card-success">
                                     <div class="card-header">
-                                        <h3 class="card-title">Course Name<span class="text-danger">*</span>
+                                        <h3 class="card-title">Course Name <span class="text-danger">*</span>
                                         </h3>
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
                                             <input type="text" class="form-control" id="name" placeholder="Name"
-                                                name="name" value="{{ $data->name ?? '' }}">
+                                                name="name" value="{{ $data->name ?? '' }}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="card card-success">
                                     <div class="card-header">
-                                        <h3 class="card-title">Purchase List(optional)<span class="text-danger">*</span>
+                                        <h3 class="card-title">Purchase List(optional)
                                         </h3>
                                     </div>
                                     <div class="card-body">
@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="card card-success">
                                     <div class="card-header">
-                                        <h3 class="card-title">Add Subject<span class="text-danger">*</span>
+                                        <h3 class="card-title">Add Subject
                                         </h3>
                                     </div>
                                     <div class="card-body">

@@ -26,7 +26,7 @@
                 <div class="col-md-4 col-sm-6 col-12">
                     <div class="info-box shadow-lg">
                         <span class="info-box-icon bg-info">
-                            <i class="fas fa-user-friends"></i>
+                            <i class="fas fa-book-reader"></i>
                         </span>
                         <div class="info-box-content">
                             <span class="info-box-text">{{ $total_courses }}</span>
@@ -37,7 +37,7 @@
                 <div class="col-md-4 col-sm-6 col-12">
                     <div class="info-box shadow-lg">
                         <span class="info-box-icon bg-success">
-                            <i class="fas fa-user-friends"></i>
+                            <i class="fas fa-users"></i>
                         </span>
                         <div class="info-box-content">
                             <span class="info-box-text">{{ $total_students }}</span>
@@ -48,7 +48,7 @@
                 <div class="col-md-4 col-sm-6 col-12">
                     <div class="info-box shadow-lg">
                         <span class="info-box-icon bg-danger">
-                            <i class="fas fa-user-friends"></i>
+                            <i class="fas fa-user-clock"></i>
                         </span>
                         <div class="info-box-content">
                             <span class="info-box-text">{{ $total_registration }}</span>
@@ -65,7 +65,7 @@
                 <div class="col-md-4 col-sm-6 col-12">
                     <div class="info-box shadow-lg">
                         <span class="info-box-icon bg-info">
-                            <i class="fas fa-user-friends"></i>
+                            <i class="fas fa-user-check"></i>
                         </span>
                         <div class="info-box-content">
                             <span class="info-box-text">{{ $total_month_enroll }}</span>
@@ -76,7 +76,7 @@
                 <div class="col-md-4 col-sm-6 col-12">
                     <div class="info-box shadow-lg">
                         <span class="info-box-icon bg-success">
-                            <i class="fas fa-user-friends"></i>
+                            <i class="fas fa-id-card-alt"></i>
                         </span>
                         <div class="info-box-content">
                             <span class="info-box-text">{{ $total_year_enroll }}</span>

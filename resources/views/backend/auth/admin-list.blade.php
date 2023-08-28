@@ -36,6 +36,10 @@
                                         <th>Phone</th>
                                         <th>Address</th>
                                         <th>Status</th>
+                                        <th>Admin</th>
+                                        <th>Course</th>
+                                        <th>Examination</th>
+                                        <th>General</th>
                                         <th>Image</th>
                                     </tr>
                                 </thead>
@@ -82,6 +86,34 @@
                                             <td>{{ $admin->phone }}</td>
                                             <td>{{ $admin->address }}</td>
                                             <td>{{ $admin->status == 1 ? 'Active' : 'Inactive' }}</td>
+                                            <td>
+                                                @if ($admin->admin == 1)
+                                                    <span class="text-success">YES</span>
+                                                @else
+                                                    <span class="text-danger">NO</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($admin->course == 1)
+                                                    <span class="text-success">YES</span>
+                                                @else
+                                                    <span class="text-danger">NO</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($admin->exam == 1)
+                                                    <span class="text-success">YES</span>
+                                                @else
+                                                    <span class="text-danger">NO</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($admin->general == 1)
+                                                    <span class="text-success">YES</span>
+                                                @else
+                                                    <span class="text-danger">NO</span>
+                                                @endif
+                                            </td>
                                             <td><img src="{{ asset($admin->image) }}" height="50" width="50"
                                                     alt=""></td>
                                         </tr>

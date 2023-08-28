@@ -44,7 +44,7 @@
                                     <select name="student" class="form-control">
                                         <option value="">select</option>
                                         @foreach ($user as $u_item)
-                                            <option value="{{ $u_item->id }}">{{ $u_item->name }}</option>
+                                            <option value="{{ $u_item->id }}">{{ $u_item->name }} - {{ $u_item->registration_id }}</option>
                                         @endforeach
                                     </select>
                                 </div>

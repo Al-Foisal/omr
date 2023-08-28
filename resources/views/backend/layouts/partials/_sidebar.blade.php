@@ -33,154 +33,161 @@
                 </li>
 
                 {{-- admin --}}
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-warning"></i>
-                        <p class="text">
-                            User
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview nav-header">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.auth.adminList') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle text-danger"></i>
-                                <p>Admin List</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.auth.createAdmin') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle text-danger"></i>
-                                <p>Create New Admin</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.auth.customerList') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle text-danger"></i>
-                                <p>User List</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                @if (Auth::check() && auth()->user()->users == 1)
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon far fa-circle text-warning"></i>
+                            <p class="text">
+                                User
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview nav-header">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.auth.adminList') }}" class="nav-link">
+                                    <i class="nav-icon far fa-circle text-danger"></i>
+                                    <p>Admin List</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.auth.createAdmin') }}" class="nav-link">
+                                    <i class="nav-icon far fa-circle text-danger"></i>
+                                    <p>Create New Admin</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.auth.customerList') }}" class="nav-link">
+                                    <i class="nav-icon far fa-circle text-danger"></i>
+                                    <p>User List</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
 
 
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-warning"></i>
-                        <p class="text">
-                            Courses
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview nav-header">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.course.index') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle text-danger"></i>
-                                <p>Course</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.course.createOrEdit') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle text-danger"></i>
-                                <p>Create Course</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.course.publishedCourses') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle text-danger"></i>
-                                <p>Published Courses</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.course.pendingCourses') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle text-danger"></i>
-                                <p>Pending Courses</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                {{-- Course Registration --}}
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-warning"></i>
-                        <p class="text">
-                            Course Registration
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview nav-header">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.studentPanel.pendingCourseRegistration') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle text-danger"></i>
-                                <p>Pending Course</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.studentPanel.approvedCourseRegistration') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle text-danger"></i>
-                                <p>Approved Course</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-
-
-
-                <li class="nav-item">
-                    <a href="{{ route('admin.exam.index') }}" class="nav-link">
-                        <i class="nav-icon far fa-circle text-warning"></i>
-                        <p>Exam List</p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="{{ route('admin.examQuestion.index') }}" class="nav-link">
-                        <i class="nav-icon far fa-circle text-warning"></i>
-                        <p>Add Question</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.examQuestion.goToExamQuestion') }}" class="nav-link">
-                        <i class="nav-icon far fa-circle text-warning"></i>
-                        <p>Go to Exam Question</p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="{{ route('admin.notification.index') }}" class="nav-link">
-                        <i class="nav-icon far fa-circle text-warning"></i>
-                        <p>Notification</p>
-                    </a>
-                </li>
+                @if (Auth::check() && auth()->user()->course == 1)
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon far fa-circle text-warning"></i>
+                            <p class="text">
+                                Courses
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview nav-header">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.course.index') }}" class="nav-link">
+                                    <i class="nav-icon far fa-circle text-danger"></i>
+                                    <p>Course</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.course.createOrEdit') }}" class="nav-link">
+                                    <i class="nav-icon far fa-circle text-danger"></i>
+                                    <p>Create Course</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.course.publishedCourses') }}" class="nav-link">
+                                    <i class="nav-icon far fa-circle text-danger"></i>
+                                    <p>Published Courses</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.course.pendingCourses') }}" class="nav-link">
+                                    <i class="nav-icon far fa-circle text-danger"></i>
+                                    <p>Pending Courses</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{-- Course Registration --}}
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon far fa-circle text-warning"></i>
+                            <p class="text">
+                                Student Registration
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview nav-header">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.studentPanel.pendingCourseRegistration') }}" class="nav-link">
+                                    <i class="nav-icon far fa-circle text-danger"></i>
+                                    <p>Pending Student</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.studentPanel.approvedCourseRegistration') }}"
+                                    class="nav-link">
+                                    <i class="nav-icon far fa-circle text-danger"></i>
+                                    <p>Approved Student</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
 
 
 
-                {{-- company info --}}
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-warning"></i>
-                        <p class="text">
-                            Company Info
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview nav-header">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.showCompanyInfo') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle text-danger"></i>
-                                <p>Company Information</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.page.index') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle text-danger"></i>
-                                <p>Pages</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                @if (Auth::check() && auth()->user()->exam == 1)
+                    <li class="nav-item">
+                        <a href="{{ route('admin.exam.index') }}" class="nav-link">
+                            <i class="nav-icon far fa-circle text-warning"></i>
+                            <p>Exam List</p>
+                        </a>
+                    </li>
 
+                    <li class="nav-item">
+                        <a href="{{ route('admin.examQuestion.index') }}" class="nav-link">
+                            <i class="nav-icon far fa-circle text-warning"></i>
+                            <p>Add Question</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.examQuestion.goToExamQuestion') }}" class="nav-link">
+                            <i class="nav-icon far fa-circle text-warning"></i>
+                            <p>Go to Exam Question</p>
+                        </a>
+                    </li>
+                @endif
+
+                @if (Auth::check() && auth()->user()->general == 1)
+                    <li class="nav-item">
+                        <a href="{{ route('admin.notification.index') }}" class="nav-link">
+                            <i class="nav-icon far fa-circle text-warning"></i>
+                            <p>Notification</p>
+                        </a>
+                    </li>
+
+
+
+                    {{-- company info --}}
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon far fa-circle text-warning"></i>
+                            <p class="text">
+                                Company Info
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview nav-header">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.showCompanyInfo') }}" class="nav-link">
+                                    <i class="nav-icon far fa-circle text-danger"></i>
+                                    <p>Company Information</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.page.index') }}" class="nav-link">
+                                    <i class="nav-icon far fa-circle text-danger"></i>
+                                    <p>Pages</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

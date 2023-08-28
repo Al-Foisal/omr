@@ -27,7 +27,7 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <a href="{{ route('admin.course.createOrEdit') }}" class="btn btn-outline-primary">Add
+                            <a href="{{ route('admin.course.createOrEdit') }}" class="btn btn-primary">Add
                                 Course</a>
                             <br>
                             <br>
@@ -48,7 +48,7 @@
                                         <tr>
                                             <td class="d-flex justify-content-around">
                                                 <a href="{{ route('admin.course.createOrEdit', $item) }}"
-                                                    class="btn btn-info btn-xs"> <i class="fas fa-edit"></i> Edit</a>
+                                                    class="btn btn-info btn-xs mr-2">Edit</a>
 
                                                 <form action="{{ route('admin.course.updateStatus', $item) }}"
                                                     method="post">

@@ -44,7 +44,7 @@ Route::prefix('/admin')->name('admin.auth.')->middleware('guest:admin')->group(f
 Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(function () {
 
     //admin management
-    Route::controller(AdminAuthController::class)->name('auth.')->group(function () {
+    Route::controller(AdminAuthController::class)->middleware('admin_p')->name('auth.')->group(function () {
         Route::get('/admin-list', 'adminList')->name('adminList');
         Route::get('/create-admin', 'createAdmin')->name('createAdmin');
         Route::post('/store-admin', 'storeAdmin')->name('storeAdmin');
@@ -64,7 +64,7 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('auth.logout');
 
-    Route::controller(ExamQuestionController::class)->prefix('/exam-question')->name('examQuestion.')->group(function () {
+    Route::controller(ExamQuestionController::class)->middleware('exam')->prefix('/exam-question')->name('examQuestion.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create-or-edit/{id}', 'createOrEdit')->name('createOrEdit');
         Route::post('/store-or-update', 'storeOrUpdate')->name('storeOrUpdate'); //jandle by js
@@ -75,7 +75,7 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
         Route::get('/go-to-exam-question', 'goToExamQuestion')->name('goToExamQuestion');
     });
 
-    Route::controller(ExamController::class)->prefix('/exam')->name('exam.')->group(function () {
+    Route::controller(ExamController::class)->middleware('exam')->prefix('/exam')->name('exam.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create-or-edit/{id?}', 'createOrEdit')->name('createOrEdit');
         Route::match (['post', 'put'], '/store-or-update/{id?}', 'storeOrUpdate')->name('storeOrUpdate');
@@ -84,7 +84,7 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
         Route::post('/get-course-wise-subject-exam', 'getCourseWiseSubjectExam')->name('getCourseWiseSubjectExam');
     });
 
-    Route::controller(CourseController::class)->prefix('/course')->name('course.')->group(function () {
+    Route::controller(CourseController::class)->middleware('course')->prefix('/course')->name('course.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/published-courses', 'publishedCourses')->name('publishedCourses');
         Route::get('/pending-courses', 'pendingCourses')->name('pendingCourses');
@@ -97,27 +97,27 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
         Route::get('/update-course-subject-topic-status/{id}', 'updateCourseSubjectTopicStatus')->name('updateCourseSubjectTopicStatus');
     });
 
-    Route::controller(SubjectController::class)->prefix('/subject')->name('subject.')->group(function () {
+    Route::controller(SubjectController::class)->middleware('course')->prefix('/subject')->name('subject.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create-or-edit/{id?}', 'createOrEdit')->name('createOrEdit');
         Route::match (['post', 'put'], '/store-or-update/{id?}', 'storeOrUpdate')->name('storeOrUpdate');
         Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
     });
 
-    Route::controller(TopicController::class)->prefix('/topic')->name('topic.')->group(function () {
+    Route::controller(TopicController::class)->middleware('course')->prefix('/topic')->name('topic.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create-or-edit/{id?}', 'createOrEdit')->name('createOrEdit');
         Route::match (['post', 'put'], '/store-or-update/{id?}', 'storeOrUpdate')->name('storeOrUpdate');
         Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
     });
-    Route::controller(NotificationController::class)->prefix('/notification')->name('notification.')->group(function () {
+    Route::controller(NotificationController::class)->middleware('general')->prefix('/notification')->name('notification.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
         Route::delete('/delete/{id}', 'delete')->name('delete');
     });
 
-    Route::controller(StudentPanelController::class)->prefix('/student-panel')->name('studentPanel.')->group(function () {
+    Route::controller(StudentPanelController::class)->middleware('course')->prefix('/student-panel')->name('studentPanel.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/pending-course-registration', 'pendingCourseRegistration')->name('pendingCourseRegistration');
         Route::get('/approved-course-registration', 'approvedCourseRegistration')->name('approvedCourseRegistration');
@@ -125,10 +125,10 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
         Route::delete('/delete/{id}', 'delete')->name('delete');
     });
 
-    Route::get('/company-info', [CompanyInfoController::class, 'showCompanyInfo'])->name('showCompanyInfo');
-    Route::post('/company-info', [CompanyInfoController::class, 'storeCompanyInfo'])->name('storeCompanyInfo');
+    Route::get('/company-info', [CompanyInfoController::class, 'showCompanyInfo'])->name('showCompanyInfo')->middleware('general');
+    Route::post('/company-info', [CompanyInfoController::class, 'storeCompanyInfo'])->name('storeCompanyInfo')->middleware('general');
 
-    Route::controller(PageController::class)->prefix('/page')->name('page.')->group(function () {
+    Route::controller(PageController::class)->middleware('general')->prefix('/page')->name('page.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');

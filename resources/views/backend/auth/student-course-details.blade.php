@@ -49,53 +49,66 @@
                             </thead>
                             <tbody>
                                 @foreach ($exam as $e_item)
-                                    @php
-                                        $get_exam_answer = App\Models\Answer::where('exam_id', $e_item->id)
-                                            ->orderBy('obtained_mark', 'desc')
-                                            ->pluck('user_id')
-                                            ->toArray();
-                                        
-                                        $my_position = array_search(Auth::id(), $get_exam_answer) + 1;
-                                        $total_given_exam = count($get_exam_answer);
-                                    @endphp
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>
-                                            <strong>Name: </strong> {{ $e_item->name }}, <br>
-                                            <strong>Questions:
-                                            </strong>{{ $e_item->total_question . ':' . $e_item->per_question_positive_mark . ':-' . $e_item->per_question_negative_mark }},
-                                            <br>
-                                            <strong>Date:</strong>
-                                            {{ $e_item->answer->created_at->format('d F, Y') ?? 'N/A' }}
-                                        </td>
-                                        <td>
-                                            <strong>Course: </strong> {{ $e_item->course->name }}, <br>
-                                            <strong>Subject: </strong> {{ $e_item->subject->name }}
-                                        </td>
-                                        <td>
-                                            <strong>Obtained Mark: </strong> {{ $e_item->answer->obtained_mark ?? 'N/A' }},
-                                            <br>
-                                            <strong>Positive Answer: </strong>
-                                            {{ $e_item->answer->positive_answer ?? 'N/A' }}, <br>
-                                            <strong>Negative Answer: </strong>
-                                            {{ $e_item->answer->negative_answer ?? 'N/A' }}, <br>
-                                            <strong>Empty Answer: </strong> {{ $e_item->answer->empty_answer ?? 'N/A' }},
-                                            <br>
-                                        </td>
-                                        <td>
-                                            @if (isset($e_item->answer->obtained_mark))
-                                                {{ $my_position . '/' . $total_given_exam }}
-                                            @else
-                                                N/A
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{ asset($e_item->answer->answer_input_image) }}"
-                                                class="btn btn-primary btn-sm btn-block" download="">Input Image</a>
-                                            <a href="{{ asset($e_item->answer->answer_output_image) }}"
-                                                class="btn btn-success btn-sm btn-block" download="">Output Image</a>
-                                        </td>
-                                    </tr>
+                                    @if (isset($e_item->answer))
+                                        @php
+                                            $get_exam_answer = App\Models\Answer::where('exam_id', $e_item->id)
+                                                ->orderBy('obtained_mark', 'desc')
+                                                ->pluck('user_id')
+                                                ->toArray();
+                                            
+                                            $my_position = array_search(Auth::id(), $get_exam_answer) + 1;
+                                            $total_given_exam = count($get_exam_answer);
+                                        @endphp
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>
+                                                <strong>Name: </strong> {{ $e_item->name }}, <br>
+                                                <strong>Questions:
+                                                </strong>{{ $e_item->total_question . ':' . $e_item->per_question_positive_mark . ':-' . $e_item->per_question_negative_mark }},
+                                                <br>
+                                                <strong>Date:</strong>
+                                                {{ $e_item->answer->created_at->format('d F, Y') ?? 'N/A' }}
+                                            </td>
+                                            <td>
+                                                <strong>Course: </strong> {{ $e_item->course->name }}, <br>
+                                                <strong>Subject: </strong> {{ $e_item->subject->name }}
+                                            </td>
+                                            <td>
+                                                <strong>Obtained Mark: </strong>
+                                                {{ $e_item->answer->obtained_mark ?? 'N/A' }},
+                                                <br>
+                                                <strong>Positive Answer: </strong>
+                                                {{ $e_item->answer->positive_answer ?? 'N/A' }}, <br>
+                                                <strong>Negative Answer: </strong>
+                                                {{ $e_item->answer->negative_answer ?? 'N/A' }}, <br>
+                                                <strong>Empty Answer: </strong>
+                                                {{ $e_item->answer->empty_answer ?? 'N/A' }},
+                                                <br>
+                                            </td>
+                                            <td>
+                                                @if (isset($e_item->answer->obtained_mark))
+                                                    {{ $my_position . '/' . $total_given_exam }}
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a href="{{ asset($e_item->answer->answer_input_image) }}"
+                                                    class="btn btn-primary btn-sm btn-block" download="">Input Image</a>
+                                                <a href="{{ asset($e_item->answer->answer_output_image) }}"
+                                                    class="btn btn-success btn-sm btn-block" download="">Output Image</a>
+                                            </td>
+                                        </tr>
+                                    @else
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><h2>Empty examination</h2></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                         </table>

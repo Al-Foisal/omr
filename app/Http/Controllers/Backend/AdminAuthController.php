@@ -54,39 +54,6 @@ class AdminAuthController extends Controller {
         return view('backend.auth.customer-list', compact('customers'));
     }
 
-    public function updateCustomSubscription(Request $request) {
-        $user = User::find($request->user_id);
-
-        $package        = Package::where('price', 0)->first();
-        $user->validity = date("Y-m-d", strtotime('+' . $request->date . ' days'));
-        $user->save();
-
-        if ($package) {
-
-            if ($package->discount > 0) {
-                $price = $package->discount_price;
-            } else {
-                $price = $package->price;
-            }
-
-            $subscription                  = new SubscriptionHistory();
-            $subscription->user_id         = $user->id;
-            $subscription->package_id      = $package->id;
-            $subscription->en_package_name = $package->en_name;
-            $subscription->bn_package_name = $package->bn_name;
-            $subscription->price           = $price;
-            $subscription->duration        = $request->date;
-            $subscription->user_limit      = $package->user_limit;
-            $subscription->validity_from   = date("Y-m-d");
-            $subscription->validity_to     = date("Y-m-d", strtotime('+' . $request->date . ' days'));
-            $subscription->save();
-
-        }
-
-        return redirect()->route('admin.auth.customerList')->withToastSuccess('Custom subscription updated!');
-
-    }
-
     public function createAdmin() {
         return view('backend.auth.create-admin');
     }
@@ -130,6 +97,10 @@ class AdminAuthController extends Controller {
         $admin->password = bcrypt($request->password);
         $admin->address  = $request->address;
         $admin->image    = $final_name1 ?? '';
+        $admin->users    = $request->users;
+        $admin->course   = $request->course;
+        $admin->exam     = $request->exam;
+        $admin->general  = $request->general;
         $admin->status   = 1;
         $admin->save();
 
@@ -184,7 +155,11 @@ class AdminAuthController extends Controller {
         $admin->phone   = $request->phone;
         $admin->email   = $request->email;
         $admin->address = $request->address;
-        $admin->update();
+        $admin->users   = $request->users;
+        $admin->course  = $request->course;
+        $admin->exam    = $request->exam;
+        $admin->general = $request->general;
+        $admin->save();
 
         return redirect()->route('admin.auth.adminList')->withToastSuccess('The admin updated successfully!!');
     }
