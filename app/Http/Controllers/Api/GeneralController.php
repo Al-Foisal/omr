@@ -168,8 +168,7 @@ class GeneralController extends Controller {
         }
 
         if (
-            !CourseRegistration::where('user_id', auth()->user()->id)
-            ->where('course_id', $request->course_id)
+            !CourseRegistration::where('course_id', $request->course_id)
             ->exists()
         ) {
             CourseRegistration::create([
@@ -180,7 +179,7 @@ class GeneralController extends Controller {
 
             return $this->successMessage('Course registration successful! Wait for admin approval.');
         } else {
-            return $this->errorMessage('You have registered this course before! Wait for admin approval.');
+            return $this->errorMessage('This order id has been used before to register this course.');
         }
 
     }

@@ -94,19 +94,12 @@
                                             </td>
                                             <td>
                                                 <a href="{{ asset($e_item->answer->answer_input_image) }}"
-                                                    class="btn btn-primary btn-sm btn-block" download="">Input Image</a>
+                                                    class="btn btn-primary btn-sm btn-block" download="">Input
+                                                    Image</a>
                                                 <a href="{{ asset($e_item->answer->answer_output_image) }}"
-                                                    class="btn btn-success btn-sm btn-block" download="">Output Image</a>
+                                                    class="btn btn-success btn-sm btn-block" download="">Output
+                                                    Image</a>
                                             </td>
-                                        </tr>
-                                    @else
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td><h2>Empty examination</h2></td>
-                                            <td></td>
-                                            <td></td>
                                         </tr>
                                     @endif
                                 @endforeach
