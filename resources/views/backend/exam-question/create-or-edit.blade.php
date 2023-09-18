@@ -209,6 +209,7 @@
                                     <strong>Course Name: </strong> <i>{{ $exam->course->name }}</i> <br>
                                     <strong>Subject Name: </strong> <i>{{ $exam->subject->name }}</i> <br>
                                     <strong>Exam Name: </strong> <i>{{ $exam->name }}</i> <br>
+                                    <strong>Exam Code: </strong> <i>{{ $exam->code ?? 'N/A' }}</i> <br>
                                     <strong>Per Question Mark: </strong> <i>{{ $exam->per_question_positive_mark }}</i>
                                     <br>
                                     <strong>Per Question Negative Mark: </strong>

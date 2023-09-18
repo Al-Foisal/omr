@@ -59,6 +59,7 @@
                                             </td>
                                             <td>
                                                 <b>Exam Name:</b> {{ $item->name }} <br>
+                                                <b>Exam Code:</b> {{ $item->code ?? 'N/A' }} <br>
                                                 <b>Total question:</b> {{ $item->total_question }} <br>
                                                 <b>Per question mark:</b> {{ $item->per_question_positive_mark }} <br>
                                                 <b>Per question negative mark:</b> {{ $item->per_question_negative_mark }}

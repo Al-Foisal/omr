@@ -9,6 +9,7 @@
                     <strong> Exam: </strong> {{ $exam->name }}
                 </div>
                 <div>
+                    <strong>Exam Code: </strong>{{ $exam->code }},
                     <strong>Total Question: </strong>{{ $exam->total_question }},
                     <strong> Marks: </strong>
                     {{ number_format($exam->per_question_positive_mark * $exam->total_question, 2) }}({{ $exam->per_question_positive_mark }}x{{ $exam->total_question }}),

@@ -23,13 +23,13 @@ class StudentPanelController extends Controller {
         $data = CourseRegistration::findOrFail($request->id);
 
         $last_user_course_id = 1;
-        $last_data           = CourseRegistration::where('user_id', $data->user_id)->latest()->first();
+        $last_data           = CourseRegistration::where('course_id', $data->course_id)->whereNotNull('user_course_id')->latest('updated_at')->first();
 
-        if ($last_data->user_course_id != null) {
-            $last_user_course_id += 1;
+        if (isset($last_data) && $last_data->user_course_id != null) {
+            $last_user_course_id = (int)$last_data->user_course_id + 1;
         }
 
-        $data->user_course_id = $last_user_course_id;
+        $data->user_course_id = str_pad((int) $last_user_course_id, 6, "0", STR_PAD_LEFT);
         $data->status         = $data->status == 1 ? 0 : 1;
         $data->save();
 

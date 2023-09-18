@@ -32,9 +32,9 @@ class UserAuthController extends Controller {
             $last_user = User::latest()->first();
 
             if ($last_user) {
-                $registration_id = str_pad((int) $last_user->registration_id + 1, 8, "0", STR_PAD_LEFT);
+                $registration_id = str_pad((int) $last_user->register_number + 1, 6, "0", STR_PAD_LEFT);
             } else {
-                $registration_id = str_pad((int) 1, 8, "0", STR_PAD_LEFT);
+                $registration_id = str_pad((int) 1, 6, "0", STR_PAD_LEFT);
             }
 
             $user = User::create([
@@ -42,11 +42,13 @@ class UserAuthController extends Controller {
                 'phone'           => $request->phone,
                 'email'           => $request->email,
                 'password'        => bcrypt($request->password),
-                'registration_id' => $registration_id,
+                'registration_id' => date("Y").$registration_id,
+                'register_year'   => date("Y"),
+                'status'=>1
             ]);
 
             $otp = rand(111111, 999999);
-            Mail::to($user->email)->send(new PasswordResetOtp($otp));
+            Mail::to($request->email)->send(new PasswordResetOtp($otp));
             ForgotPasswordOtp::create([
                 'otp'   => $otp,
                 'email' => $user->email,

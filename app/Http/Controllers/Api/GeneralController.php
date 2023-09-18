@@ -110,6 +110,7 @@ class GeneralController extends Controller {
 
         foreach ($registered_courses_details as $item) {
             $counter = 0;
+            $item['user_course_id'] = CourseRegistration::where('user_id',auth()->user()->id)->where('course_id',$item->id)->first()->user_course_id;
 
             foreach ($item->subjects as $s_item) {
 
@@ -168,9 +169,10 @@ class GeneralController extends Controller {
         }
 
         if (
-            !CourseRegistration::where('course_id', $request->course_id)
+            !CourseRegistration::where('order_id', $request->order_id)
             ->exists()
         ) {
+            
             CourseRegistration::create([
                 'user_id'   => auth()->user()->id,
                 'course_id' => $request->course_id,

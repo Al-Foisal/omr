@@ -110,6 +110,7 @@ class CourseController extends Controller {
                 'course_id'                  => $before_update ? $before_update->course_id : $request->course_id,
                 'subject_id'                 => $before_update ? $before_update->subject_id : $request->subject_id,
                 'name'                       => $request->name,
+                'code'                       => $request->code,
                 'total_question'             => $request->total_question,
                 'per_question_positive_mark' => $request->per_question_positive_mark,
                 'per_question_negative_mark' => $request->per_question_negative_mark,

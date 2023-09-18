@@ -1,8 +1,8 @@
 <x-mail::message>
 
-# Password Rest Otp
+# Verify Otp
 
-Your password reset OTP is {{ $otp }}
+Your OTP verification is {{ $otp }}
 
 Thanks,<br>
 {{ $company->name }}

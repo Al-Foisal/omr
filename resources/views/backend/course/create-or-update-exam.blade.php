@@ -64,14 +64,21 @@
                                         name="name" value="{{ $exam->name ?? '' }}" required>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="code">Exam Code*</label>
+                                            <input type="text" class="form-control" id="code" placeholder="80"
+                                                name="code" value="{{ $exam->code ?? '' }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="total_question">Total Question*</label>
                                             <input type="number" class="form-control" id="total_question" placeholder="80"
                                                 name="total_question" value="{{ $exam->total_question ?? '' }}" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="per_question_positive_mark">Per Question Mark*</label>
                                             <input type="text" class="form-control" id="per_question_positive_mark"
@@ -79,7 +86,7 @@
                                                 value="{{ $exam->per_question_positive_mark ?? '' }}" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="per_question_negative_mark">Per Question Negative Mark*</label>
                                             <input type="text" class="form-control" id="per_question_negative_mark"
