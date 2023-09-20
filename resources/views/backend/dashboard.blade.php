@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title', 'dashboard')
+@section('title', 'Dashboard')
 
 @section('backend')
     <!-- Content Header (Page header) -->

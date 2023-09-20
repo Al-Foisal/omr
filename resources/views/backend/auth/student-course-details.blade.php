@@ -44,7 +44,7 @@
                                     <th>Course Details</th>
                                     <th>Assesment</th>
                                     <th>Merit Position</th>
-                                    <th>OMR Sheet</th>
+                                    <!--<th>OMR Sheet</th>-->
                                 </tr>
                             </thead>
                             <tbody>
@@ -92,14 +92,14 @@
                                                     N/A
                                                 @endif
                                             </td>
-                                            <td>
-                                                <a href="{{ asset($e_item->answer->answer_input_image) }}"
-                                                    class="btn btn-primary btn-sm btn-block" download="">Input
-                                                    Image</a>
-                                                <a href="{{ asset($e_item->answer->answer_output_image) }}"
-                                                    class="btn btn-success btn-sm btn-block" download="">Output
-                                                    Image</a>
-                                            </td>
+                                            <!--<td>-->
+                                            <!--    <a href="{{ asset($e_item->answer->answer_input_image) }}"-->
+                                            <!--        class="btn btn-primary btn-sm btn-block" download="">Input-->
+                                            <!--        Image</a>-->
+                                            <!--    <a href="{{ asset($e_item->answer->answer_output_image) }}"-->
+                                            <!--        class="btn btn-success btn-sm btn-block" download="">Output-->
+                                            <!--        Image</a>-->
+                                            <!--</td>-->
                                         </tr>
                                     @endif
                                 @endforeach

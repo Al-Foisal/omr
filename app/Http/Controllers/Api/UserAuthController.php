@@ -32,9 +32,11 @@ class UserAuthController extends Controller {
             $last_user = User::latest()->first();
 
             if ($last_user) {
-                $registration_id = str_pad((int) $last_user->register_number + 1, 6, "0", STR_PAD_LEFT);
+                $registration_id     = str_pad((int) $last_user->register_number + 1, 6, "0", STR_PAD_LEFT);
+                $registration_number = 1 + $last_user->register_number;
             } else {
-                $registration_id = str_pad((int) 1, 6, "0", STR_PAD_LEFT);
+                $registration_id     = str_pad((int) 1, 6, "0", STR_PAD_LEFT);
+                $registration_number = 1;
             }
 
             $user = User::create([

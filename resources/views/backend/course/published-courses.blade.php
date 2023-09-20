@@ -62,11 +62,11 @@
                                                     <div class="pl-3">
                                                         @foreach ($sd->exams as $e)
                                                             <strong>Exam: </strong>{{ $e->name }} <br>
-                                                            <div class="pl-3">
-                                                                @foreach ($e->topics as $t)
-                                                                    <strong>Topic: </strong>{{ $t->name }}, <br>
-                                                                @endforeach
-                                                            </div>
+                                                            <!--<div class="pl-3">-->
+                                                            <!--    @foreach ($e->topics as $t)-->
+                                                            <!--        <strong>Topic: </strong>{{ $t->name }}, <br>-->
+                                                            <!--    @endforeach-->
+                                                            <!--</div>-->
                                                         @endforeach
                                                     </div>
                                                 @endforeach

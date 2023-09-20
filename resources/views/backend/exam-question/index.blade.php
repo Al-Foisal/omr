@@ -64,12 +64,12 @@
                                             <td>{{ $item->course->name }}</td>
                                             <td>
                                                 <strong>Subject: </strong>{{ $item->subject->name }}, <br>
-                                                <b>Topic:</b> <br>
-                                                <div class="pl-3">
-                                                    @foreach ($item->topics as $topic)
-                                                        {{ $topic->name }}, <br>
-                                                    @endforeach
-                                                </div>
+                                                <!--<b>Topic:</b> <br>-->
+                                                <!--<div class="pl-3">-->
+                                                <!--    @foreach ($item->topics as $topic)-->
+                                                <!--        {{ $topic->name }}, <br>-->
+                                                <!--    @endforeach-->
+                                                <!--</div>-->
                                             </td>
                                             <td>{{ $item->status == 1 ? 'Active' : 'Inactive' }}</td>
                                             <td>{{ $item->created_at->format('d F, Y') }}</td>
