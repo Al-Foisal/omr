@@ -819,6 +819,113 @@
 							"body": "{\n    \"status\": false,\n    \"message\": \"Something went wrong!!\",\n    \"data\": \"\"\n}"
 						}
 					]
+				},
+				{
+					"name": "store-device-token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "token",
+									"value": "AAAA6ll7Hs4:XXXXXXXXXXXXXXXs",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{omr}}store-device-token",
+							"host": [
+								"{{omr}}store-device-token"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "error message",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "wiztec.foisal@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "top",
+											"value": "111111",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{omr}}auth/verify-otp",
+									"host": [
+										"{{omr}}auth"
+									],
+									"path": [
+										"verify-otp"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 17 Jul 2023 05:55:49 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.54 (Win64) OpenSSL/1.1.1q PHP/8.1.10"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.10"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Something went wrong!!\",\n    \"data\": \"\"\n}"
+						}
+					]
 				}
 			]
 		},
