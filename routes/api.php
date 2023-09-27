@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AnswerController;
 use App\Http\Controllers\Api\GeneralController;
 use App\Http\Controllers\Api\UserAuthController;
+use App\Http\Controllers\Backend\DashboardController;
 use App\Models\ExamQuestion;
 use App\Models\ExamQuestionOption;
 use Illuminate\Http\Request;
@@ -25,6 +26,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         'data'   => $request->user(),
     ]);
 });
+Route::post('/store-device-token', [DashboardController::class, 'store_device_token'])->middleware('auth:sanctum');
+
 
 Route::controller(UserAuthController::class)->prefix('/auth')->group(function () {
     Route::post('/register', 'register');
@@ -72,3 +75,4 @@ Route::get('/q', function () {
 
     return 'ok';
 });
+

@@ -62,6 +62,9 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
     });
 
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/fcmnotification', [DashboardController::class, 'fcmnotification'])->name('fcmnotification');
+    Route::post('/fcmnotification-send', [DashboardController::class, 'fcmnotification_send'])->name('fcmnotification_send');
+    Route::post('/fcmnotification_send_all', [DashboardController::class, 'fcmnotification_send_all'])->name('fcmnotification_send_all');
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('auth.logout');
 
     Route::controller(ExamQuestionController::class)->middleware('exam')->prefix('/exam-question')->name('examQuestion.')->group(function () {

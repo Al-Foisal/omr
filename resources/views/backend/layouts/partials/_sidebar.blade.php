@@ -32,6 +32,7 @@
                     </a>
                 </li>
 
+
                 {{-- admin --}}
                 @if (Auth::check() && auth()->user()->users == 1)
                     <li class="nav-item">
@@ -188,6 +189,7 @@
                         </ul>
                     </li>
                 @endif
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

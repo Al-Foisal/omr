@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\CourseRegistration;
+use App\Services\FCMService;
 use Illuminate\Http\Request;
 
 class StudentPanelController extends Controller {
@@ -32,6 +33,17 @@ class StudentPanelController extends Controller {
         $data->user_course_id = str_pad((int) $last_user_course_id, 6, "0", STR_PAD_LEFT);
         $data->status         = $data->status == 1 ? 0 : 1;
         $data->save();
+
+        $user = $data->user;
+        if (isset($user->fcm_token)) {
+            FCMService::send(
+                $user->fcm_token,
+                [
+                    'title' => "Course enroll notice",
+                    'body' => "Your course '". $data->course->name. "' is approved by admin",
+                ]
+            );
+        }
 
         return back()->withToastSuccess('Status updated successfully!!');
     }

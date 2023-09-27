@@ -15,19 +15,19 @@ use Illuminate\Support\Facades\Http;
 
 class AdminAuthController extends Controller {
     public function login() {
-        return Http::post('https://gpcmp.grameenphone.com/ecmapigw/webresources/ecmapigw.v2', [
-
-            "username"    => "Bondiadmin",
-            "password"    => "Emon0561@@@",
-            "apicode"     => "1",
-            "msisdn"      => "01798032828",
-            "countrycode" => "880",
-            "cli"         => "2222",
-            "messagetype" => "1",
-            "message"     => "SingleSMS_JesonTest1",
-            "messageid"   => "0",
-
-        ]);
+//        return Http::post('https://gpcmp.grameenphone.com/ecmapigw/webresources/ecmapigw.v2', [
+//
+//            "username"    => "Bondiadmin",
+//            "password"    => "Emon0561@@@",
+//            "apicode"     => "1",
+//            "msisdn"      => "01798032828",
+//            "countrycode" => "880",
+//            "cli"         => "2222",
+//            "messagetype" => "1",
+//            "message"     => "SingleSMS_JesonTest1",
+//            "messageid"   => "0",
+//
+//        ]);
         return view('backend.auth.login');
     }
 
