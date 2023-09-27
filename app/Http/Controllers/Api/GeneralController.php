@@ -109,8 +109,9 @@ class GeneralController extends Controller {
             ])->get();
 
         foreach ($registered_courses_details as $item) {
-            $counter = 0;
-            $item['user_course_id'] = CourseRegistration::where('user_id',auth()->user()->id)->where('course_id',$item->id)->first()->user_course_id;
+
+            $counter                = 0;
+            $item['user_course_id'] = CourseRegistration::where('user_id', auth()->user()->id)->where('course_id', $item->id)->first()->user_course_id;
 
             foreach ($item->subjects as $s_item) {
 
@@ -131,6 +132,17 @@ class GeneralController extends Controller {
                 'subjects',
                 'exams',
             ])->get();
+
+        foreach ($suggested_courses_details as $item) {
+
+            $item['purchase_attempt'] = false;
+            $cr                       = CourseRegistration::where('user_id', auth()->user()->id)->where('course_id', $item->id)->first();
+
+            if ($cr) {
+                $item['purchase_attempt'] = true;
+            }
+
+        }
 
         $data['registered_courses'] = $registered_courses_details;
         $data['suggested_courses']  = $suggested_courses_details;
@@ -172,7 +184,7 @@ class GeneralController extends Controller {
             !CourseRegistration::where('order_id', $request->order_id)
             ->exists()
         ) {
-            
+
             CourseRegistration::create([
                 'user_id'   => auth()->user()->id,
                 'course_id' => $request->course_id,

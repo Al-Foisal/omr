@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\CourseRegistration;
+use App\Models\User;
 use App\Services\FCMService;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,7 @@ class StudentPanelController extends Controller {
         $last_data           = CourseRegistration::where('course_id', $data->course_id)->whereNotNull('user_course_id')->latest('updated_at')->first();
 
         if (isset($last_data) && $last_data->user_course_id != null) {
-            $last_user_course_id = (int)$last_data->user_course_id + 1;
+            $last_user_course_id = (int) $last_data->user_course_id + 1;
         }
 
         $data->user_course_id = str_pad((int) $last_user_course_id, 6, "0", STR_PAD_LEFT);
@@ -35,12 +36,13 @@ class StudentPanelController extends Controller {
         $data->save();
 
         $user = $data->user;
+
         if (isset($user->fcm_token)) {
             FCMService::send(
                 $user->fcm_token,
                 [
                     'title' => "Course enroll notice",
-                    'body' => "Your course '". $data->course->name. "' is approved by admin",
+                    'body'  => "Your course '" . $data->course->name . "' is approved by admin",
                 ]
             );
         }
@@ -50,6 +52,19 @@ class StudentPanelController extends Controller {
 
     public function delete($id) {
         $data = CourseRegistration::findOrFail($id);
+
+        $user = User::find($data->user_id);
+
+        if (isset($user->fcm_token)) {
+            FCMService::send(
+                $user->fcm_token,
+                [
+                    'title' => "Course enroll notice",
+                    'body'  => "Your course '" . $data->course->name . "' is approved by admin",
+                ]
+            );
+        }
+
         $data->delete();
 
         return back()->withToastSuccess('Course request deleted successfully!!');

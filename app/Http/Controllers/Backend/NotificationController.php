@@ -36,27 +36,30 @@ class NotificationController extends Controller {
             return back()->with('toast_error', $validator->messages()->all())->withInput();
         }
 
-        $type   = $request->type;
-        $user   = null;
-        $course = null;
+        $type               = $request->type;
+        $user               = null;
+        $course             = null;
         $notification_title = $request->name;
-        $notification_body = $request->details;
+        $notification_body  = $request->details;
 
         if ($type == 1) {
             $user   = null;
             $course = null;
 
             $user_list = User::get();
-            foreach ($user_list as $single_user){
+
+            foreach ($user_list as $single_user) {
+
                 if (isset($single_user->fcm_token)) {
                     FCMService::send(
                         $single_user->fcm_token,
                         [
                             'title' => $notification_title,
-                            'body' => $notification_body,
+                            'body'  => $notification_body,
                         ]
                     );
                 }
+
             }
 
         } elseif ($type == 2) {
@@ -69,12 +72,13 @@ class NotificationController extends Controller {
             $course = null;
 
             $user_find = User::findOrFail($user);
+
             if (isset($user_find->fcm_token)) {
                 FCMService::send(
                     $user_find->fcm_token,
                     [
                         'title' => $notification_title,
-                        'body' => $notification_body,
+                        'body'  => $notification_body,
                     ]
                 );
             }
@@ -90,18 +94,21 @@ class NotificationController extends Controller {
 
             $enroll_user = CourseRegistration::where('course_id', $course)->get();
 
-            foreach ($enroll_user as $user_id){
+            foreach ($enroll_user as $user_id) {
                 $user_find = User::findOrFail($user_id->user_id);
+
                 if (isset($user_find->fcm_token)) {
                     FCMService::send(
                         $user_find->fcm_token,
                         [
                             'title' => $notification_title,
-                            'body' => $notification_body,
+                            'body'  => $notification_body,
                         ]
                     );
                 }
+
             }
+
         }
 
         Notification::create([
