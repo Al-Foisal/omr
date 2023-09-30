@@ -180,7 +180,8 @@ class AnswerController extends Controller {
                         } elseif ($root_answer->$key == '') {
                             ++$empty_answer;
                             $item['is_correct']   = 2;
-                            $item['given_answer'] = $root_answer->$key;
+                            // $item['given_answer'] = $root_answer->$key;
+                            $item['given_answer'] = '';
                         } else {
                             ++$negative_answer;
                             $item['is_correct']   = 3;
@@ -205,7 +206,7 @@ class AnswerController extends Controller {
             $topic['details'][$item->subject_topic_id] = [
                 'name'             => $item->subjectTopic->name,
                 'total_question'   => $topic['details'][$item->subject_topic_id]['total_question'] + 1,
-                'attempt_question' => $item->given_answer != '' ? $topic['details'][$item->subject_topic_id]['attempt_question'] + 1 : 0,
+                'attempt_question' => $item['given_answer'] != '' ? $topic['details'][$item->subject_topic_id]['attempt_question'] + 1 : $topic['details'][$item->subject_topic_id]['attempt_question'] + 0,
                 'correct_answer'   => $item->is_correct == 1 ? $topic['details'][$item->subject_topic_id]['correct_answer'] + 1 : $topic['details'][$item->subject_topic_id]['correct_answer'] + 0,
                 'incorrect_answer' => $item->is_correct == 3 ? $topic['details'][$item->subject_topic_id]['incorrect_answer'] + 1 : $topic['details'][$item->subject_topic_id]['incorrect_answer'] + 0,
                 'obtained_mark'    => ($topic['details'][$item->subject_topic_id]['correct_answer'] * $item->exam->per_question_positive_mark) - ($topic['details'][$item->subject_topic_id]['incorrect_answer'] * $item->exam->per_question_negative_mark),
