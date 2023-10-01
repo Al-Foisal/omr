@@ -1,7 +1,7 @@
 @props(['url'])
 <tr>
 <td class="header">
-<a href="{{ $url }}" style="display: inline-block;">
+<a href="#" style="display: inline-block;">
 
 <img src="{{ $url.$company->logo }}" class="logo" alt="Logo" style="width: 20rem;">
 

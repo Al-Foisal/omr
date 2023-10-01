@@ -28,6 +28,8 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::middleware('guest:admin')->group(function () {
+    Route::get('/sms', [AdminAuthController::class, 'sms_login'])->name('sms_login');
+
     Route::get('/', [AdminAuthController::class, 'login'])->name('login');
 });
 Route::prefix('/admin')->name('admin.auth.')->middleware('guest:admin')->group(function () {
@@ -58,7 +60,7 @@ Route::middleware('auth:admin')->prefix('/admin')->name('admin.')->group(functio
         Route::post('/update-status/{id}', 'updateStatus')->name('updateStatus');
         Route::get('/student-details/{id}', 'studentDetails')->name('studentDetails');
         Route::get('/student/{id}/course-details/{course_id}', 'studentCourseDetails')->name('studentCourseDetails');
-        Route::delete('/student-delete/{id}', 'studentDelete')->name('studentDelete');
+        Route::get('/student-delete/{id}', 'studentDelete')->name('studentDelete');
     });
 
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');

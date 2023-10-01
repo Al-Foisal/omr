@@ -44,6 +44,10 @@
                                     @foreach ($customers as $key => $customer)
                                         <tr>
                                             <td class="d-flex justify-content-around">
+
+                                                <a href="{{ route('admin.auth.studentDelete', $customer) }}"
+                                                   class="btn btn-xs btn-danger">Delete</a>
+
                                                 <form action="{{ route('admin.auth.updateStatus', $customer) }}"
                                                     method="post">
                                                     @csrf
