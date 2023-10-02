@@ -56,8 +56,8 @@ class StudentPanelController extends Controller
                 'name' => 'Course enroll notice',
                 'details' => "Your course '" . $data->course->name . "' is approved by admin",
                 'user_id' => $data->user_id,
-                'course_id' => $data->course_id,
-                'type' => 4,
+                'course_id' => null,
+                'type' => 2,
             ]);
         }
 
@@ -75,9 +75,17 @@ class StudentPanelController extends Controller
                 $user->fcm_token,
                 [
                     'title' => "Course enroll notice",
-                    'body' => "Your course '" . $data->course->name . "' is approved by admin",
+                    'body' => "Your course '" . $data->course->name . "' is declined by admin",
                 ]
             );
+
+            Notification::create([
+                'name' => 'Course enroll notice',
+                'details' => "Your course '" . $data->course->name . "' is declined by admin",
+                'user_id' => $data->user_id,
+                'course_id' => null,
+                'type' => 2,
+            ]);
         }
 
         $data->delete();
