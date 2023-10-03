@@ -55,7 +55,7 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <input type="text" class="form-control" id="name" placeholder="Name"
-                                                name="name" value="{{ $data->name ?? '' }}" required>
+                                                   name="name" value="{{ $data->name ?? '' }}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -73,8 +73,8 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <input type="url" class="form-control" id="purchase_link" rows="3"
-                                                placeholder="Purchase link" value="{{ $data->purchase_link ?? '' }}"
-                                                name="purchase_link">
+                                                   placeholder="Purchase link" value="{{ $data->purchase_link ?? '' }}"
+                                                   name="purchase_link">
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                         <div class="form-group">
                                             <div class="input-group hdtuto control-group lst increment">
                                                 <input type="text" name="subject[]" class="myfrm form-control"
-                                                    placeholder="Enter subject name">
+                                                       placeholder="Enter subject name">
                                                 <input type="hidden" name="subject_id[]">
                                                 <div class="input-group-btn">
                                                     <button class="btn btn-success" type="button"><i
@@ -98,10 +98,10 @@
                                             <div class="clone hide">
                                                 <div class="hdtuto control-group lst input-group" style="margin-top:10px">
                                                     <input type="text" name="subject[]" class="myfrm form-control"
-                                                        placeholder="Enter subject name">
+                                                           placeholder="Enter subject name">
                                                     <input type="hidden" name="subject_id[]">
                                                     <div class="input-group-btn">
-                                                        <button class="btn btn-danger" type="button"> <i
+                                                        <button class="btn btn-danger" type="button"><i
                                                                 class="far fa-minus-square"></i></button>
 
                                                     </div>
@@ -111,19 +111,19 @@
                                                 @foreach ($subject as $key => $s_item)
                                                     <div class="clone">
                                                         <div class="hdtuto control-group lst input-group"
-                                                            style="margin-top:10px">
+                                                             style="margin-top:10px">
                                                             <input type="text" name="subject[]"
-                                                                id="change{{ $key }}"
-                                                                class="myfrm form-control"
-                                                                placeholder="Enter subject name"
-                                                                value="{{ $s_item->name }}">
+                                                                   id="change{{ $key }}"
+                                                                   class="myfrm form-control"
+                                                                   placeholder="Enter subject name"
+                                                                   value="{{ $s_item->name }}">
                                                             <input type="hidden" name="subject_id[]"
-                                                                value="{{ $s_item->id }}">
+                                                                   value="{{ $s_item->id }}">
                                                             <div>
                                                                 <a onclick="return confirm('Are you sure want to {{ $s_item->status == 1 ? 'inactive' : 'active' }} this item?')"
-                                                                    href="{{ route('admin.course.updateCourseSubjectStatus', $s_item->id) }}"
-                                                                    class="btn btn-outline-{{ $s_item->status == 1 ? 'danger' : 'info' }}"
-                                                                    type="button">{{ $s_item->status == 1 ? 'Make as Inactive' : 'Make as Active' }}
+                                                                   href="{{ route('admin.course.updateCourseSubjectStatus', $s_item->id) }}"
+                                                                   class="btn btn-outline-{{ $s_item->status == 1 ? 'danger' : 'info' }}"
+                                                                   type="button">{{ $s_item->status == 1 ? 'Make as Inactive' : 'Make as Active' }}
                                                                 </a>
 
                                                             </div>
@@ -136,6 +136,12 @@
 
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="image">Poster</label>
+                                    <input type="file" name="image" id="image" class="form-control" accept="image/*">
+                                </div>
+
                             </div>
                             <!-- /.card-body -->
 
