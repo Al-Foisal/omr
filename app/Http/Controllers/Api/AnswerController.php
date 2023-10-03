@@ -179,7 +179,7 @@ class AnswerController extends Controller {
                             $item['given_answer'] = $root_answer->$key;
                         } elseif ($root_answer->$key == '') {
                             ++$empty_answer;
-                            $item['is_correct']   = 2;
+                            $item['is_correct'] = 2;
                             // $item['given_answer'] = $root_answer->$key;
                             $item['given_answer'] = '';
                         } else {
@@ -209,14 +209,15 @@ class AnswerController extends Controller {
                 'attempt_question' => $item['given_answer'] != '' ? $topic['details'][$item->subject_topic_id]['attempt_question'] + 1 : $topic['details'][$item->subject_topic_id]['attempt_question'] + 0,
                 'correct_answer'   => $item->is_correct == 1 ? $topic['details'][$item->subject_topic_id]['correct_answer'] + 1 : $topic['details'][$item->subject_topic_id]['correct_answer'] + 0,
                 'incorrect_answer' => $item->is_correct == 3 ? $topic['details'][$item->subject_topic_id]['incorrect_answer'] + 1 : $topic['details'][$item->subject_topic_id]['incorrect_answer'] + 0,
-                'obtained_mark'    => ($topic['details'][$item->subject_topic_id]['correct_answer'] * $item->exam->per_question_positive_mark) - ($topic['details'][$item->subject_topic_id]['incorrect_answer'] * $item->exam->per_question_negative_mark),
+                'obtained_mark'    => 0,
                 'percentage'       => '',
             ];
 
         }
 
         foreach ($topic['details'] as $key => $m_details) {
-            $topic['details'][$key]['percentage'] = ($m_details['correct_answer'] / $m_details['total_question']) * 100;
+            $topic['details'][$key]['percentage']    = ($m_details['correct_answer'] / $m_details['total_question']) * 100;
+            $topic['details'][$key]['obtained_mark'] = ($m_details['correct_answer'] * $item->exam->per_question_positive_mark) - ($m_details['incorrect_answer'] * $item->exam->per_question_negative_mark);
         }
 
         $data['total_correct_answer']   = $positive_answer;
