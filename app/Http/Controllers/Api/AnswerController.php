@@ -27,7 +27,6 @@ class AnswerController extends Controller
                 $image_file = base64_decode($request['answer_input_image']);
                 $answer_input_image = '/images/answer/' . time() . rand() . '.' . 'png';
                 $success = file_put_contents(public_path() . $answer_input_image, $image_file);
-
             }
 
             if ($request['answer_output_image']) {
@@ -35,7 +34,6 @@ class AnswerController extends Controller
                 $image_file = base64_decode($request['answer_output_image']);
                 $answer_output_image = '/images/answer/' . time() . rand() . '.' . 'png';
                 $success = file_put_contents(public_path() . $answer_output_image, $image_file);
-
             }
 
             $answer = new Answer();
@@ -78,15 +76,11 @@ class AnswerController extends Controller
                             }
 
                             break;
-
                         }
-
                     }
-
                 } else {
                     ++$empty_answer;
                 }
-
             }
 
             $exam_details = Exam::where('id', $answer->exam_id)->first();
@@ -113,7 +107,6 @@ class AnswerController extends Controller
                 'message' => $th,
             ]);
         }
-
     }
 
     public function show(Request $request)
@@ -167,7 +160,6 @@ class AnswerController extends Controller
             if (!in_array($item->subject_topic_id, $subject_topic)) {
                 $subject_topic[] = $item->subject_topic_id;
                 $topic['details'][$item->subject_topic_id] = $details;
-
             }
 
             if ($item->examQuestionOptions->count() > 0) {
@@ -192,11 +184,8 @@ class AnswerController extends Controller
                         }
 
                         break;
-
                     }
-
                 }
-
             } else {
                 ++$empty_answer;
                 $item['is_correct'] = 2;
@@ -212,10 +201,9 @@ class AnswerController extends Controller
                 'attempt_question' => $item['given_answer'] != '' ? $topic['details'][$item->subject_topic_id]['attempt_question'] + 1 : $topic['details'][$item->subject_topic_id]['attempt_question'] + 0,
                 'correct_answer' => $item->is_correct == 1 ? $topic['details'][$item->subject_topic_id]['correct_answer'] + 1 : $topic['details'][$item->subject_topic_id]['correct_answer'] + 0,
                 'incorrect_answer' => $item->is_correct == 3 ? $topic['details'][$item->subject_topic_id]['incorrect_answer'] + 1 : $topic['details'][$item->subject_topic_id]['incorrect_answer'] + 0,
-                'obtained_mark' => ($topic['details'][$item->subject_topic_id]['correct_answer'] * $item->exam->per_question_positive_mark) - ($topic['details'][$item->subject_topic_id]['incorrect_answer'] * $item->exam->per_question_negative_mark),
-                'percentage' => '',
+                'obtained_mark'    => 0,
+                'percentage'       => '',
             ];
-
         }
 
         foreach ($topic['details'] as $key => $m_details) {
@@ -239,5 +227,4 @@ class AnswerController extends Controller
 
         return $this->successMessage('ok', $data);
     }
-
 }
