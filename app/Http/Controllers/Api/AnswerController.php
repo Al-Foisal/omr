@@ -219,7 +219,8 @@ class AnswerController extends Controller
         }
 
         foreach ($topic['details'] as $key => $m_details) {
-            $topic['details'][$key]['percentage'] = ($m_details['correct_answer'] / $m_details['total_question']) * 100;
+            $topic['details'][$key]['percentage']    = ($m_details['correct_answer'] / $m_details['total_question']) * 100;
+            $topic['details'][$key]['obtained_mark'] = ($m_details['correct_answer'] * $item->exam->per_question_positive_mark) - ($m_details['incorrect_answer'] * $item->exam->per_question_negative_mark);
         }
 
         $data['total_correct_answer'] = $positive_answer;
